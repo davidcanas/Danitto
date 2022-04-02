@@ -1,17 +1,22 @@
-name: CI
+name: Deploy
 
 on: [push]
 
 jobs:
-  deploy:
-    if: github.ref == 'refs/heads/master'
-    runs-on: [ubuntu-latest]
+  build:
+
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v1
-      - name: Enviar para a vps
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: david
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: cd danitto && git pull origin master
+    - uses: actions/checkout@v1
+
+    - name: Copy repository to vps
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ubuntu
+        PORT: 22
+        KEY: ${{ secrets.KEYSSH }}
+      with:
+        source: "."
+        target: "/home/ubuntu/danittobot"
