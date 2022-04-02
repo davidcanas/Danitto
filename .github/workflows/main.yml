@@ -16,7 +16,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USERNAME: ubuntu
         PORT: 22
-        KEY: ${{ secrets.KEYSSH }}
+        KEY: ${{ secrets.KEY }}
       with:
         source: "."
         target: "/home/ubuntu/danittobot"
