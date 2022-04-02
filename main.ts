@@ -1,4 +1,4 @@
-//update
+
 import dotenv from "dotenv"
 import DaniClient from "./src/structures/Client"
 import database from "mongoose"
