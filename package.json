@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Um bot multifuncional em desenvolvimento",
     "main": "main.ts",
-    "author": "CanasDev",
+    "author": "davidcanas",
     "scripts": {
         "start": "ts-node-dev --expose-gc --transpile-only --ignore-watch node_modules --respawn main.ts"
     },
@@ -19,7 +19,7 @@
         "axios": "^0.26.0",
         "chalk": "^4.1.2",
         "dotenv": "^10.0.0",
-        "eris": "git+https://github.com/DonovanDMC/eris.git#everything",
+        "eris": "DonovanDMC/eris#everything",
         "mongoose": "^6.0.4",
         "node-fetch": "2.6.7",
         "node-os-utils": "^1.3.5",
