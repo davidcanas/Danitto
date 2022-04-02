@@ -1,0 +1,44 @@
+{
+    "name": "danitto",
+    "version": "1.0.0",
+    "description": "Um bot multifuncional em desenvolvimento",
+    "main": "main.ts",
+    "author": "CanasDev",
+    "scripts": {
+        "start": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn main.ts"
+    },
+    "engines": {
+        "node": "^16.3.0"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@discordjs/opus": "^0.7.0",
+        "@types/chalk": "^2.2.0",
+        "@types/dotenv": "^8.2.0",
+        "@types/node": "^14.17.14",
+        "axios": "^0.26.0",
+        "chalk": "^4.1.2",
+        "dotenv": "^10.0.0",
+        "eris": "git+https://github.com/DonovanDMC/eris.git#everything",
+        "mongoose": "^6.0.4",
+        "node-fetch": "2.6.1",
+        "node-os-utils": "^1.3.5",
+        "sourcebin": "^4.2.5",
+        "ts-node-dev": "^1.1.8",
+        "typescript": "^4.4.2",
+        "vulkava": "^1.0.6"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DanittoBot/DanittoTS.git"
+    },
+    "bugs": {
+        "url": "https://github.com/DanittoBot/DanittoTS/issues"
+    },
+    "homepage": "https://github.com/DanittoBot/DanittoTS#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.13.0",
+        "@typescript-eslint/parser": "^5.13.0",
+        "eslint": "^8.10.0"
+    }
+}
