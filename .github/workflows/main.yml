@@ -8,10 +8,10 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
-      - name: Push to server
+      - name: Enviar para a vps
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: david
           password: ${{ secrets.SERVER_PASSWORD }}
-          script: cd danitto && git pull
+          script: cd danitto && git pull origin master
