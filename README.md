@@ -9,4 +9,4 @@ Suporte:
 [Servidor do Discord](https://discord.gg/aj3sSAyMsh)
 
 
- Agradecimentos especiais a [davidffa](https://github.com/davidffa)  :)
+ Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao Dr Eduardo Rodrigues :)
