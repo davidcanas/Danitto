@@ -12,7 +12,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
     "@types/chalk": "^2.2.0",
     "@types/dotenv": "^8.2.0",
     "@types/node": "^14.17.14",
@@ -30,16 +29,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanittoBot/DanittoTS.git"
+    "url": "git+https://github.com/davidcanas/DanittoTS.git"
   },
   "bugs": {
-    "url": "https://github.com/DanittoBot/DanittoTS/issues"
+    "url": "https://github.com/davidcanas/DanittoTS/issues"
   },
-  "homepage": "https://github.com/DanittoBot/DanittoTS#readme",
+  "homepage": "https://github.com/davidcanas/DanittoTS#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
-    "eslint": "^8.10.0",
     "prettier": "2.6.2"
   }
 }
