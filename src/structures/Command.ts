@@ -1,9 +1,6 @@
 import Client from "./Client";
 import { CommandSettings } from "../typings";
-<<<<<<< HEAD
 
-=======
->>>>>>> e3d5f5cb5da9c993b9bf5e039c4751aca0d25bc2
 export default class Command implements CommandSettings {
   client: Client;
   description: string;
