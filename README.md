@@ -11,6 +11,6 @@ Você pode contribuir fazendo pull requests para ajudar no código, melhorar alg
 Suporte:
 [Servidor do Discord](https://discord.gg/aj3sSAyMsh)
 
-Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao Dr Eduardo Rodrigues.
+Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao [Dr Eduardo Rodrigues](https://github.com/siredurs).
 
 </div>
