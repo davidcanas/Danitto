@@ -1,4 +1,5 @@
-<img src="https://i.imgur.com/NjYYO30.png" height=70 width=70/>
+<center>
+<img src="https://i.imgur.com/NjYYO30.png" height=100 width=100/>
 <h1 style="color: blue"><b>Danitto</b></h1>
 
 Um bot multifuncional em desenvolvimento!
@@ -10,3 +11,4 @@ Suporte:
 [Servidor do Discord](https://discord.gg/aj3sSAyMsh)
 
 Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao Dr Eduardo Rodrigues.
+</center>
