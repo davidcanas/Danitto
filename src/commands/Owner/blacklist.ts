@@ -1,91 +1,88 @@
-import Command from "../../structures/Command"
-import Client from "../../structures/Client"
-import CommandContext from "../../structures/CommandContext"
+import Command from "../../structures/Command";
+import Client from "../../structures/Client";
+import CommandContext from "../../structures/CommandContext";
 
 export default class Eval extends Command {
-	constructor(client: Client) {
-		super(client, {
-			name: "blacklist",
-			description: "a",
-			category: "Owner",
-			aliases: ["bladd", "blrem"],
-			options: [
-                {
-					"type": 3,
-					"name": "addremove",
-					"description": "Adicionar ou remover alguém da blacklist?",
-                    "required": true,
-					"choices": [
-						{
-							"name": "Adicionar",
-							"value": "add"
-						},
-						{
-							"name": "Remover",
-							"value": "remove"
-						},
-					]
-				},
-                {
-					name: 'user',
-					type: 3,
-					description: 'O usuario a adicionar.',
-					required: true
-				}
-              ]
-		})
-	}
+  constructor(client: Client) {
+    super(client, {
+      name: "blacklist",
+      description: "a",
+      category: "Owner",
+      aliases: ["bladd", "blrem"],
+      options: [
+        {
+          type: 3,
+          name: "addremove",
+          description: "Adicionar ou remover alguém da blacklist?",
+          required: true,
+          choices: [
+            {
+              name: "Adicionar",
+              value: "add",
+            },
+            {
+              name: "Remover",
+              value: "remove",
+            },
+          ],
+        },
+        {
+          name: "user",
+          type: 3,
+          description: "O usuario a adicionar.",
+          required: true,
+        },
+      ],
+    });
+  }
 
-	async execute(ctx: CommandContext): Promise<void> {
+  async execute(ctx: CommandContext): Promise<void> {
     if (ctx.author.id !== "733963304610824252") {
-        ctx.sendMessage("Não tens permissão para executar este comando!")
-        return
+      ctx.sendMessage("Não tens permissão para executar este comando!");
+      return;
     }
-    const args = ctx.args[0]
+    const args = ctx.args[0];
     if (args === "add") {
-    let user = await this.client.findUser(ctx.args[1], ctx.guild)
-    if (!user) {
-        ctx.sendMessage("Este usuario não existe!")
-        return
-    }
-    var userDB = await this.client.db.users.findOne({ _id: user.id })
-    if (!userDB) {
+      let user = await this.client.findUser(ctx.args[1], ctx.guild);
+      if (!user) {
+        ctx.sendMessage("Este usuario não existe!");
+        return;
+      }
+      var userDB = await this.client.db.users.findOne({ _id: user.id });
+      if (!userDB) {
         await this.client.db.users.create({
-            _id: user.id,
-            user: {
-                id: user.id,
-                username: user.username,
-            }
-
-        })
-        userDB = await this.client.db.users.findOne({ _id: user.id })
-
-
+          _id: user.id,
+          user: {
+            id: user.id,
+            username: user.username,
+          },
+        });
+        userDB = await this.client.db.users.findOne({ _id: user.id });
+      }
+      userDB.blacklist = true;
+      userDB.save();
+      ctx.sendMessage("O usuario foi adicionado á blacklist com sucesso!");
     }
-    userDB.blacklist = true
-    userDB.save()
-    ctx.sendMessage("O usuario foi adicionado á blacklist com sucesso!")
-}
-  if (args === "remove") {
-    let user = await this.client.findUser(ctx.args[1], ctx.guild)
-    if (!user) {
-        ctx.sendMessage("Este usuario não existe!")
-        return
-    }
-    var userDB = await this.client.db.users.findOne({ _id: user.id })
-    if (!userDB) {
+    if (args === "remove") {
+      let user = await this.client.findUser(ctx.args[1], ctx.guild);
+      if (!user) {
+        ctx.sendMessage("Este usuario não existe!");
+        return;
+      }
+      var userDB = await this.client.db.users.findOne({ _id: user.id });
+      if (!userDB) {
         await this.client.db.users.create({
-            _id: user.id,
-            user: {
-                id: user.id,
-                username: user.username,
-            }
-
-        })
-        userDB = await this.client.db.users.findOne({ _id: user.id }) 
+          _id: user.id,
+          user: {
+            id: user.id,
+            username: user.username,
+          },
+        });
+        userDB = await this.client.db.users.findOne({ _id: user.id });
+      }
+      userDB.blacklist = false;
+      userDB.save();
+      ctx.sendMessage("O usuario foi removido da blacklist com sucesso!");
     }
-    userDB.blacklist = false
-    userDB.save()
-    ctx.sendMessage("O usuario foi removido da blacklist com sucesso!")
+  }
 }
-}}

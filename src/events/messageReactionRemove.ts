@@ -1,6 +1,6 @@
-import Client from '../structures/Client';
+import Client from "../structures/Client";
 
-import { Message, Emoji } from 'eris';
+import { Message, Emoji } from "eris";
 
 export default class MessageReactionRemove {
   client: Client;
@@ -13,9 +13,8 @@ export default class MessageReactionRemove {
     for (const collector of this.client.reactionCollectors) {
       if (collector.message.id === message.id) {
         const user = this.client.users.get(userID);
-        if (user)
-          collector.remove(reaction, user);
+        if (user) collector.remove(reaction, user);
       }
-    };
+    }
   }
-} 
+}

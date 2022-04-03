@@ -1,6 +1,6 @@
-import Client from '../structures/Client';
+import Client from "../structures/Client";
 
-import { Channel } from 'eris';
+import { Channel } from "eris";
 
 export default class ChannelDelete {
   client: Client;
@@ -12,13 +12,13 @@ export default class ChannelDelete {
   run(channel: Channel) {
     for (const collector of this.client.messageCollectors) {
       if (collector.channel.id === channel.id) {
-        collector.stop('Channel Delete')
+        collector.stop("Channel Delete");
       }
     }
 
     for (const collector of this.client.componentCollectors) {
       if (collector.message.channel.id === channel.id) {
-        collector.stop('Channel Delete');
+        collector.stop("Channel Delete");
       }
     }
   }
