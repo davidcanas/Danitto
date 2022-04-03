@@ -1,6 +1,6 @@
-import Client from '../structures/Client';
+import Client from "../structures/Client";
 
-import { Message } from 'eris';
+import { Message } from "eris";
 
 export default class MessageDeleteBulk {
   client: Client;
@@ -10,11 +10,11 @@ export default class MessageDeleteBulk {
   }
 
   run(message: Message[]) {
-    const msgIDs = message.map(m => m.id);
+    const msgIDs = message.map((m) => m.id);
 
     for (const collector of this.client.componentCollectors) {
       if (msgIDs.includes(collector.message.id)) {
-        collector.stop('Message Delete');
+        collector.stop("Message Delete");
       }
     }
   }

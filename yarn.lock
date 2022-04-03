@@ -497,9 +497,9 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-"eris@git+https://github.com/DonovanDMC/eris.git#everything":
+eris@DonovanDMC/eris#everything:
   version "0.16.2-dev"
-  resolved "git+ssh://git@github.com/DonovanDMC/eris.git#74e8aff2904e664cfe772df48321335cd33c2f1c"
+  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/a15164da2c7b0cc68230735d3e57e14fa8ec27d2"
   dependencies:
     ws "^8.2.3"
   optionalDependencies:
@@ -1123,6 +1123,11 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
+
+prettier@2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
+  integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
 
 pump@^3.0.0:
   version "3.0.0"

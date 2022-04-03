@@ -1,17 +1,18 @@
-import Client from '../structures/Client';
+import Client from "../structures/Client";
 
-import { Message, OldMessage } from 'eris';
+import { Message, OldMessage } from "eris";
 
 export default class MessageUpdate {
-    client: Client;
+  client: Client;
 
-    constructor(client: Client) {
-        this.client = client;
-    }
+  constructor(client: Client) {
+    this.client = client;
+  }
 
-    run(message: Message, oldMessage: OldMessage) {
-        if (!oldMessage || !message || oldMessage.content === message.content) return;
+  run(message: Message, oldMessage: OldMessage) {
+    if (!oldMessage || !message || oldMessage.content === message.content)
+      return;
 
-        this.client.emit('messageCreate', message);
-    }
+    this.client.emit("messageCreate", message);
+  }
 }

@@ -1,158 +1,178 @@
-import Client from './Client';
-import CommandContext from './CommandContext';
-import fetch from "node-fetch"
-import { User, VoiceChannel } from 'eris';
-import { NodeOptions, Vulkava, Player, Node } from 'vulkava';
 /*Code insipered from d4rkb*/
+
+import Client from "./Client";
+import CommandContext from "./CommandContext";
+import fetch from "node-fetch";
+import { User, VoiceChannel } from "eris";
+import { NodeOptions, Vulkava, Player, Node } from "vulkava";
+
 export default class Music extends Vulkava {
-    client: Client;
+  client: Client;
 
-    constructor(client: Client, nodes: NodeOptions[]) {
-        super({
-            nodes,
-            sendWS(id, payload) {
-                const guild = client.guilds.get(id);
-                if (guild) guild.shard.sendWS(payload.op, payload.d);
-            }
-        });
+  constructor(client: Client, nodes: NodeOptions[]) {
+    super({
+      nodes,
+      sendWS(id, payload) {
+        const guild = client.guilds.get(id);
+        if (guild) guild.shard.sendWS(payload.op, payload.d);
+      },
+    });
 
-        this.client = client;
+    this.client = client;
 
-        this.on('nodeConnect', async (node): Promise<void> => {
-            console.log(`O node ${node.identifier} foi conectado!`);
+    this.on("nodeConnect", async (node): Promise<void> => {
+      console.log(`O node ${node.identifier} foi conectado!`);
 
-            for (const player of [...this.players.values()].filter(p => p.node === node).values()) {
-                const position = player.position;
-                player.connect();
-                player.play({ startTime: position });
-            }
-        });
+      for (const player of [...this.players.values()]
+        .filter((p) => p.node === node)
+        .values()) {
+        const position = player.position;
+        player.connect();
+        player.play({ startTime: position });
+      }
+    });
 
-        this.pingNodes();
+    this.pingNodes();
 
-        this.on('error', (node, error): void => {
-            console.log(`Ocorreu um erro no node ${node.identifier}, erro: ${error.message}`);
+    this.on("error", (node, error): void => {
+      console.log(
+        `Ocorreu um erro no node ${node.identifier}, erro: ${error.message}`
+      );
 
-            if (error.message.startsWith('Unable to connect after')) this.reconnect(node);
-        });
+      if (error.message.startsWith("Unable to connect after"))
+        this.reconnect(node);
+    });
 
-        this.on('nodeDisconnect', (node): void => {
-            console.log(`O node do lavalink ${node.identifier} desconectou.`);
-        });
+    this.on("nodeDisconnect", (node): void => {
+      console.log(`O node do lavalink ${node.identifier} desconectou.`);
+    });
 
-        this.on('trackStart', async (player, track): Promise<void> => {
+    this.on("trackStart", async (player, track): Promise<void> => {
+      if (!player.textChannelId) return;
 
-            if (!player.textChannelId) return;
+      const channel = this.client.getChannel(player.textChannelId);
+      if (channel.type !== 0) return;
 
-            const channel = this.client.getChannel(player.textChannelId);
-            if (channel.type !== 0) return;
+      const requester = player.current?.requester as User;
 
-            const requester = player.current?.requester as User;
+      const embed = new this.client.embed()
+        .setTitle("Tocando")
+        .addField("Nome:", "`" + track.title + "`")
+        .addField("Autor da música:", "`" + track.author + "`")
+        .setURL(track.uri)
+        .setThumbnail(track.thumbnail!)
+        .setColor("RANDOM")
+        .setTimestamp();
 
-            const embed = new this.client.embed()
-                .setTitle('Tocando')
-                .addField("Nome:", '`' + track.title + '`')
-                .addField("Autor da música:", '`' + track.author + '`')
-                .setURL(track.uri)
-                .setThumbnail(track.thumbnail!)
-                .setColor('RANDOM')
-                .setTimestamp()
+      await channel.createMessage({ embeds: [embed] }).then((m) => m.id);
+    });
 
-            await channel.createMessage({ embeds: [embed] }).then(m => m.id);
+    this.on("trackStuck", (player, track): void => {
+      if (player.textChannelId) {
+        this.client.createMessage(
+          player.textChannelId,
+          `Ocorreu um erro a passar á proxima musica.`
+        );
+        player.skip();
+      }
+    });
 
-        });
+    this.on("queueEnd", (player): void => {
+      if (player.textChannelId) {
+        const channel = this.client.getChannel(player.textChannelId);
+        if (channel.type !== 0) return;
+        player.destroy();
+        channel.createMessage(`Já não tenho nada para tocar.`);
+      }
+    });
+  }
 
-        this.on('trackStuck', (player, track): void => {
-            if (player.textChannelId) {
-                this.client.createMessage(player.textChannelId, `Ocorreu um erro a passar á proxima musica.`);
-                player.skip();
-            }
+  /*Thank you d4rkb, for the ideia, adaptaded function */
+  canPlay(ctx: CommandContext, player?: Player | undefined): boolean {
+    const voiceChannelID = ctx.member!.voiceState.channelID;
 
-        });
-
-
-        this.on('queueEnd', (player): void => {
-            if (player.textChannelId) {
-                const channel = this.client.getChannel(player.textChannelId);
-                if (channel.type !== 0) return;
-                player.destroy();
-                channel.createMessage(`Já não tenho nada para tocar.`);
-            }
-        });
+    if (!voiceChannelID) {
+      ctx.sendMessage({
+        content: "Precisas de estar num canal de voz",
+        flags: 1 << 6,
+      });
+      return false;
     }
 
-    /*Thank you d4rkb, for the ideia, adaptaded function */
-    canPlay(ctx: CommandContext, player?: Player | undefined): boolean {
-        const voiceChannelID = ctx.member!.voiceState.channelID;
+    const voiceChannel = this.client.getChannel(voiceChannelID) as VoiceChannel;
 
-        if (!voiceChannelID) {
-            ctx.sendMessage({ content: 'Precisas de estar num canal de voz', flags: 1 << 6 });
-            return false;
-        }
+    const permissions = voiceChannel.permissionsOf(this.client.user.id);
 
-        const voiceChannel = this.client.getChannel(voiceChannelID) as VoiceChannel;
-
-        const permissions = voiceChannel.permissionsOf(this.client.user.id);
-
-        if (!permissions.has('readMessages')) {
-            ctx.sendMessage({ content: 'Eu não consigo ver o canal de voz em que tu estás', flags: 1 << 6 });
-            return false;
-        }
-
-        if (!permissions.has('voiceConnect')) {
-            ctx.sendMessage({ content: 'Eu não consigo entrar no teu canal de voz', flags: 1 << 6 });
-            return false;
-        }
-
-        if (!permissions.has('voiceSpeak')) {
-            ctx.sendMessage({ content: 'Eu não consigo reproduzir musica no teu canal de voz', flags: 1 << 6 });
-            return false;
-        }
-
-        if (player && voiceChannelID !== player.voiceChannelId) {
-            ctx.sendMessage({ content: 'Tu precisas de estar no mesmo canal de voz que eu!', flags: 1 << 6 });
-            return false;
-        }
-
-        return true;
+    if (!permissions.has("readMessages")) {
+      ctx.sendMessage({
+        content: "Eu não consigo ver o canal de voz em que tu estás",
+        flags: 1 << 6,
+      });
+      return false;
     }
 
-
-    init() {
-        return super.start(this.client.user.id);
+    if (!permissions.has("voiceConnect")) {
+      ctx.sendMessage({
+        content: "Eu não consigo entrar no teu canal de voz",
+        flags: 1 << 6,
+      });
+      return false;
     }
 
-    private pingNodes() {
-        for (const node of this.nodes.values()) {
-            if (node.options.hostname.includes('heroku')) {
-                setInterval(() => {
-                    fetch(`http://${node.options.hostname}/version`, {
-                        headers: {
-                            Authorization: node.options.password!
-                        }
-                    })
-                }, 25 * 60 * 1000);
-            }
-        }
+    if (!permissions.has("voiceSpeak")) {
+      ctx.sendMessage({
+        content: "Eu não consigo reproduzir musica no teu canal de voz",
+        flags: 1 << 6,
+      });
+      return false;
     }
 
-    private reconnect(node: Node) {
-        node.disconnect();
-        this.nodes.splice(this.nodes.indexOf(node), 1);
-
-        const newNode = new Node(this, {
-            id: node.identifier as string,
-            hostname: node.options.hostname,
-            port: node.options.port,
-            password: node.options.password,
-            maxRetryAttempts: 10,
-            retryAttemptsInterval: 3000,
-            secure: false,
-            region: node.options.region
-        })
-
-        this.nodes.push(newNode);
-
-        newNode.connect();
+    if (player && voiceChannelID !== player.voiceChannelId) {
+      ctx.sendMessage({
+        content: "Tu precisas de estar no mesmo canal de voz que eu!",
+        flags: 1 << 6,
+      });
+      return false;
     }
+
+    return true;
+  }
+
+  init() {
+    return super.start(this.client.user.id);
+  }
+
+  private pingNodes() {
+    for (const node of this.nodes.values()) {
+      if (node.options.hostname.includes("heroku")) {
+        setInterval(() => {
+          fetch(`http://${node.options.hostname}/version`, {
+            headers: {
+              Authorization: node.options.password!,
+            },
+          });
+        }, 25 * 60 * 1000);
+      }
+    }
+  }
+
+  private reconnect(node: Node) {
+    node.disconnect();
+    this.nodes.splice(this.nodes.indexOf(node), 1);
+
+    const newNode = new Node(this, {
+      id: node.identifier as string,
+      hostname: node.options.hostname,
+      port: node.options.port,
+      password: node.options.password,
+      maxRetryAttempts: 10,
+      retryAttemptsInterval: 3000,
+      secure: false,
+      region: node.options.region,
+    });
+
+    this.nodes.push(newNode);
+
+    newNode.connect();
+  }
 }
