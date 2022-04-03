@@ -1,4 +1,5 @@
-# Danitto
+<img src="https://i.imgur.com/NjYYO30.png"/>
+<h1 style="color: blue"><b>Danitto</b></h1>
 
 Um bot multifuncional em desenvolvimento!
 
