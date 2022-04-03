@@ -1,76 +1,76 @@
-
-import { Message } from "eris"
+import { Message } from "eris";
 
 interface CommandSettings {
-    name: string;
-    description: string;
-    aliases?: Array<string>;
-    usage?: string;
-    category: "Owner" | "Util" | "Info" | "Fun" | "Music";
-    options: Array<Object>
-
+  name: string;
+  description: string;
+  aliases?: Array<string>;
+  usage?: string;
+  category: "Owner" | "Util" | "Info" | "Fun" | "Music";
+  options: Array<Object>;
 }
 
 interface Command extends CommandSettings {
-    execute: (ctx) => void;
+  execute: (ctx) => void;
 }
 interface Utils {
-    levDistance: (src: string, target: string) => number;
-  
-  }
+  levDistance: (src: string, target: string) => number;
+}
 interface InteractionOptions {
-    name: string;
-    value: string;
-    type: number;
-    options?: InteractionOptions[];
+  name: string;
+  value: string;
+  type: number;
+  options?: InteractionOptions[];
 }
 
 interface InteractionResolved {
-    messages: Record<string, {
-        content: string // only need content :>
-    }>;
-    // users & members: <- don't need for now
+  messages: Record<
+    string,
+    {
+      content: string; // only need content :>
+    }
+  >;
+  // users & members: <- don't need for now
 }
 
 interface InteractionData {
-    id: string;
-    name: string;
-    type: number;
-    options?: InteractionOptions[];
-    resolved?: InteractionResolved;
-    target_id?: string;
+  id: string;
+  name: string;
+  type: number;
+  options?: InteractionOptions[];
+  resolved?: InteractionResolved;
+  target_id?: string;
 }
 
 interface InteractionPacket {
-    application_id: string;
-    channel_id: string;
-    id: string;
-    guild_id: string;
+  application_id: string;
+  channel_id: string;
+  id: string;
+  guild_id: string;
 
-    data: InteractionData;
+  data: InteractionData;
 
-    member: {
-        user: {
-            id: string;
-        }
-    }; //dont need more stuff (for now)
+  member: {
+    user: {
+      id: string;
+    };
+  }; //dont need more stuff (for now)
 
-    token: string;
-    type: number;
-    version: number;
+  token: string;
+  type: number;
+  version: number;
 }
 
 interface InteractionApplicationCommandCallbackData {
-    tts?: boolean;
-    content?: string;
-    embeds?: EmbedOptions[];
-    allowed_mentions?: AllowedMentions;
-    flags?: number;
+  tts?: boolean;
+  content?: string;
+  embeds?: EmbedOptions[];
+  allowed_mentions?: AllowedMentions;
+  flags?: number;
 }
 
 interface IEditInteractionData {
-    [key: string]: string;
-    content?: string;
-    embeds?: EmbedOptions[];
-    file?: MessageFile;
+  [key: string]: string;
+  content?: string;
+  embeds?: EmbedOptions[];
+  file?: MessageFile;
 }
