@@ -1,7 +1,7 @@
-<p align="center">
+<div align="center">
   <img src="https://i.imgur.com/NjYYO30.png" height=120 width=120/>
   <h1>Danitto</h1>
-</p>
+</div>
 
 
 
