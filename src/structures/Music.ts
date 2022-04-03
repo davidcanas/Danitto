@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+import Client from "./Client";
+import CommandContext from "./CommandContext";
+import fetch from "node-fetch";
+import { User, VoiceChannel } from "eris";
+import { NodeOptions, Vulkava, Player, Node } from "vulkava";
+>>>>>>> e3d5f5cb5da9c993b9bf5e039c4751aca0d25bc2
 /*Code insipered from d4rkb*/
 
 import Client from "./Client";
