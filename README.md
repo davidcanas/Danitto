@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://i.imgur.com/NjYYO30.png" height=120 width=120/>
-  <h1 style="color: blue"><b>Danitto</b></h1>  
+  Danitto
 </p>
 
 
