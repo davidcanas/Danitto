@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/NjYYO30.png" height=25 width=25/>
+<img src="https://i.imgur.com/NjYYO30.png" height=50 width=50/>
 <h1 style="color: blue"><b>Danitto</b></h1>
 
 Um bot multifuncional em desenvolvimento!
