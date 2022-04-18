@@ -36,6 +36,6 @@ export default class Help extends Command {
         embed.setColor("RANDOM");
         embed.setFooter("Danitto © Todos os direitos reservados.");
 
-
+       ctx.sendMessage({embeds: [embed]});
     }
 }
