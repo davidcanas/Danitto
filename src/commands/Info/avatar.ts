@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 
-export default class Help extends Command {
+export default class Avatar extends Command {
     constructor(client: Client) {
         super(client, {
             name: "avatar",
