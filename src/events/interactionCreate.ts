@@ -18,7 +18,7 @@ export default class InteractionCreate {
       const dbcmd = await this.client.db.cmds.findOne({name: interaction.data.name})
       
               
-      if(interaction.user.id !== "733963304610824252" && dbcmd && dbcmd.disabled) {
+      if(dbcmd && dbcmd.disabled) {
         return interaction.createMessage(`O comando \`${interaction.data.name}\` foi desativado pelo meu dono....`)
       }
       const ctx = new CommandContext(this.client, interaction);
