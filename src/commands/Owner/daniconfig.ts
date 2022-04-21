@@ -1,8 +1,8 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-import { ApplicationCommandOption } from "eris";
-
+import { ActionRow, ActionRowComponents, ComponentInteraction, ComponentInteractionSelectMenuData, Message, SelectMenuOptions } from "eris";
+import { ComponentCollector } from "../../structures/Collector";
 export default class DaniConfig extends Command {
   constructor(client: Client) {
     super(client, {
@@ -23,6 +23,14 @@ export default class DaniConfig extends Command {
             {
               name: "Atualizar comandos no website ",
               value: "cmdupdate",
+            },
+            {
+              name: "Desativar um comando",
+              value: "cmddisable"
+            },
+            {
+              name: "Reativar um comando",
+              value: "cmdenable"
             },
           ],
         },
@@ -59,18 +67,100 @@ export default class DaniConfig extends Command {
         "Atualizei a lista de comandos no website do danitto podes ver la em https://danitto.live/comandos !"
       );
     }
-    /*	if (args === "prefix") {
-				const model = this.client.db.guild
-				const update = await model.findOne({
-					guildID: ctx.guild.id
-				})
-	
-				if (update) {
-					update.Settings.prefix = ctx.args[1]
-					update.save()
-					ctx.sendMessage("Atualizei o prefixo neste servidor para " + ctx.args[1])
-				}
-			}*/
+    if (args === "cmddisable") {
+
+      let array = await this.client.db.cmds.find({});
+      let cmdArrayComponent = []
+      let cmdArray = []
+      array.forEach(cmd => {
+        if (!cmd.disabled) {
+          cmdArrayComponent.push({ label: cmd.name, value: cmd.name })
+          cmdArray.push(cmd.name)
+        }
+      })
+      let msg: Message
+      const embed = new this.client.embed()
+        .setTitle("Desativar um comando")
+        .setDescription(`Escolhe um comando para desativar\n\n${cmdArray.join("\n")}`)
+      const menu: ActionRowComponents[] = [
+        {
+          custom_id: 'menu',
+          type: 3,
+          placeholder: 'Seleciona o comando a desativar',
+          options: cmdArrayComponent
+
+        },
+      ];
+      const row: ActionRow = {
+        type: 1,
+        components: menu
+      }
+
+
+      msg = await ctx.sendMessage({ embeds: [embed], components: [row] }) as Message
+
+      const filter = (i: ComponentInteraction) => i.member!.id === ctx.author.id;
+
+      const collector = new ComponentCollector(this.client, msg, filter, { max: 1, time: 5 * 1000 });
+
+
+      collector.on('collect', async i => {
+        const data = i.data as ComponentInteractionSelectMenuData;
+        const value = data.values[0]
+        msg.edit({ content: `Desativei o commando ${value} com sucesso`, embeds: [], components: [] })
+        const db = await this.client.db.cmds.findOne({ name: value })
+        db.disabled = true
+        db.save()
+      });
+
+    }
+    if (args === "cmdenable") {
+
+      let array = await this.client.db.cmds.find({});
+      let cmdArrayComponent = []
+      let cmdArray = []
+      array.forEach(cmd => {
+        if (cmd.disabled) {
+          cmdArrayComponent.push({ label: cmd.name, value: cmd.name })
+          cmdArray.push(cmd.name)
+        }
+      })
+      let msg: Message
+      const embed = new this.client.embed()
+        .setTitle("Ativar um comando")
+        .setDescription(`Escolhe um comando para ativar\n\n${cmdArray.join("\n")}`)
+      const menu: ActionRowComponents[] = [
+        {
+          custom_id: 'menu',
+          type: 3,
+          placeholder: 'Seleciona o comando a ativar',
+          options: cmdArrayComponent
+
+        },
+      ];
+      const row: ActionRow = {
+        type: 1,
+        components: menu
+      }
+
+
+      msg = await ctx.sendMessage({ embeds: [embed], components: [row] }) as Message
+
+      const filter = (i: ComponentInteraction) => i.member!.id === ctx.author.id;
+
+      const collector = new ComponentCollector(this.client, msg, filter, { max: 1, time: 5 * 1000 });
+
+
+      collector.on('collect', async i => {
+        const data = i.data as ComponentInteractionSelectMenuData;
+        const value = data.values[0]
+        msg.edit({ content: `Reativei o commando ${value} com sucesso`, embeds: [], components: [] })
+        const db = await this.client.db.cmds.findOne({ name: value })
+        db.disabled = false
+        db.save()
+      });
+
+    }
     if (args === "shutdown" || args === "desligar") {
       ctx.sendMessage({
         content: "Ok, estou desligando em 7 segundos !",

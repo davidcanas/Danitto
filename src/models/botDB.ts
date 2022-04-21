@@ -4,6 +4,7 @@ interface botDB extends Document {
   botID: string;
   commands: number;
   manu: boolean;
+
 }
 
 const botDB: Schema = new Schema(
@@ -20,6 +21,7 @@ const botDB: Schema = new Schema(
       type: Boolean,
       default: false,
     },
+   
   },
   {
     versionKey: false,

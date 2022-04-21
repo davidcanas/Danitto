@@ -19,7 +19,18 @@ export default class InteractionCreate {
 
       cmd.execute(ctx);
     }
-    if (interaction instanceof ComponentInteraction) {
+    if (!(interaction instanceof CommandInteraction)) {
+      if (interaction instanceof ComponentInteraction) {
+        for (const collector of this.client.componentCollectors) {
+          if (collector.message.id === interaction.message.id) {
+            collector.collect(interaction);
+            break;
+          }
+        }
+      }
+      return;
+    }
+    /*if (interaction instanceof ComponentInteraction) {
       if (interaction.data.custom_id === "delmsgeval") {
         if (interaction.member?.id !== "733963304610824252") return;
         interaction.channel.messages.get(interaction.message.id).edit({
@@ -36,6 +47,6 @@ export default class InteractionCreate {
           components: [],
         });
       }
-    }
+    }*/
   }
 }

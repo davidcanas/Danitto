@@ -124,6 +124,11 @@ export default class InteractionCreate {
           .setColor("RANDOM");
         return message.channel.createMessage({ embeds: [embed] });
       }
+     const dbcmd = await this.client.db.cmds.findOne({name: command.name})
+              
+      if(dbcmd && dbcmd.disabled) {
+        return message.channel.createMessage(`O comando \`${command.name}\` foi desativado pelo meu dono....`)
+      }
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);

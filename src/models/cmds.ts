@@ -5,6 +5,7 @@ interface cmds extends Document {
   description: string;
   category: string;
   aliases: Array<string>;
+  disabled: boolean;
 }
 
 const cmds: Schema = new Schema(
@@ -22,6 +23,10 @@ const cmds: Schema = new Schema(
     aliases: {
       type: Array,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     versionKey: false,
