@@ -1,8 +1,7 @@
 <div align="center">
   <img src="https://i.imgur.com/NjYYO30.png" height=120 width=120/><h1>Danitto</h1>
 
-[![wakatime](https://wakatime.com/badge/user/48e8df80-94f9-4efa-a3c0-2b3ffdf9b42a/project/473cdb62-473d-4e58-9598-079d2a48aacc.svg)](https://wakatime.com/badge/user/48e8df80-94f9-4efa-a3c0-2b3ffdf9b42a/project/473cdb62-473d-4e58-9598-079d2a48aacc) 
-
+[![wakatime](https://wakatime.com/badge/github/davidcanas/DanittoTS.svg)](https://wakatime.com/badge/github/davidcanas/DanittoTS)
 Um bot multifuncional em desenvolvimento!
 
 Contribuindo:
