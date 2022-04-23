@@ -14,7 +14,6 @@ import guildDB from "../models/guildDB";
 import cmds from "../models/cmds";
 import users from "../models/userDB";
 import Embed from "./Embed";
-import levDistance from "../utils/levenshteinDistance";
 import levenshteinDistance from "../utils/levenshteinDistance";
 import { NodeOptions } from "vulkava";
 import Music from "./Music";
@@ -23,6 +22,7 @@ import {
   MessageCollector,
   ReactionCollector,
 } from "./Collector";
+import fetch from "node-fetch"
 
 export default class DaniClient extends Client {
   commands: Array<Command>;
@@ -34,6 +34,7 @@ export default class DaniClient extends Client {
     users: typeof users;
   };
   utils: Utils;
+  fetch: typeof fetch
   embed: typeof Embed;
   messageCollectors: Array<MessageCollector>;
   componentCollectors: Array<ComponentCollector>;
@@ -60,6 +61,7 @@ export default class DaniClient extends Client {
     this.utils = {
       levDistance: levenshteinDistance,
     };
+    this.fetch = fetch
     this.embed = Embed;
     this.messageCollectors = [];
     this.componentCollectors = [];

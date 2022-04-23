@@ -15,11 +15,26 @@ export default class InteractionCreate {
         (c) => c.name === interaction.data.name
       );
       if (!cmd) throw new Error("Command not found '-'");
-      const dbcmd = await this.client.db.cmds.findOne({name: interaction.data.name})
-      
-              
-      if(dbcmd && dbcmd.disabled) {
-        return interaction.createMessage(`O comando \`${interaction.data.name}\` foi desativado pelo meu dono....`)
+      let user = await this.client.db.users.findOne({
+        userID: interaction.member!.id,
+      });
+      if (user && user.blacklist) {
+        let embed = new this.client.embed()
+          .setDescription(
+            "❌ Estás na minha blacklist então não podes usar mais comandos , caso aches injusto [clica aqui](https://dink.ga/blacklistDanitto) !"
+          )
+          .setColor("RANDOM");
+        return interaction.createMessage({ embeds: [embed] });
+      }
+
+      const dbcmd = await this.client.db.cmds.findOne({
+        name: interaction.data.name,
+      });
+
+      if (dbcmd && dbcmd.disabled) {
+        return interaction.createMessage(
+          `O comando \`${interaction.data.name}\` foi desativado pelo meu dono....`
+        );
       }
       const ctx = new CommandContext(this.client, interaction);
 

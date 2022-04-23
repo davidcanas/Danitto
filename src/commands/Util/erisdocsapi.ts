@@ -1,7 +1,7 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-import fetch from "node-fetch";
+
 export default class erisdocsapi extends Command {
   constructor(client: Client) {
     super(client, {
@@ -21,7 +21,7 @@ export default class erisdocsapi extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    const docs = await fetch(
+    const docs = await this.client.fetch(
       `${process.env.ERISDOCSAPI}/docs?search=${encodeURIComponent(
         ctx.args.join(" ")
       )}`

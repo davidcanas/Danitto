@@ -26,7 +26,7 @@ const cmds: Schema = new Schema(
     disabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
     versionKey: false,

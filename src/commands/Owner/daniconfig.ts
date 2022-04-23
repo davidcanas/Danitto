@@ -1,7 +1,14 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-import { ActionRow, ActionRowComponents, ComponentInteraction, ComponentInteractionSelectMenuData, Message, SelectMenuOptions } from "eris";
+import {
+  ActionRow,
+  ActionRowComponents,
+  ComponentInteraction,
+  ComponentInteractionSelectMenuData,
+  Message,
+  SelectMenuOptions,
+} from "eris";
 import { ComponentCollector } from "../../structures/Collector";
 export default class DaniConfig extends Command {
   constructor(client: Client) {
@@ -26,11 +33,11 @@ export default class DaniConfig extends Command {
             },
             {
               name: "Desativar um comando",
-              value: "cmddisable"
+              value: "cmddisable",
             },
             {
               name: "Reativar um comando",
-              value: "cmdenable"
+              value: "cmdenable",
             },
           ],
         },
@@ -68,98 +75,114 @@ export default class DaniConfig extends Command {
       );
     }
     if (args === "cmddisable") {
-
       let array = await this.client.db.cmds.find({});
-      let cmdArrayComponent = []
-      let cmdArray = []
-      array.forEach(cmd => {
+      let cmdArrayComponent = [];
+      let cmdArray = [];
+      array.forEach((cmd) => {
         if (!cmd.disabled) {
-          cmdArrayComponent.push({ label: cmd.name, value: cmd.name })
-          cmdArray.push(cmd.name)
+          cmdArrayComponent.push({ label: cmd.name, value: cmd.name });
+          cmdArray.push(cmd.name);
         }
-      })
-      let msg: Message
+      });
+      let msg: Message;
       const embed = new this.client.embed()
         .setTitle("Desativar um comando")
-        .setDescription(`Escolhe um comando para desativar\n\n${cmdArray.join("\n")}`)
+        .setDescription(
+          `Escolhe um comando para desativar\n\n${cmdArray.join("\n")}`
+        );
       const menu: ActionRowComponents[] = [
         {
-          custom_id: 'menu',
+          custom_id: "menu",
           type: 3,
-          placeholder: 'Seleciona o comando a desativar',
-          options: cmdArrayComponent
-
+          placeholder: "Seleciona o comando a desativar",
+          options: cmdArrayComponent,
         },
       ];
       const row: ActionRow = {
         type: 1,
-        components: menu
-      }
+        components: menu,
+      };
 
+      msg = (await ctx.sendMessage({
+        embeds: [embed],
+        components: [row],
+      })) as Message;
 
-      msg = await ctx.sendMessage({ embeds: [embed], components: [row] }) as Message
+      const filter = (i: ComponentInteraction) =>
+        i.member!.id === ctx.author.id;
 
-      const filter = (i: ComponentInteraction) => i.member!.id === ctx.author.id;
-
-      const collector = new ComponentCollector(this.client, msg, filter, { max: 1, time: 5 * 1000 });
-
-
-      collector.on('collect', async i => {
-        const data = i.data as ComponentInteractionSelectMenuData;
-        const value = data.values[0]
-        msg.edit({ content: `Desativei o commando ${value} com sucesso`, embeds: [], components: [] })
-        const db = await this.client.db.cmds.findOne({ name: value })
-        db.disabled = true
-        db.save()
+      const collector = new ComponentCollector(this.client, msg, filter, {
+        max: 1,
+        time: 5 * 1000,
       });
 
+      collector.on("collect", async (i) => {
+        const data = i.data as ComponentInteractionSelectMenuData;
+        const value = data.values[0];
+        msg.edit({
+          content: `Desativei o commando ${value} com sucesso`,
+          embeds: [],
+          components: [],
+        });
+        const db = await this.client.db.cmds.findOne({ name: value });
+        db.disabled = true;
+        db.save();
+      });
     }
     if (args === "cmdenable") {
-
       let array = await this.client.db.cmds.find({});
-      let cmdArrayComponent = []
-      let cmdArray = []
-      array.forEach(cmd => {
+      let cmdArrayComponent = [];
+      let cmdArray = [];
+      array.forEach((cmd) => {
         if (cmd.disabled) {
-          cmdArrayComponent.push({ label: cmd.name, value: cmd.name })
-          cmdArray.push(cmd.name)
+          cmdArrayComponent.push({ label: cmd.name, value: cmd.name });
+          cmdArray.push(cmd.name);
         }
-      })
-      let msg: Message
+      });
+      let msg: Message;
       const embed = new this.client.embed()
         .setTitle("Ativar um comando")
-        .setDescription(`Escolhe um comando para ativar\n\n${cmdArray.join("\n")}`)
+        .setDescription(
+          `Escolhe um comando para ativar\n\n${cmdArray.join("\n")}`
+        );
       const menu: ActionRowComponents[] = [
         {
-          custom_id: 'menu',
+          custom_id: "menu",
           type: 3,
-          placeholder: 'Seleciona o comando a ativar',
-          options: cmdArrayComponent
-
+          placeholder: "Seleciona o comando a ativar",
+          options: cmdArrayComponent,
         },
       ];
       const row: ActionRow = {
         type: 1,
-        components: menu
-      }
+        components: menu,
+      };
 
+      msg = (await ctx.sendMessage({
+        embeds: [embed],
+        components: [row],
+      })) as Message;
 
-      msg = await ctx.sendMessage({ embeds: [embed], components: [row] }) as Message
+      const filter = (i: ComponentInteraction) =>
+        i.member!.id === ctx.author.id;
 
-      const filter = (i: ComponentInteraction) => i.member!.id === ctx.author.id;
-
-      const collector = new ComponentCollector(this.client, msg, filter, { max: 1, time: 5 * 1000 });
-
-
-      collector.on('collect', async i => {
-        const data = i.data as ComponentInteractionSelectMenuData;
-        const value = data.values[0]
-        msg.edit({ content: `Reativei o commando ${value} com sucesso`, embeds: [], components: [] })
-        const db = await this.client.db.cmds.findOne({ name: value })
-        db.disabled = false
-        db.save()
+      const collector = new ComponentCollector(this.client, msg, filter, {
+        max: 1,
+        time: 5 * 1000,
       });
 
+      collector.on("collect", async (i) => {
+        const data = i.data as ComponentInteractionSelectMenuData;
+        const value = data.values[0];
+        msg.edit({
+          content: `Reativei o commando ${value} com sucesso`,
+          embeds: [],
+          components: [],
+        });
+        const db = await this.client.db.cmds.findOne({ name: value });
+        db.disabled = false;
+        db.save();
+      });
     }
     if (args === "shutdown" || args === "desligar") {
       ctx.sendMessage({

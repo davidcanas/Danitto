@@ -1,7 +1,7 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-import fetch from "node-fetch";
+
 export default class erisdocsapi extends Command {
   constructor(client: Client) {
     super(client, {
@@ -26,7 +26,7 @@ export default class erisdocsapi extends Command {
       ctx.sendMessage("Você precisa de um ip para procurar!");
       return;
     }
-    const dadosIP = await fetch(
+    const dadosIP = await this.client.fetch(
       `http://ip-api.com/json/${ip
         .replaceAll("https://", "")
         .replaceAll("http://", "")
@@ -43,7 +43,7 @@ export default class erisdocsapi extends Command {
     }
     embed.setTitle(`Informações do IP`);
     embed.setDescription(`
-        **IP:** ${dados.query}\n**Cidade:** ${dados.city}\n**Estado:** ${dados.regionName}\n**País:** ${dados.country}\n**Latitude:** ${dados.lat}\n**Longitude:** ${dados.lon}\n**Empresa:** ${dados.org}
+        **IP:** ${dados.query}\n**Cidade:** ${dados.city}\n**Distrito:** ${dados.regionName}\n**País:** ${dados.country}\n**Latitude:** ${dados.lat}\n**Longitude:** ${dados.lon}\n**Empresa:** ${dados.org}
         `);
     embed.setColor(0x00ff00);
     ctx.sendMessage({ content: "", embeds: [embed] });

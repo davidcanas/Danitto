@@ -1,14 +1,8 @@
-import Client from "./Client";
-import CommandContext from "./CommandContext";
-import fetch from "node-fetch";
-import { User, VoiceChannel } from "eris";
-import { NodeOptions, Vulkava, Player, Node } from "vulkava";
 
 /*Code insipered on d4rkb*/
 
 import Client from "./Client";
 import CommandContext from "./CommandContext";
-import fetch from "node-fetch";
 import { User, VoiceChannel } from "eris";
 import { NodeOptions, Vulkava, Player, Node } from "vulkava";
 
@@ -152,7 +146,7 @@ export default class Music extends Vulkava {
     for (const node of this.nodes.values()) {
       if (node.options.hostname.includes("heroku")) {
         setInterval(() => {
-          fetch(`http://${node.options.hostname}/version`, {
+          this.client.fetch(`http://${node.options.hostname}/version`, {
             headers: {
               Authorization: node.options.password!,
             },
