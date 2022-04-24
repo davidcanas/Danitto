@@ -76,11 +76,11 @@ export default class DaniClient extends Client {
       try {
         user =
           this.users.get(matched[1]) || (await this.getRESTUser(matched[1]));
-      } catch {}
+      } catch { }
     } else if (/\d{17,18}/.test(param)) {
       try {
         user = this.users.get(param) || (await this.getRESTUser(param));
-      } catch {}
+      } catch { }
     }
 
     if (!guild) return null;
