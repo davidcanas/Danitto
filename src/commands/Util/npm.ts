@@ -20,7 +20,7 @@ export default class Npm extends Command {
 
     async execute(ctx: CommandContext): Promise<void> {
         const packagE = ctx.args.join(" ").toLowerCase()
-        const results = await this.client.fetch(`https://registry.npmjs.org/${packagE}`).then(a => a.json())
+        const results = await this.client.fetch(`https://registry.npmjs.org/${encodeURIComponent(packagE)}`).then(a => a.json())
         const downloads = await this.client.fetch(`https://api.npmjs.org/downloads/point/last-week/${packagE}`).then(a => a.json())
         if (results.error) {
             ctx.sendMessage(`:x: Eu não encontrei o package \`${packagE}\` nos registros do npm.`)
