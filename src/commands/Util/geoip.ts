@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 
-export default class erisdocsapi extends Command {
+export default class geoip extends Command {
   constructor(client: Client) {
     super(client, {
       name: "geoip",
