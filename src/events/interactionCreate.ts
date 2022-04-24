@@ -42,6 +42,22 @@ export default class InteractionCreate {
     }
     if (!(interaction instanceof CommandInteraction)) {
       if (interaction instanceof ComponentInteraction) {
+        if (interaction.data.custom_id === "delmsgeval") {
+          if (interaction.member?.id !== "733963304610824252") return;
+          interaction.channel.messages.get(interaction.message.id).edit({
+            content: "🔒 Eval Fechado!",
+            embeds: [],
+            components: [],
+          });
+        }
+        if (interaction.data.custom_id === "delmsgshell") {
+          if (interaction.member?.id !== "733963304610824252") return;
+          interaction.channel.messages.get(interaction.message.id).edit({
+            content: "🔒 Shell Fechado!",
+            embeds: [],
+            components: [],
+          });
+        }
         for (const collector of this.client.componentCollectors) {
           if (collector.message.id === interaction.message.id) {
             collector.collect(interaction);
@@ -52,22 +68,7 @@ export default class InteractionCreate {
       return;
     }
     /*if (interaction instanceof ComponentInteraction) {
-      if (interaction.data.custom_id === "delmsgeval") {
-        if (interaction.member?.id !== "733963304610824252") return;
-        interaction.channel.messages.get(interaction.message.id).edit({
-          content: "🔒 Eval Fechado!",
-          embeds: [],
-          components: [],
-        });
-      }
-      if (interaction.data.custom_id === "delmsgshell") {
-        if (interaction.member?.id !== "733963304610824252") return;
-        interaction.channel.messages.get(interaction.message.id).edit({
-          content: "🔒 Shell Fechado!",
-          embeds: [],
-          components: [],
-        });
-      }
+      
     }*/
   }
 }

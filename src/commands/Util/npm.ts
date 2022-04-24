@@ -21,16 +21,18 @@ export default class Npm extends Command {
     async execute(ctx: CommandContext): Promise<void> {
         const packagE = ctx.args.join(" ").toLowerCase()
         const results = await this.client.fetch(`https://registry.npmjs.org/${packagE}`).then(a => a.json())
+        const downloads = await this.client.fetch(`https://api.npmjs.org/downloads/point/last-week/${packagE}`).then(a => a.json())
         if (results.error) {
             ctx.sendMessage(`:x: Eu não encontrei o package \`${packagE}\` nos registros do npm.`)
         }
 
         const embed = new this.client.embed()
         embed.setTitle(`📦 ${results.name}`)
-        embed.addField(`➤ Descrição`, results.description)
+        embed.addField(`➤ Descrição`, "`" + results.description + "`")
         embed.addField(`➤ Tags`, "`" + results.keywords.join(",") + "`")
-        embed.addField(`➤ Autor`, results.author.name)
-        embed.addField(`➤ Versão`, results["dist-tags"].latest)
+        embed.addField(`➤ Autor`, "`" + results.author.name + "`")
+        embed.addField(`➤ Versão`, "`" + results["dist-tags"].latest + "`")
+        embed.addField(`➤ Downloads esta semana`, `\`${downloads.downloads}\``)
         embed.addField(`➤ Link`, `https://www.npmjs.com/package/${results.name}`)
         embed.setColor("RANDOM")
         embed.setFooter(ctx.author.username + "#" + ctx.author.discriminator, ctx.author.dynamicAvatarURL())

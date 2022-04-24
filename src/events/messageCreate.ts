@@ -90,6 +90,9 @@ export default class InteractionCreate {
       const mensagem = await message.channel.createMessage({
         content: `Eu não encontrei o comando ${cmd}, querias dizer ${diduMean}?\n\`Caso queiras executar o comando sem ter que gastar uma caloria reage com 👍 !\``,
       });
+      setTimeout(() => {
+       if(mensagem) mensagem.delete();
+      } , 5000);
       mensagem.addReaction("👍");
       const filter = (r: Emoji, user: User) =>
         r.name === "👍" && user === message.author;
