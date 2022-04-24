@@ -7,7 +7,7 @@ export default class Dicio extends Command {
     super(client, {
       name: "dicio",
       description: "Vê o significado de uma palavra",
-      category: "Info",
+      category: "Util",
       aliases: ["dicionario", "significado"],
       options: [{
         name: "palavra",
