@@ -25,12 +25,17 @@ export default class Npm extends Command {
         if (results.error) {
             ctx.sendMessage(`:x: Eu não encontrei o package \`${packagE}\` nos registros do npm.`)
         }
-
+        let autor; 
+        if (results.author.name) {
+            autor = results.author.name 
+        } else {
+            autor = results.maintainers[0].name
+        }
         const embed = new this.client.embed()
         embed.setTitle(`📦 ${results.name}`)
         embed.addField(`➤ Descrição`, "`" + results.description + "`")
         embed.addField(`➤ Tags`, "`" + results.keywords.join(",") + "`")
-        embed.addField(`➤ Autor`, "`" + results.author.name + "`")
+        embed.addField(`➤ Autor`, "`" + autor + "`")
         embed.addField(`➤ Versão`, "`" + results["dist-tags"].latest + "`")
         embed.addField(`➤ Downloads esta semana`, `\`${downloads.downloads}\``)
         embed.addField(`➤ Link`, `https://www.npmjs.com/package/${results.name}`)
