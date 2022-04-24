@@ -26,7 +26,7 @@ export default class Npm extends Command {
             ctx.sendMessage(`:x: Eu não encontrei o package \`${packagE}\` nos registros do npm.`)
         }
         let autor; 
-        if (results.author.name) {
+        if (results && results.author.name) {
             autor = results.author.name 
         } else {
             autor = results.maintainers[0].name
