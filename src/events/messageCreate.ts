@@ -143,9 +143,9 @@ export default class InteractionCreate {
       command.execute(ctx);
       const embed = new this.client.embed()
       .setTitle("Comando executado")
-      .setDescription(`Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}\nServidor: ${this.client.guilds.get(message.guildID)} (${message.guildID})\nCanal: ${message.channel} (${message.channel.id})`)
+      .setDescription(`Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}\nServidor: ${this.client.guilds.get(message.guildID).name} (${message.guildID})\nCanal: ${this.client.guilds.get(message.guildID).channels.get(message.channel.id).name} (${message.channel.id})`)
       .setFooter("Não foram usados slash commands ao executar o comando.")
-      
+      .setColor("RANDOM");
       this.client.createMessage("929319573973528647", {embeds: [embed]});
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,

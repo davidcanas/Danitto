@@ -41,8 +41,9 @@ export default class InteractionCreate {
       cmd.execute(ctx);
       const embed = new this.client.embed()
       .setTitle("Comando executado")
-      .setDescription(`Autor: ${interaction.member!.username}#${interaction.member!.discriminator} (${interaction.member!.id})\nComando: /${cmd.name}\nServidor: ${this.client.guilds.get(interaction.guildID)} (${interaction.guildID})\nCanal: ${interaction.channel} (${interaction.channel.id})`)
+      .setDescription(`Autor: ${interaction.member!.username}#${interaction.member!.discriminator} (${interaction.member!.id})\nComando: /${cmd.name}\nServidor: ${this.client.guilds.get(interaction.guildID).name} (${interaction.guildID})\nCanal: ${this.client.guilds.get(interaction.guildID).channels.get(interaction.channel.id).name} (${interaction.channel.id})`)
       .setFooter("Foram usados slash commands ao executar o comando.")
+      .setColor("RANDOM")
       this.client.createMessage("929319573973528647", {embeds: [embed]});
     }
     if (!(interaction instanceof CommandInteraction)) {
