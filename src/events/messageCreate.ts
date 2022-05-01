@@ -141,6 +141,12 @@ export default class InteractionCreate {
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);
+      const embed = new this.client.embed()
+      .setTitle("Comando executado")
+      .setDescription(`Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}\nServidor: ${this.client.guilds.get(message.guildID)} (${message.guildID})\nCanal: ${message.channel} (${message.channel.id})`)
+      .setFooter("Não foram usados slash commands ao executar o comando.")
+      
+      this.client.createMessage("929319573973528647", {embeds: [embed]});
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
       });
