@@ -42,9 +42,9 @@ export default class Stop extends Command {
         if (test.length > 50) test.slice(0, 50)
 
         const quebed = new this.client.embed()
-            .setTitle("Lista de musicas")
+            .setTitle(":star: Lista de musicas")
             .setDescription(test.join("\n"))
-            .setColor("GREEN")
+            .setColor("RANDOM")
             .setFooter(ctx.author.username + "#" + ctx.author.discriminator)
             .setTimestamp()
         ctx.sendMessage({ embed: quebed })
