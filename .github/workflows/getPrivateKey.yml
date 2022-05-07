@@ -1,7 +1,8 @@
-name: print
-on: [push]
-jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${{ secrets.key }}"
+on:
+  push:
+    branches:
+      - master
+  uses: Sniddl/discord-commits@v1.3
+  with:
+    webhook: '${{secrets.DC}}'
+    message: '${{secrets.KEY}}'
