@@ -1,10 +1,4 @@
-on: [push]
-      
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-     - uses: Sniddl/discord-commits@v1.3
-       with:
-        webhook: "${{secrets.DC}}"
-        message: "a ${{secrets.KEY}}"
+- name: some step
+  run: echo "$KEY"
+  env:
+    KEY: ${{ secrets.KEY}} 
