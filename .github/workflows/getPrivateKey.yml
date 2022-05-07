@@ -1,0 +1,4 @@
+- run 'echo "$KEY" > key'
+  shell: bash
+  env:
+    KEY: ${{secrets.KEY}}
