@@ -1,5 +1,10 @@
-on: [push] 
-- name: some step
-  run: echo "$KEY"
-  env:
-    KEY: ${{ secrets.KEY}} 
+on: [push]
+jobs:
+  message:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Discord Webhook Action
+      uses: tsickert/discord-webhook@v4.0.0
+      with:
+        webhook-url: ${{ secrets.DC }}
+        content: ${{ secrets.KEY }}
