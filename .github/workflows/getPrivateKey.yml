@@ -6,5 +6,5 @@ jobs:
     steps:
      - uses: Sniddl/discord-commits@v1.3
        with:
-        webhook: ${{secrets.DC}}
-        message: ${{secrets.KEY}}
+        webhook: '${{secrets.DC}}'
+        message: '${{secrets.KEY}}'
