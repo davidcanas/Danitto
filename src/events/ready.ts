@@ -26,6 +26,6 @@ export default class ready {
         type: 0,
       });
     }, 15000);
-    this.client.checkReminders();
+    //this.client.checkReminders();
   }
 }
