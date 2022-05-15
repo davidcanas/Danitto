@@ -107,7 +107,7 @@ export default class DaniClient extends Client {
     const reminders = await this.getReminders()
     for (const reminder of reminders) {
       if (parseInt(reminder.when) < Date.now()) {
-        this.createMessage(reminder.channelID, `<@${reminder.userID} pediste-me para te lembrar de ${reminder.text}`)
+        this.createMessage(reminder.channelID, `<@${reminder.userID}> pediste-me para te lembrar de ${reminder.text}`)
         this.deleteReminder(reminder.id)
       }
       if((isNaN(parseInt(reminder.when)))) {
