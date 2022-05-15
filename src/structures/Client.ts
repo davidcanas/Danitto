@@ -191,7 +191,7 @@ export default class DaniClient extends Client {
   }
   loadCommands(): void {
     fs.readdirSync("./dist/src/commands").forEach((folder) => {
-      fs.readdirSync(`./src/commands/${folder}`).forEach((file) => {
+      fs.readdirSync(`./dist/src/commands/${folder}`).forEach((file) => {
         const DaniCommand = require(`../commands/${folder}/${file}`).default;
         this.commands.push(new DaniCommand(this));
       });
