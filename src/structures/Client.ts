@@ -23,6 +23,7 @@ import {
   ReactionCollector,
 } from "./Collector";
 import fetch from "node-fetch"
+import reminderDB from "../models/reminderDB";
 
 export default class DaniClient extends Client {
   commands: Array<Command>;
@@ -32,6 +33,7 @@ export default class DaniClient extends Client {
     guild: typeof guildDB;
     cmds: typeof cmds;
     users: typeof users;
+    reminder: typeof reminderDB
   };
   utils: Utils;
   fetch: typeof fetch
@@ -57,9 +59,11 @@ export default class DaniClient extends Client {
       guild: guildDB,
       cmds: cmds,
       users: users,
+      reminder: reminderDB
     };
     this.utils = {
       levDistance: levenshteinDistance,
+
     };
     this.fetch = fetch
     this.embed = Embed;
@@ -67,6 +71,53 @@ export default class DaniClient extends Client {
     this.componentCollectors = [];
     this.reactionCollectors = [];
   }
+  createReminder({ timeMS, text, channelID }) {
+    const now = Date.now()
+    const when = now + timeMS
+  
+    console.log(when) 
+   
+    return this.db.reminder.create({
+      id: now,
+      when,
+      text: text,
+      channelID: channelID
+    })
+ }
+
+  async getReminders() {
+    let arr = await this.db.reminder.find({});
+
+    return arr
+  }
+
+  async deleteReminder(reminderID) {
+    await this.db.reminder.findOneAndDelete({ id: reminderID });
+    return "Deleted"
+  }
+
+  /*createReminder({
+    when: Date.now() + ONE_HOUR,
+    text: 'Me lembre de tomar banho daqui a uma hora',
+ 
+  })*/
+
+  async checkReminders() {
+    const reminders = await this.getReminders()
+    console.log(reminders)
+    for (const reminder of reminders) {
+      if (parseInt(reminder.when) < Date.now()) {
+        this.createMessage(reminder.channelID, reminder.text)
+        this.deleteReminder(reminder.id)
+      }
+      if((isNaN(parseInt(reminder.when)))) {
+        this.deleteReminder(reminder.id)
+      }
+    }
+
+    setTimeout(() => this.checkReminders(), 60000)
+  }
+
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
     let user: User | null | undefined;
 
