@@ -3,7 +3,7 @@ import { Schema, model, Document } from "mongoose";
 interface reminderDB extends Document {
     when: string,
     text: string,
-    guildID: string,
+    userID: string,
     channelID: string
 }
 
@@ -20,8 +20,8 @@ const reminderDB: Schema = new Schema(
             type: String,
             default: "Sem conteudo"
         },
-        guildID: {
-        type: String
+        userID: {
+            type: String
         },
         channelID: {
             type: String

@@ -71,7 +71,7 @@ export default class DaniClient extends Client {
     this.componentCollectors = [];
     this.reactionCollectors = [];
   }
-  createReminder({ timeMS, text, channelID }) {
+  createReminder({ timeMS, text, userID, channelID }) {
     const now = Date.now()
     const when = now + timeMS
   
@@ -81,6 +81,7 @@ export default class DaniClient extends Client {
       id: now,
       when,
       text: text,
+      userID: userID,
       channelID: channelID
     })
  }
@@ -104,10 +105,9 @@ export default class DaniClient extends Client {
 
   async checkReminders() {
     const reminders = await this.getReminders()
-    console.log(reminders)
     for (const reminder of reminders) {
       if (parseInt(reminder.when) < Date.now()) {
-        this.createMessage(reminder.channelID, reminder.text)
+        this.createMessage(reminder.channelID, `<@${reminder.userID} pediste-me para te lembrar de ${reminder.text}`)
         this.deleteReminder(reminder.id)
       }
       if((isNaN(parseInt(reminder.when)))) {
@@ -115,7 +115,7 @@ export default class DaniClient extends Client {
       }
     }
 
-    setTimeout(() => this.checkReminders(), 60000)
+    setTimeout(() => this.checkReminders(), 55000)
   }
 
   async findUser(param: string, guild: Guild | null): Promise<User | null> {

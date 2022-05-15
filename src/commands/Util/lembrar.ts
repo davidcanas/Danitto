@@ -60,7 +60,7 @@ export default class Lembrar extends Command {
         ctx.sendMessage('O formato do tempo deve ser `[s/m/h/d]`');
     }
     try {
-        this.client.createReminder({timeMS: timems, text: mensagem, channelID: ctx.channel.id})
+        this.client.createReminder({timeMS: timems, text: mensagem, userID: ctx.author.id, channelID: ctx.channel.id})
         ctx.sendMessage(`Vou te lembrar de \`${mensagem}\` daqui a ${time}`)
     } catch(err) {
         ctx.sendMessage(`Ocorreu um erro:\n${err}`)
