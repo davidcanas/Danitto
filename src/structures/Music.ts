@@ -1,4 +1,3 @@
-
 /*Code insipered on d4rkb*/
 
 import Client from "./Client";

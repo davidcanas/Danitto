@@ -21,11 +21,13 @@ export default class erisdocsapi extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    const docs = await this.client.fetch(
-      `${process.env.ERISDOCSAPI}/docs?search=${encodeURIComponent(
-        ctx.args.join(" ")
-      )}`
-    ).then((a) => a.json());
+    const docs = await this.client
+      .fetch(
+        `${process.env.ERISDOCSAPI}/docs?search=${encodeURIComponent(
+          ctx.args.join(" ")
+        )}`
+      )
+      .then((a) => a.json());
     if (docs.error) {
       ctx.sendMessage({
         content: "Não encontrei nada na documentação do eris.",

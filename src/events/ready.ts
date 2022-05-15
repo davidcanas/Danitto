@@ -10,7 +10,7 @@ export default class ready {
 
   async run() {
     console.log(`O ${yellow("client")} foi conectado com ${green("sucesso")}`);
-    this.client.checkReminders()
+    this.client.checkReminders();
     this.client.connectLavaLink();
     const activities = [
       "Utiliza d/help para obter ajuda ",
@@ -26,6 +26,5 @@ export default class ready {
         type: 0,
       });
     }, 15000);
-
   }
 }

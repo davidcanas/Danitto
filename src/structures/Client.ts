@@ -22,7 +22,7 @@ import {
   MessageCollector,
   ReactionCollector,
 } from "./Collector";
-import fetch from "node-fetch"
+import fetch from "node-fetch";
 import reminderDB from "../models/reminderDB";
 
 export default class DaniClient extends Client {
@@ -33,10 +33,10 @@ export default class DaniClient extends Client {
     guild: typeof guildDB;
     cmds: typeof cmds;
     users: typeof users;
-    reminder: typeof reminderDB
+    reminder: typeof reminderDB;
   };
   utils: Utils;
-  fetch: typeof fetch
+  fetch: typeof fetch;
   embed: typeof Embed;
   messageCollectors: Array<MessageCollector>;
   componentCollectors: Array<ComponentCollector>;
@@ -47,6 +47,7 @@ export default class DaniClient extends Client {
         everyone: false,
       },
       intents: 32767,
+      getAllUsers: true,
       restMode: true,
       defaultImageFormat: "png",
       defaultImageSize: 2048,
@@ -59,63 +60,60 @@ export default class DaniClient extends Client {
       guild: guildDB,
       cmds: cmds,
       users: users,
-      reminder: reminderDB
+      reminder: reminderDB,
     };
     this.utils = {
       levDistance: levenshteinDistance,
-
     };
-    this.fetch = fetch
+    this.fetch = fetch;
     this.embed = Embed;
     this.messageCollectors = [];
     this.componentCollectors = [];
     this.reactionCollectors = [];
   }
   createReminder({ timeMS, text, userID, channelID }) {
-    const now = Date.now()
-    const when = now + timeMS
-  
-    console.log(when) 
-   
+    const now = Date.now();
+    const when = now + timeMS;
+
+    console.log(when);
+
     return this.db.reminder.create({
       id: now,
       when,
       text: text,
       userID: userID,
-      channelID: channelID
-    })
- }
+      channelID: channelID,
+    });
+  }
 
   async getReminders() {
     let arr = await this.db.reminder.find({});
 
-    return arr
+    return arr;
   }
 
   async deleteReminder(reminderID) {
     await this.db.reminder.findOneAndDelete({ id: reminderID });
-    return "Deleted"
+    return "Deleted";
   }
 
-  /*createReminder({
-    when: Date.now() + ONE_HOUR,
-    text: 'Me lembre de tomar banho daqui a uma hora',
- 
-  })*/
-
   async checkReminders() {
-    const reminders = await this.getReminders()
+    const reminders = await this.getReminders();
     for (const reminder of reminders) {
       if (parseInt(reminder.when) < Date.now()) {
-        this.createMessage(reminder.channelID, `<@!${reminder.userID}> pediste-me para te lembrar de ${reminder.text}`)
-        this.deleteReminder(reminder.id)
+        let user = this.users.get(reminder.userID);
+        let dm = await user.getDMChannel();
+        dm.createMessage(
+          `${user.username},pediste-me para te lembrar de **${reminder.text}**`
+        );
+        this.deleteReminder(reminder.id);
       }
-      if((isNaN(parseInt(reminder.when)))) {
-        this.deleteReminder(reminder.id)
+      if (isNaN(parseInt(reminder.when))) {
+        this.deleteReminder(reminder.id);
       }
     }
 
-    setTimeout(() => this.checkReminders(), 55000)
+    setTimeout(() => this.checkReminders(), 55000);
   }
 
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
@@ -127,11 +125,11 @@ export default class DaniClient extends Client {
       try {
         user =
           this.users.get(matched[1]) || (await this.getRESTUser(matched[1]));
-      } catch { }
+      } catch {}
     } else if (/\d{17,18}/.test(param)) {
       try {
         user = this.users.get(param) || (await this.getRESTUser(param));
-      } catch { }
+      } catch {}
     }
 
     if (!guild) return null;
