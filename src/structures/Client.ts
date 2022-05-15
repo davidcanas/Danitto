@@ -190,8 +190,8 @@ export default class DaniClient extends Client {
     return super.connect();
   }
   loadCommands(): void {
-    fs.readdirSync("./dist/src/commands").forEach((folder) => {
-      fs.readdirSync(`./dist/src/commands/${folder}`).forEach((file) => {
+    fs.readdirSync("./src/commands").forEach((folder) => {
+      fs.readdirSync(`./src/commands/${folder}`).forEach((file) => {
         const DaniCommand = require(`../commands/${folder}/${file}`).default;
         this.commands.push(new DaniCommand(this));
       });
@@ -202,7 +202,7 @@ export default class DaniClient extends Client {
     );
   }
   loadEvents(): void {
-    fs.readdirSync("./dist/src/events").forEach((f) => {
+    fs.readdirSync("./src/events").forEach((f) => {
       const DaniEvent = new (require(`../events/${f}`).default)(this);
       const eventName = f.split(".")[0];
 
