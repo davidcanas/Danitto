@@ -248,6 +248,7 @@ export default class DaniClient extends Client {
       if (isNaN(parseInt(reminder.when))) {
         this.deleteReminder(reminder._id);
       }
+      setTimeout(() => this.checkReminders(), 60000);
     }
 
     
