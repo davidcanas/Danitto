@@ -71,7 +71,7 @@ export default class DaniClient extends Client {
     this.componentCollectors = [];
     this.reactionCollectors = [];
   }
-  /*
+  
   createReminder({ timeMS, text, userID, channelID }) {
     const now = Date.now();
     const when = now + timeMS;
@@ -116,7 +116,7 @@ export default class DaniClient extends Client {
 
     setTimeout(() => this.checkReminders(), 55000);
   }
-*/
+
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
     let user: User | null | undefined;
 
