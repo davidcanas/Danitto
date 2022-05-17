@@ -4,7 +4,6 @@ import database from "mongoose";
 import { green, yellow } from "chalk";
 dotenv.config();
 
-const client = new DaniClient(process.env.DANITOKEN);
 
 process.on("uncaughtException", (lolError) => {
   console.error(lolError);
@@ -18,10 +17,11 @@ database
   .then(() =>
     console.log(`A ${yellow("database")} foi iniciada com ${green("sucesso")}`)
   );
+const client = new DaniClient(process.env.DANITOKEN);
 
 client.loadEvents();
 setTimeout(() => {
   client.loadCommands();
-}, 5000);
+}, 1000);
 client.connect();
 export default client;

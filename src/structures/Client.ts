@@ -156,6 +156,7 @@ export default class DaniClient extends Client {
     this.bulkEditCommands(
       this.commands as unknown as ApplicationCommandStructure[]
     );
+    console.log("Os comandos foram carregados.")
   }
   loadEvents(): void {
     fs.readdirSync("./src/events").forEach((f) => {
@@ -168,6 +169,7 @@ export default class DaniClient extends Client {
         super.on(eventName, (...args) => DaniEvent.run(...args));
       }
     });
+    console.log("OS eventos foram carregados.")
   }
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [
