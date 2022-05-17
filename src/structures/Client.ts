@@ -71,51 +71,6 @@ export default class DaniClient extends Client {
     this.componentCollectors = [];
     this.reactionCollectors = [];
   }
-  
-  createReminder({ timeMS, text, userID, channelID }) {
-    const now = Date.now();
-    const when = now + timeMS;
-
-    console.log(when);
-
-    return this.db.reminder.create({
-      id: now,
-      when,
-      text: text,
-      userID: userID,
-      channelID: channelID,
-    });
-  }
-
-  async getReminders() {
-    let arr = await this.db.reminder.find({});
-
-    return arr;
-  }
-
-  async deleteReminder(reminderID) {
-    await this.db.reminder.findOneAndDelete({ id: reminderID });
-    return "Deleted";
-  }
-
-  async checkReminders() {
-    const reminders = await this.getReminders();
-    for (const reminder of reminders) {
-      if (parseInt(reminder.when) < Date.now()) {
-        let user = this.users.get(reminder.userID);
-        let dm = await user.getDMChannel();
-        dm.createMessage(
-          `${user.username},pediste-me para te lembrar de **${reminder.text}**`
-        );
-        this.deleteReminder(reminder.id);
-      }
-      if (isNaN(parseInt(reminder.when))) {
-        this.deleteReminder(reminder.id);
-      }
-    }
-
-    setTimeout(() => this.checkReminders(), 55000);
-  }
 
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
     let user: User | null | undefined;
@@ -249,5 +204,50 @@ export default class DaniClient extends Client {
 
     this.music.init();
     super.on("rawWS", (packet) => this.music.handleVoiceUpdate(packet));
+  }
+
+  createReminder({ timeMS, text, userID, channelID }) {
+    const now = Date.now();
+    const when = now + timeMS;
+
+    console.log(when);
+
+    return this.db.reminder.create({
+      _id: now,
+      when,
+      text: text,
+      userID: userID,
+      channelID: channelID,
+    });
+  }
+
+  async getReminders() {
+    let arr = await this.db.reminder.find({});
+
+    return arr;
+  }
+
+  async deleteReminder(reminderID) {
+    await this.db.reminder.findOneAndDelete({ _id: reminderID });
+    return "Deleted";
+  }
+
+  async checkReminders() {
+    const reminders = await this.getReminders();
+    for (const reminder of reminders) {
+      if (parseInt(reminder.when) < Date.now()) {
+        let user = this.users.get(reminder.userID);
+        let dm = await user.getDMChannel();
+        dm.createMessage(
+          `${user.username},pediste-me para te lembrar de **${reminder.text}**`
+        );
+        this.deleteReminder(reminder._id);
+      }
+      if (isNaN(parseInt(reminder.when))) {
+        this.deleteReminder(reminder._id);
+      }
+    }
+
+    setTimeout(() => this.checkReminders(), 65000);
   }
 }

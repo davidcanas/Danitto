@@ -9,9 +9,6 @@ export default class ready {
   }
 
   async run() {
-    console.log(`O ${yellow("client")} foi conectado com ${green("sucesso")}`);
-
-    this.client.connectLavaLink();
     const activities = [
       "Utiliza d/help para obter ajuda ",
       `Estou em ${this.client.guilds.size} servidores!`,
@@ -26,6 +23,8 @@ export default class ready {
         type: 0,
       });
     }, 15000);
+    console.log(`O ${yellow("client")} foi conectado com ${green("sucesso")}`);
+    this.client.connectLavaLink();
     this.client.checkReminders();
   }
 }

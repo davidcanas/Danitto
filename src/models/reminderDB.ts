@@ -4,12 +4,11 @@ interface reminderDB extends Document {
   when: string;
   text: string;
   userID: string;
-  channelID: string;
 }
 
 const reminderDB: Schema = new Schema(
   {
-    id: {
+    _id: {
       type: Number,
       required: true,
     },
@@ -21,9 +20,6 @@ const reminderDB: Schema = new Schema(
       default: "Sem conteudo",
     },
     userID: {
-      type: String,
-    },
-    channelID: {
       type: String,
     },
   },
