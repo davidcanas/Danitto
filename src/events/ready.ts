@@ -25,6 +25,6 @@ export default class ready {
     }, 15000);
     console.log(`O ${yellow("client")} foi conectado com ${green("sucesso")}`);
     this.client.connectLavaLink();
-    this.client.checkReminders()
+   this.client.checkReminders()
   }
 }
