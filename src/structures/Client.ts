@@ -205,7 +205,7 @@ export default class DaniClient extends Client {
     this.music.init();
     super.on("rawWS", (packet) => this.music.handleVoiceUpdate(packet));
   }
-
+/*
   createReminder({ timeMS, text, userID, channelID }) {
     const now = Date.now();
     const when = now + timeMS;
@@ -249,5 +249,5 @@ export default class DaniClient extends Client {
     }
 
     setTimeout(() => this.checkReminders(), 65000);
-  }
+  }*/
 }
