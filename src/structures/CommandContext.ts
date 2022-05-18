@@ -90,6 +90,11 @@ export default class CommandContext {
     fetchReply = false
   ): Promise<Message<TextableChannel> | void> {
     if (this.interactionOrMessage instanceof Message) {
+      if(this.channel.type !== 0) {
+      await (await this.author.getDMChannel()).createMessage(content)
+      return
+      }
+       console.log(this.channel)
       return this.channel.createMessage(content);
     } else {
       if (this.deferred) {

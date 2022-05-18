@@ -141,6 +141,7 @@ export default class InteractionCreate {
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);
+      if(message.channel.type === 0) {
       const embed = new this.client.embed()
         .setTitle("Comando executado")
         .setDescription(
@@ -157,6 +158,7 @@ export default class InteractionCreate {
         .setFooter("Não foram usados slash commands ao executar o comando.")
         .setColor("RANDOM");
       this.client.createMessage("929319573973528647", { embeds: [embed] });
+        }
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
       });
