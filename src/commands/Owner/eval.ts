@@ -22,7 +22,7 @@ export default class Eval extends Command {
 
   async execute(ctx: CommandContext): Promise<void> {
     try {
-      if (!this.client.allowedUsers.includes[ctx.author.id]) {
+      if (!this.client.allowedUsers.includes(ctx.author.id)) {
         ctx.sendMessage({
           content: "Apenas meu criador",
           flags: 1 << 6,

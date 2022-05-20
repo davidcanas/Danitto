@@ -16,7 +16,7 @@ export default class Shell extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (!this.client.allowedUsers.includes[ctx.author.id]) {
+    if (!this.client.allowedUsers.includes(ctx.author.id)) {
       ctx.sendMessage("Apenas meu criador");
       return;
     }

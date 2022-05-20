@@ -45,7 +45,7 @@ export default class DaniConfig extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (!this.client.allowedUsers.includes[ctx.author.id]) {
+    if (!this.client.allowedUsers.includes(ctx.author.id)) {
       ctx.sendMessage({
         content:
           "Não tens acesso a este comando, apenas o meu programador o pode usar.",

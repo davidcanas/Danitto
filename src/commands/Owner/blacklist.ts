@@ -37,7 +37,7 @@ export default class Blacklist extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (!this.client.allowedUsers.includes[ctx.author.id]) {
+    if (!this.client.allowedUsers.includes(ctx.author.id)) {
       ctx.sendMessage("Não tens permissão para executar este comando!");
       return;
     }
