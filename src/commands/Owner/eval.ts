@@ -24,7 +24,8 @@ export default class Eval extends Command {
     try {
       if (!this.client.allowedUsers.includes(ctx.author.id)) {
         ctx.sendMessage({
-          content: "Apenas meu criador",
+          content:
+            "Não tens acesso a este comando, apenas o meu programador o pode usar.",
           flags: 1 << 6,
         });
         return;
@@ -42,7 +43,6 @@ export default class Eval extends Command {
         code = require("util").inspect(code, {
           depth: 0,
         });
-
 
       if (
         code.includes(process.env.DANITOKEN) ||

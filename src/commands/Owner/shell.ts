@@ -17,7 +17,11 @@ export default class Shell extends Command {
 
   async execute(ctx: CommandContext): Promise<void> {
     if (!this.client.allowedUsers.includes(ctx.author.id)) {
-      ctx.sendMessage("Apenas meu criador");
+      ctx.sendMessage({
+        content:
+          "Não tens acesso a este comando, apenas o meu programador o pode usar.",
+        flags: 1 << 6,
+      });
       return;
     }
     const code = ctx.args.join(" ");

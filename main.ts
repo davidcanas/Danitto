@@ -12,9 +12,7 @@ process.on("unhandledRejection", (error) => {
 });
 database
   .connect(process.env.MONGODB as string)
-  .then(() =>
-    console.log(`A database foi iniciada com sucesso`)
-  );
+  .then(() => console.log(`A database foi iniciada com sucesso`));
 const client = new DaniClient(process.env.DANITOKEN);
 
 client.loadEvents();
