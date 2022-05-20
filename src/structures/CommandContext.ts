@@ -94,7 +94,7 @@ export default class CommandContext {
       await (await this.author.getDMChannel()).createMessage(content)
       return
       }
-       console.log(this.channel)
+ 
       return this.channel.createMessage(content);
     } else {
       if (this.deferred) {

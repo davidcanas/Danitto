@@ -100,7 +100,7 @@ export default class InteractionCreate {
         max: 1,
       });
       collector.on("collect", () => {
-        console.log("a");
+       
         message.content = `${prefix}${diduMean} ${args.join(" ")}`.trim();
         this.client.emit("messageCreate", message);
         mensagem.delete();
@@ -116,6 +116,18 @@ export default class InteractionCreate {
       });
     }
     if (command) {
+      const tmp = [];
+      console.log(tmp)
+      if (tmp.includes(message.author.id)) {
+        setTimeout(() => {
+          tmp.splice(tmp.indexOf(message.author.id), 1);
+        }, 2500);
+    
+       
+        return message.channel.createMessage("Espera um pouco antes de usares um comando de novo!");
+
+      } else tmp.push(message.author.id);
+      console.log(tmp)
       let user = await this.client.db.users.findOne({
         userID: message.author.id,
       });
@@ -141,24 +153,21 @@ export default class InteractionCreate {
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);
-      if(message.channel.type === 0) {
-      const embed = new this.client.embed()
-        .setTitle("Comando executado")
-        .setDescription(
-          `Autor: ${message.author.username}#${message.author.discriminator} (${
-            message.author.id
-          })\nComando: ${cmd}\nServidor: ${
-            this.client.guilds.get(message.guildID).name
-          } (${message.guildID})\nCanal: ${
-            this.client.guilds
+      if (message.channel.type === 0) {
+        const embed = new this.client.embed()
+          .setTitle("Comando executado")
+          .setDescription(
+            `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id
+            })\nComando: ${cmd}\nServidor: ${this.client.guilds.get(message.guildID).name
+            } (${message.guildID})\nCanal: ${this.client.guilds
               .get(message.guildID)
               .channels.get(message.channel.id).name
-          } (${message.channel.id})`
-        )
-        .setFooter("Não foram usados slash commands ao executar o comando.")
-        .setColor("RANDOM");
-      this.client.createMessage("929319573973528647", { embeds: [embed] });
-        }
+            } (${message.channel.id})`
+          )
+          .setFooter("Não foram usados slash commands ao executar o comando.")
+          .setColor("RANDOM");
+        this.client.createMessage("929319573973528647", { embeds: [embed] });
+      }
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
       });
