@@ -10,6 +10,7 @@ export default class InteractionCreate {
   }
 
   async run(message: Message) {
+    const tmp = [];
     for (const collector of this.client.messageCollectors) {
       if (collector.channel.id === message.channel.id) {
         collector.collect(message);
@@ -116,7 +117,7 @@ export default class InteractionCreate {
       });
     }
     if (command) {
-      const tmp = [];
+
       console.log(tmp)
       if (tmp.includes(message.author.id)) {
         setTimeout(() => {
