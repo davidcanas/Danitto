@@ -67,7 +67,8 @@ export default class Lembrar extends Command {
       timems = +timeday * 60 * 60 * 24 * 1000;
     } else {
       ctx.sendMessage("O formato do tempo deve ser `[s/m/h/d]`");
-    }
+      return
+ }
     try {
       this.client.createReminder({
         timeMS: timems,
