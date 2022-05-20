@@ -16,25 +16,27 @@ export default class Shell extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (
-      ctx.author.id !== "733963304610824252" &&
-      ctx.author.id !== "852650555254767676" &&
-      ctx.author.id !== "334054158879686657"
-    ) {
+    if (!this.client.allowedUsers.includes[ctx.author.id]) {
       ctx.sendMessage("Apenas meu criador");
       return;
     }
     const code = ctx.args.join(" ");
-    if (code.includes("rm")) {
-      ctx.sendMessage("Não vou executar isso, eu não nasci ontem lol");
-      return;
-    }
-    exec(code, (error, stdout) => {
+
+    exec(code, async (error, stdout) => {
       try {
         const outputType = error || stdout;
         let output = outputType;
         if (!output.length) output = "O comando não retornou nada";
-        output = output.length > 1980 ? output.substr(0, 1977) + "..." : output;
+
+        if (output.length > 1980) {
+          const bin = await ctx.createBin(
+            require("sourcebin"),
+            output,
+            "shell"
+          );
+          output = bin.short;
+        }
+
         if (
           output.includes(process.env.DANITOKEN) ||
           output.includes(process.env.DANITOKEN2) ||

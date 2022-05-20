@@ -1,21 +1,19 @@
 import dotenv from "dotenv";
 import DaniClient from "./src/structures/Client";
 import database from "mongoose";
-import { green, yellow } from "chalk";
 dotenv.config();
 
-
-process.on("uncaughtException", (lolError) => {
-  console.error(lolError);
+process.on("uncaughtException", (error) => {
+  console.error(error);
 });
 
-process.on("unhandledRejection", (lolError) => {
-  console.error(lolError);
+process.on("unhandledRejection", (error) => {
+  console.error(error);
 });
 database
   .connect(process.env.MONGODB as string)
   .then(() =>
-    console.log(`A ${yellow("database")} foi iniciada com ${green("sucesso")}`)
+    console.log(`A database foi iniciada com sucesso`)
   );
 const client = new DaniClient(process.env.DANITOKEN);
 

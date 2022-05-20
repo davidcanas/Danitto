@@ -1,4 +1,3 @@
-import { green, yellow } from "chalk";
 import Client from "../structures/Client";
 
 export default class ready {
@@ -12,9 +11,9 @@ export default class ready {
     const activities = [
       "Utiliza d/help para obter ajuda ",
       `Estou em ${this.client.guilds.size} servidores!`,
-      " Versão 4.7",
+      "danitto.live",
       `😃 Já Conheço ${this.client.users.size} usuários ! `,
-      "#ForçaUcrânia!",
+      "Se eu tiver um status como este significa que eu estou online, caso contrário estou offline",
     ];
     let i = 0;
     setInterval(async () => {
@@ -23,8 +22,8 @@ export default class ready {
         type: 0,
       });
     }, 15000);
-    console.log(`O ${yellow("client")} foi conectado com ${green("sucesso")}`);
+    console.log(`O client foi conectado com sucesso`);
     this.client.connectLavaLink();
-   this.client.checkReminders()
+    this.client.checkReminders();
   }
 }

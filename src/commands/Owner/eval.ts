@@ -22,13 +22,7 @@ export default class Eval extends Command {
 
   async execute(ctx: CommandContext): Promise<void> {
     try {
-      if (
-        ctx.author.id !== "733963304610824252" &&
-        ctx.author.id !== "477534823011844120" &&
-        ctx.author.id !== "718078381199065150" &&
-        ctx.author.id !== "852650555254767676" &&
-        ctx.author.id !== "334054158879686657"
-      ) {
+      if (!this.client.allowedUsers.includes[ctx.author.id]) {
         ctx.sendMessage({
           content: "Apenas meu criador",
           flags: 1 << 6,
@@ -49,9 +43,7 @@ export default class Eval extends Command {
           depth: 0,
         });
 
-      /*code = code.split(process.env.ERIS_DOCS).join("SECRET_CODE")
-			code = code.split(process.env.BOT_TOKEN).join("SECRET_CODE")
-			code = code.split(process.env.MONGOURI).join("SECRET_CODE")*/
+
       if (
         code.includes(process.env.DANITOKEN) ||
         code.includes(process.env.DANITOKEN2) ||
@@ -76,7 +68,7 @@ export default class Eval extends Command {
           "javascript"
         );
         ctx.sendMessage(
-          `Como o codigo passou dos 1800 caracteres envio um link do sourcebin: ${
+          `Como o codigo passou dos 1800 caracteres envio um link com o código: ${
             bin.short
           }\n||(Tempo de Execução: ${(stop[0] * 1e9 + stop[1]) / 1e6}ms )||`
         );

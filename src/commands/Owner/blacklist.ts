@@ -2,11 +2,11 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 
-export default class Eval extends Command {
+export default class Blacklist extends Command {
   constructor(client: Client) {
     super(client, {
       name: "blacklist",
-      description: "a",
+      description: "Adiciona/Remove um usuário na blacklist do Danitto",
       category: "Owner",
       aliases: ["bladd", "blrem"],
       options: [
@@ -37,7 +37,7 @@ export default class Eval extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (ctx.author.id !== "733963304610824252") {
+    if (!this.client.allowedUsers.includes[ctx.author.id]) {
       ctx.sendMessage("Não tens permissão para executar este comando!");
       return;
     }

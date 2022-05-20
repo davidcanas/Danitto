@@ -38,6 +38,8 @@ export default class DaniClient extends Client {
   utils: Utils;
   fetch: typeof fetch;
   embed: typeof Embed;
+  owner: User;
+  allowedUsers: Array<String>;
   messageCollectors: Array<MessageCollector>;
   componentCollectors: Array<ComponentCollector>;
   reactionCollectors: Array<ReactionCollector>;
@@ -70,6 +72,12 @@ export default class DaniClient extends Client {
     this.messageCollectors = [];
     this.componentCollectors = [];
     this.reactionCollectors = [];
+    this.owner = this.users.get("733963304610824252");
+    this.allowedUsers = [
+      "733963304610824252",
+      "718078381199065150",
+      "746048815504687124",
+    ];
   }
 
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
@@ -156,7 +164,7 @@ export default class DaniClient extends Client {
     this.bulkEditCommands(
       this.commands as unknown as ApplicationCommandStructure[]
     );
-    console.log("Os comandos foram carregados.")
+    console.log("Os comandos foram carregados.");
   }
   loadEvents(): void {
     fs.readdirSync("./src/events").forEach((f) => {
@@ -169,7 +177,7 @@ export default class DaniClient extends Client {
         super.on(eventName, (...args) => DaniEvent.run(...args));
       }
     });
-    console.log("OS eventos foram carregados.")
+    console.log("OS eventos foram carregados.");
   }
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [
@@ -192,7 +200,7 @@ export default class DaniClient extends Client {
         secure: false,
       },
       {
-        id: "Danitto Emergency Node",
+        id: "Danitto Moscovo Node",
         hostname: process.env.LAVALINKURL2 as string,
         port: 80,
         password: process.env.LAVALINKPASSWORD as string,
@@ -248,7 +256,6 @@ export default class DaniClient extends Client {
       if (isNaN(parseInt(reminder.when))) {
         this.deleteReminder(reminder._id);
       }
-      
     }
 
     setTimeout(() => this.checkReminders(), 60000);

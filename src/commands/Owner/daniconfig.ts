@@ -7,7 +7,6 @@ import {
   ComponentInteraction,
   ComponentInteractionSelectMenuData,
   Message,
-  SelectMenuOptions,
 } from "eris";
 import { ComponentCollector } from "../../structures/Collector";
 export default class DaniConfig extends Command {
@@ -46,12 +45,19 @@ export default class DaniConfig extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (ctx.author.id !== "733963304610824252") return;
+    if (!this.client.allowedUsers.includes[ctx.author.id]) {
+      ctx.sendMessage({
+        content:
+          "Não tens acesso a este comando, apenas o meu programador o pode usar.",
+        flags: 1 << 6,
+      });
+      return;
+    }
     const args = ctx.args[0];
     if (!args) {
       ctx.sendMessage({
         content:
-          "Estás perdido? Eu dou te uma ajudinha : `cmdupdate, prefix, shutdown` espero ter te ajudado :)",
+          "Estás perdido? Eu dou te uma ajudinha : `cmdupdate, cmddisable, cmdenable, prefix, shutdown` espero ter te ajudado :)",
         flags: 1 << 6,
       });
 
@@ -71,7 +77,7 @@ export default class DaniConfig extends Command {
         });
       });
       ctx.sendMessage(
-        "Atualizei a lista de comandos no website do danitto podes ver la em https://danitto.live/comandos !"
+        "Atualizei a lista de comandos podes vê-la em https://danitto.live/comandos !"
       );
     }
     if (args === "cmddisable") {

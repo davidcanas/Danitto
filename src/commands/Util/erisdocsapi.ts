@@ -21,14 +21,21 @@ export default class erisdocsapi extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    const docs = await this.client
-      .fetch(
-        `${process.env.ERISDOCSAPI}/docs?search=${encodeURIComponent(
+    let docs = await this.client.fetch(
+      `${process.env.ERISDOCSAPI}/docs?search=${encodeURIComponent(
+        ctx.args.join(" ")
+      )}`
+    );
+    if (docs.status !== "200") {
+      docs = await this.client.fetch(
+        `${process.env.ERISDOCSAPI2}/docs?search=${encodeURIComponent(
           ctx.args.join(" ")
         )}`
-      )
-      .then((a) => a.json());
-    if (docs.error) {
+      );
+    }
+    let jsonDocs = await docs.json();
+
+    if (jsonDocs.error) {
       ctx.sendMessage({
         content: "Não encontrei nada na documentação do eris.",
         flags: 1 << 6,
@@ -37,7 +44,7 @@ export default class erisdocsapi extends Command {
     }
 
     ctx.sendMessage({
-      embeds: [docs],
+      embeds: [jsonDocs],
     });
   }
 }

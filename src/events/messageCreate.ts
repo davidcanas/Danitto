@@ -10,7 +10,6 @@ export default class InteractionCreate {
   }
 
   async run(message: Message) {
-    const tmp = [];
     for (const collector of this.client.messageCollectors) {
       if (collector.channel.id === message.channel.id) {
         collector.collect(message);
@@ -19,28 +18,13 @@ export default class InteractionCreate {
 
     if (message.author.bot) return;
 
-    let gRes = await this.client.db.guild.findOne({
-      guildID: message.guildID,
-    });
-
-    if (!gRes) {
-      await this.client.db.guild.create({
-        guildID: message.guildID,
-        Settings: {
-          prefix: "d/",
-        },
-      });
-      gRes = await this.client.db.guild.findOne({
-        guildID: message.guildID,
-      });
-    }
     let prefix;
     if (process.env.DEVELOPMENT === "true") {
       prefix = "dc.";
     } else {
       prefix = "d/";
     }
-    //a
+
     if (
       message.content.startsWith(`<@${this.client.user.id}>`) ||
       message.content.startsWith(`<@!${this.client.user.id}>`)
@@ -50,7 +34,7 @@ export default class InteractionCreate {
           "Olá " + message.author.username + "#" + message.author.discriminator
         )
         .setDescription(
-          `Neste servidor o meu prefixo é ${prefix} usa ${prefix}help para veres os meus comandos`
+          `O meu prefixo é ${prefix} usa ${prefix}help para veres os meus comandos`
         )
         .setColor("RANDOM")
         .setFooter("Danitto - 2022 ");
@@ -101,7 +85,6 @@ export default class InteractionCreate {
         max: 1,
       });
       collector.on("collect", () => {
-       
         message.content = `${prefix}${diduMean} ${args.join(" ")}`.trim();
         this.client.emit("messageCreate", message);
         mensagem.delete();
@@ -117,18 +100,6 @@ export default class InteractionCreate {
       });
     }
     if (command) {
-
-      console.log(tmp)
-      if (tmp.includes(message.author.id)) {
-        setTimeout(() => {
-          tmp.splice(tmp.indexOf(message.author.id), 1);
-        }, 5000);
-    
-       
-        return message.channel.createMessage("Espera um pouco antes de usares um comando de novo!");
-
-      } else tmp.push(message.author.id);
-      console.log(tmp)
       let user = await this.client.db.users.findOne({
         userID: message.author.id,
       });
@@ -148,26 +119,42 @@ export default class InteractionCreate {
         dbcmd.disabled
       ) {
         return message.channel.createMessage(
-          `O comando \`${command.name}\` foi desativado pelo meu dono....`
+          `O comando \`${command.name}\` foi desativado pelo meu programador....`
         );
       }
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);
-      if (message.channel.type === 0) {
+      if (
+        message.channel.type === 0 &&
+        message.author.id !== "733963304610824252"
+      ) {
         const embed = new this.client.embed()
           .setTitle("Comando executado")
           .setDescription(
-            `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id
-            })\nComando: ${cmd}\nServidor: ${this.client.guilds.get(message.guildID).name
-            } (${message.guildID})\nCanal: ${this.client.guilds
-              .get(message.guildID)
-              .channels.get(message.channel.id).name
+            `Autor: ${message.author.username}#${
+              message.author.discriminator
+            } (${message.author.id})\nComando: ${cmd}\nServidor: ${
+              this.client.guilds.get(message.guildID).name
+            } (${message.guildID})\nCanal: ${
+              this.client.guilds
+                .get(message.guildID)
+                .channels.get(message.channel.id).name
             } (${message.channel.id})`
           )
           .setFooter("Não foram usados slash commands ao executar o comando.")
           .setColor("RANDOM");
         this.client.createMessage("929319573973528647", { embeds: [embed] });
+      } else if (
+        message.channel.type !== 0 &&
+        message.author.id !== "733963304610824252"
+      ) {
+        const embed = new this.client.embed()
+          .setTitle("Comando executado")
+          .setDescription(
+            `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}`
+          )
+          .setFooter("Comando executado no privado");
       }
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
