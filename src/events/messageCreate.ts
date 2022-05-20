@@ -121,7 +121,7 @@ export default class InteractionCreate {
       if (tmp.includes(message.author.id)) {
         setTimeout(() => {
           tmp.splice(tmp.indexOf(message.author.id), 1);
-        }, 2500);
+        }, 5000);
     
        
         return message.channel.createMessage("Espera um pouco antes de usares um comando de novo!");
