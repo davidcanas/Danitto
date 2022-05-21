@@ -24,6 +24,7 @@ import {
 } from "./Collector";
 import fetch from "node-fetch";
 import reminderDB from "../models/reminderDB";
+import path from "path";
 
 export default class DaniClient extends Client {
   commands: Array<Command>;
@@ -154,31 +155,36 @@ export default class DaniClient extends Client {
   connect(): Promise<void> {
     return super.connect();
   }
+
   loadCommands(): void {
-    fs.readdirSync("./src/commands").forEach((folder) => {
-      fs.readdirSync(`./src/commands/${folder}`).forEach((file) => {
-        const DaniCommand = require(`../commands/${folder}/${file}`).default;
-        this.commands.push(new DaniCommand(this));
-      });
-    });
-
-    this.bulkEditCommands(
-      this.commands as unknown as ApplicationCommandStructure[]
-    );
-    console.log("Os comandos foram carregados.");
-  }
-  loadEvents(): void {
-    fs.readdirSync("./src/events").forEach((f) => {
-      const DaniEvent = new (require(`../events/${f}`).default)(this);
-      const eventName = f.split(".")[0];
-
-      if (eventName === "ready") {
-        super.once("ready", (...args) => DaniEvent.run(...args));
+    for (const dir of fs.readdirSync(path.resolve(__dirname, '..', 'commands'))) {
+      if (dir.endsWith('.ts') || dir.endsWith('.js')) {
+        const DaniCmd = require(`../commands/${dir}`).default;
+        this.commands.push(new DaniCmd(this));
       } else {
-        super.on(eventName, (...args) => DaniEvent.run(...args));
+        for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'commands', dir))) {
+          if (file.endsWith('.ts') || file.endsWith('.js')) {
+            const DaniCommand = require(`../commands/${dir}/${file}`).default;
+            this.commands.push(new DaniCommand(this));
+          }
+        }
       }
-    });
-    console.log("OS eventos foram carregados.");
+    }
+  }
+
+  loadEvents(): void {
+    for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'events'))) {
+      if (file.endsWith('.ts') || file.endsWith('.js')) {
+        const event = new (require(`../events/${file}`).default)(this);
+        const eventName = file.split('.')[0];
+
+        if (eventName === 'ready') {
+          super.once('ready', (...args) => event.run(...args));
+        } else {
+          super.on(eventName, (...args) => event.run(...args));
+        }
+      }
+    }
   }
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [

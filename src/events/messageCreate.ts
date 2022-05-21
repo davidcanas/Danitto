@@ -10,14 +10,15 @@ export default class InteractionCreate {
   }
 
   async run(message: Message) {
+    if (message.author.bot) return;
+
     for (const collector of this.client.messageCollectors) {
       if (collector.channel.id === message.channel.id) {
         collector.collect(message);
       }
     }
 
-    if (message.author.bot) return;
-
+    
     let prefix;
     if (process.env.DEVELOPMENT === "true") {
       prefix = "dc.";
@@ -101,7 +102,7 @@ export default class InteractionCreate {
     }
     if (command) {
       let user = await this.client.db.users.findOne({
-        userID: message.author.id,
+        _id: message.author.id,
       });
       if (user && user.blacklist) {
         let embed = new this.client.embed()
