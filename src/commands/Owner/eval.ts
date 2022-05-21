@@ -6,7 +6,7 @@ export default class Eval extends Command {
   constructor(client: Client) {
     super(client, {
       name: "eval",
-      description: "a",
+      description: "Executa um código.",
       category: "Owner",
       aliases: ["execute"],
       options: [
