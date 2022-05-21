@@ -6,7 +6,7 @@ export default class AboutMe extends Command {
   constructor(client: Client) {
     super(client, {
       name: "sobremim",
-      description: "Vê o perfil de um usuario!",
+      description: "Altera o seu sobremim",
       category: "Fun",
       aliases: ["aboutme"],
       options: [

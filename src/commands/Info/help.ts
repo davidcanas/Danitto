@@ -85,6 +85,7 @@ export default class Help extends Command {
       const helpCommand = new this.client.embed()
         .setTitle("Ajuda")
         .addField("Nome:", command.name)
+        .addField("Descrição:", command.description)
         .addField("Categoria:", command.category)
         .addField("Aliases:", command.aliases.join(",") || "Sem aliases")
         .setColor("RANDOM");
