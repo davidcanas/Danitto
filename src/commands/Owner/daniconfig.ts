@@ -119,7 +119,7 @@ export default class DaniConfig extends Command {
 
       const collector = new ComponentCollector(this.client, msg, filter, {
         max: 1,
-        time: 5 * 1000,
+        time: 3 * 60 * 1000,
       });
 
       collector.on("collect", async (i) => {
@@ -174,7 +174,7 @@ export default class DaniConfig extends Command {
 
       const collector = new ComponentCollector(this.client, msg, filter, {
         max: 1,
-        time: 5 * 1000,
+        time: 3 * 60 * 1000,
       });
 
       collector.on("collect", async (i) => {
