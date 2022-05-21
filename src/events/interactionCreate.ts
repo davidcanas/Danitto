@@ -65,6 +65,7 @@ export default class InteractionCreate {
             break;
           }
         }
+/*
 if (interaction.data.custom_id === "delmsgeval") {
           if (interaction.member?.id !== "733963304610824252") return;
           interaction.channel.messages.get(interaction.message.id).edit({
@@ -81,6 +82,7 @@ if (interaction.data.custom_id === "delmsgeval") {
             components: [],
           });
         }
+*/
       }
       return;
     }
