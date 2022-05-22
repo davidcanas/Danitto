@@ -67,7 +67,7 @@ if (fetch.headers.get("content-type") !== "image/png") {
         } else {
           ctx.sendMessage({ content: "", embed });
         }
-      }, 5000);
+      }, 10000);
     } else {
       ctx.sendMessage("Apenas podes usar este comando em um canal NSFW");
     }
