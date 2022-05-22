@@ -6,7 +6,7 @@
 Um bot multifuncional em desenvolvimento!
 
 Contribuindo:
-Você pode contribuir fazendo pull requests para ajudar no código, melhorar algo, enfim....
+Podes contribuir fazendo pull requests para ajudar no código, melhorar algo, enfim....
 
 Suporte:
 [Servidor do Discord](https://discord.gg/aj3sSAyMsh)
