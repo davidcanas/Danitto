@@ -47,7 +47,7 @@ export default class CommandContext {
           this.args.push(interaction.data.options[0].name.toString().trim());
 
           for (const val of interaction.data.options[0]
-            .options as InteractionDataOptionWithValue[]) {
+            .options as InteractionDataOptionsWithValue[]) {
             this.args.push(val.value.toString().trim());
           }
         } else {
