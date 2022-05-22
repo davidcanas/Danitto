@@ -18,4 +18,4 @@ jobs:
           KEY: ${{ secrets.KEY }}
         with:
           source: "."
-          target: "/home/ubuntu/danittobot"
+          target: "/home/david/danittobot"
