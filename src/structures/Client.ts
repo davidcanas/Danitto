@@ -7,6 +7,7 @@ import {
   ClientOptions,
   Guild,
   User,
+  Constants
 } from "eris";
 import { Command, Utils } from "../typings/index";
 import botDB from "../models/botDB";
@@ -49,7 +50,7 @@ export default class DaniClient extends Client {
       allowedMentions: {
         everyone: false,
       },
-      intents: 32767,
+      intents: Constants.Intents.all,
       getAllUsers: true,
       restMode: true,
       defaultImageFormat: "png",
