@@ -59,7 +59,7 @@ if (fetch.headers.get("content-type") !== "image/png") {
       }
         const embed = new this.client.embed()
           .setTitle("Website Renderizado")
-          .setImage(`https://image.thum.io/get/width/1200/crop/1600/${args}`)
+          .setImage(`https://image.thum.io/get/maxAge/12/width/1200/${args}`)
           .setColor("RANDOM");
 
         if (ctx.type !== Type.INTERACTION) {
