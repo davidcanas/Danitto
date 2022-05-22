@@ -26,7 +26,7 @@ export default class erisdocsapi extends Command {
         ctx.args.join(" ")
       )}`
     );
-    if (docs.status !== "200") {
+    if (docs.status !== 200) {
       docs = await this.client.fetch(
         `${process.env.ERISDOCSAPI2}/docs?search=${encodeURIComponent(
           ctx.args.join(" ")
