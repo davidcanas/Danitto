@@ -1,7 +1,7 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-import { isThisTypeNode } from "typescript";
+
 
 export default class Lembrar extends Command {
   constructor(client: Client) {
