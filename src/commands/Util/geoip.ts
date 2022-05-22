@@ -43,7 +43,7 @@ export default class geoip extends Command {
     }
     embed.setTitle(`Informações do IP`);
     embed.setDescription(`
-        **IP:** ${dados.query}\n**Cidade:** ${dados.city}\n**Distrito:** ${dados.regionName}\n**País:** ${dados.country}\n**Latitude:** ${dados.lat}\n**Longitude:** ${dados.lon}\n**Empresa:** ${dados.org}
+        **IP:** ${dados.query}\n**Cidade:** ${dados.city}\n**Distrito:** ${dados.regionName}\n**Código Postal**: ${dados.zip}\n**País:** ${dados.country} (${dados.countryCode})\n**Latitude:** ${dados.lat}\n**Longitude:** ${dados.lon}\n**Empresa:** ${dados.isp}
         `);
     embed.setColor(0x00ff00);
     ctx.sendMessage({ content: "", embeds: [embed] });
