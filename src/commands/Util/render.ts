@@ -46,17 +46,15 @@ export default class Render extends Command {
         `https://image.thum.io/get/maxAge/12/width/1200/${args}`
       );
 
-      
-
       setTimeout(async () => {
-if (fetch.headers.get("content-type") !== "image/png") {
-        if (ctx.type !== Type.INTERACTION) {
-          msg.edit("Não consegui renderizar esse website");
-        } else {
-          ctx.sendMessage("Não consegui renderizar esse website");
+        if (fetch.headers.get("content-type") !== "image/png") {
+          if (ctx.type !== Type.INTERACTION) {
+            msg.edit("Não consegui renderizar esse website");
+          } else {
+            ctx.sendMessage("Não consegui renderizar esse website");
+          }
+          return;
         }
-        return;
-      }
         const embed = new this.client.embed()
           .setTitle("Website Renderizado")
           .setImage(`https://image.thum.io/get/maxAge/12/width/1200/${args}`)

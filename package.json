@@ -6,14 +6,14 @@
   "author": "davidcanas",
   "scripts": {
     "build": "tsc",
-    "start": "node --expose-gc ."
+    "start": "node --expose-gc .",
+    "prettier": "prettier . --write"
   },
   "engines": {
     "node": "^16.3.0"
   },
   "license": "MIT",
   "dependencies": {
-
     "dotenv": "^16.0.1",
     "eris": "DonovanDMC/eris#everything-v10",
     "mongoose": "^6.3.4",

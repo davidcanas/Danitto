@@ -1,13 +1,10 @@
 /* ALGUMAS COISAS FORAM INSIPARADAS NO CÓDIGO DE davidffa/D4rkBot */
 import fs from "fs";
 import {
-  ApplicationCommandOption,
-  ApplicationCommandStructure,
   Client,
   ClientOptions,
   Guild,
-  User,
-  Constants
+  User
 } from "eris";
 import { Command, Utils } from "../typings/index";
 import botDB from "../models/botDB";
@@ -49,12 +46,23 @@ export default class DaniClient extends Client {
     const clientOptions: ClientOptions = {
       allowedMentions: {
         everyone: false,
+        repliedUser: true,
+        users: true
       },
-      intents: Constants.Intents.all,
+      messageLimit: 50,
+      disableEvents: {
+        "GUILD_ROLE_CREATE": false,
+        "GUILD_ROLE_DELETE": false,
+        "GUILD_ROLE_UPDATE": false,
+        "GUILD_BAN_ADD": false,
+        "GUILD_BAN_REMOVE": false,
+        "TYPING_START": false
+      },
+      intents: 98303,
       getAllUsers: true,
       restMode: true,
       defaultImageFormat: "png",
-      defaultImageSize: 2048,
+      defaultImageSize: 4096,
     };
 
     super(token, clientOptions);
@@ -158,13 +166,17 @@ export default class DaniClient extends Client {
   }
 
   loadCommands(): void {
-    for (const dir of fs.readdirSync(path.resolve(__dirname, '..', 'commands'))) {
-      if (dir.endsWith('.ts') || dir.endsWith('.js')) {
+    for (const dir of fs.readdirSync(
+      path.resolve(__dirname, "..", "commands")
+    )) {
+      if (dir.endsWith(".ts") || dir.endsWith(".js")) {
         const DaniCmd = require(`../commands/${dir}`).default;
         this.commands.push(new DaniCmd(this));
       } else {
-        for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'commands', dir))) {
-          if (file.endsWith('.ts') || file.endsWith('.js')) {
+        for (const file of fs.readdirSync(
+          path.resolve(__dirname, "..", "commands", dir)
+        )) {
+          if (file.endsWith(".ts") || file.endsWith(".js")) {
             const DaniCommand = require(`../commands/${dir}/${file}`).default;
             this.commands.push(new DaniCommand(this));
           }
@@ -174,13 +186,15 @@ export default class DaniClient extends Client {
   }
 
   loadEvents(): void {
-    for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'events'))) {
-      if (file.endsWith('.ts') || file.endsWith('.js')) {
+    for (const file of fs.readdirSync(
+      path.resolve(__dirname, "..", "events")
+    )) {
+      if (file.endsWith(".ts") || file.endsWith(".js")) {
         const event = new (require(`../events/${file}`).default)(this);
-        const eventName = file.split('.')[0];
+        const eventName = file.split(".")[0];
 
-        if (eventName === 'ready') {
-          super.once('ready', (...args) => event.run(...args));
+        if (eventName === "ready") {
+          super.once("ready", (...args) => event.run(...args));
         } else {
           super.on(eventName, (...args) => event.run(...args));
         }

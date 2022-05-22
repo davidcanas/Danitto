@@ -18,7 +18,6 @@ export default class InteractionCreate {
       }
     }
 
-    
     let prefix;
     if (process.env.DEVELOPMENT === "true") {
       prefix = "dc.";

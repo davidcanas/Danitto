@@ -118,7 +118,7 @@ export default class DaniConfig extends Command {
         i.member!.id === ctx.author.id;
 
       const collector = new ComponentCollector(this.client, msg, filter, {
-        max: 1
+        max: 1,
       });
 
       collector.on("collect", async (i) => {
@@ -172,7 +172,7 @@ export default class DaniConfig extends Command {
         i.member!.id === ctx.author.id;
 
       const collector = new ComponentCollector(this.client, msg, filter, {
-        max: 1
+        max: 1,
       });
 
       collector.on("collect", async (i) => {
