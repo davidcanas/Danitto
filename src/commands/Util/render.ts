@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Type } from "../../structures/CommandContext";
-import { textChangeRangeIsUnchanged } from "typescript";
+
 export default class Render extends Command {
   constructor(client: Client) {
     super(client, {
