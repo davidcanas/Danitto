@@ -52,7 +52,7 @@ export default class CommandContext {
           }
         } else {
           const options = interaction.data
-            .options as InteractionDataOptionWithValue[];
+            .options as InteractionDataOptionsWithValue[];
 
           this.args = options?.map((ops) => ops.value.toString().trim()) ?? [];
         }
