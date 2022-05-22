@@ -3,6 +3,7 @@ import fs from "fs";
 import {
   Client,
   ClientOptions,
+  Constants,
   Guild,
   User
 } from "eris";
@@ -58,7 +59,7 @@ export default class DaniClient extends Client {
         "GUILD_BAN_REMOVE": false,
         "TYPING_START": false
       },
-      intents: 98303,
+      intents: Constants.Intents.all,
       getAllUsers: true,
       restMode: true,
       defaultImageFormat: "png",
