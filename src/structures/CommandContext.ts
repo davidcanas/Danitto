@@ -4,7 +4,7 @@ import {
   Attachment,
   CommandInteraction,
   Guild,
-  InteractionDataOptionWithValue,
+  InteractionDataOptionsWithValue,
   Member,
   Message,
   MessageContent,
