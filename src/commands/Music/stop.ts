@@ -26,7 +26,7 @@ export default class Stop extends Command {
       (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)
     ) {
       ctx.sendMessage({
-        content: "Precisas tar no msm canal de voz que eu!",
+        content: "Precisas de estar no canal de voz onde eu estou!",
         flags: 1 << 6,
       });
       return;
