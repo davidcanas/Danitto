@@ -44,7 +44,7 @@ export default class Stop extends Command {
           ")_"
       );
     });
-    if (!test.lenght) {
+    if (!test.length) {
       ctx.sendMessage("Não há mais nada na fila");
     }
     console.log(test.length);
