@@ -44,11 +44,11 @@ export default class Stop extends Command {
           ")_"
       );
     });
-    if (test === []) {
+    if (!test.lenght) {
       ctx.sendMessage("Não há mais nada na fila");
     }
     console.log(test.length);
-    if (test.length > 50) test.slice(0, 50);
+    if (test.length > 50) test = test.slice(0, 50);
 
     const quebed = new this.client.embed()
       .setTitle(":star: Lista de musicas")
