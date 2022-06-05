@@ -13,4 +13,6 @@ jobs:
         username: david
         key: ${{ secrets.KEY }}
         port: 22
-        script: tmux kill-session -t dani && tmux new-session -d -s "dani" /home/david/script.sh
+        script: |
+           tmux send -t dani "CTRL+C"
+           tmux send -t dani sudo bash /opt/atualizarDanitto.sh ENTER
