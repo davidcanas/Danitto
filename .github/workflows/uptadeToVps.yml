@@ -15,4 +15,4 @@ jobs:
         port: 22
         script: |
            tmux send-keys -t dani C-c
-           "tmux send -t dani sudo bash /opt/atualizarDanitto.sh" ENTER
+           tmux send -t dani "sudo bash /home/david/atualizarDanitto.sh" ENTER
