@@ -1,0 +1,16 @@
+name: atualizar danitto
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: david
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: tmux kill-session -t dani && tmux new-session -d -s "dani" /home/david/script.sh
