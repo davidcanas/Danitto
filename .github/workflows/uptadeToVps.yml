@@ -14,5 +14,5 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
-           tmux send -t dani "CTRL+C"
-           tmux send -t dani sudo bash /opt/atualizarDanitto.sh ENTER
+           "tmux send -t dani CTRL+C"
+           "tmux send -t dani sudo bash /opt/atualizarDanitto.sh ENTER"
