@@ -27,29 +27,22 @@ export default class Encurtar extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    let body;
+   let url;
 
      if(ctx.args[1]) {
-         body = {
-             "url": ctx.args[0],
-             "code": ctx.args[1]
-         }
+       url = `https://dink.ga/api/criarURL?url=${ctx.args[0]}&code=${ctx.args[1]}`
      } else {
-        body = {
-            "url": ctx.args[0]
-        }
+        url = `https://dink.ga/api/criarURL?url=${ctx.args[0]}`
      }
-     const request = await this.client.fetch("https://dink.ga/api/criarURL", {
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": body
-      })
+     const request = await this.client.fetch(url)
+ 
     const result = await request.json()
+    console.log(result)
+
     if(result.erro) {
         ctx.sendMessage(`Ocorreu um erro a encurtar o URL\n\`${result.erro}\``)
     } else {
         ctx.sendMessage(`Pronto, encurtei o URL pedido, agora podes simplesmente aceder a https://dink.ga/${result.code}.`)
     }
+   
   }}
