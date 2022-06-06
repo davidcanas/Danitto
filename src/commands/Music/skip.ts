@@ -2,7 +2,6 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Player, ConnectionState } from "vulkava";
-import { VoiceChannel } from "eris";
 
 export default class Skip extends Command {
   constructor(client: Client) {
@@ -11,7 +10,7 @@ export default class Skip extends Command {
       description: "Pula uma Musica",
       category: "Music",
       aliases: ["pular", "s", "skippar"],
-      options: [], //lol
+      options: [], 
     });
   }
 
@@ -26,7 +25,7 @@ export default class Skip extends Command {
       (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)
     ) {
       ctx.sendMessage({
-        content: "tu n estás na msm casa q eu!",
+        content: "Precisas de estar no mesmo canal de voz que eu",
         flags: 1 << 6,
       });
       return;

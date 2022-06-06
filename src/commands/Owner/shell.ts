@@ -25,7 +25,7 @@ export default class Shell extends Command {
       return;
     }
     const code = ctx.args.join(" ");
-
+      if(code.includes("python3")) ctx.sendMessage("wolverine malandro executando codigo sus? vou deixar passar")
     exec(code, async (error, stdout) => {
       try {
         const outputType = error || stdout;
