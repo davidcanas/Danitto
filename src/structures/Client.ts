@@ -5,7 +5,8 @@ import {
   ClientOptions,
   Constants,
   Guild,
-  User
+  User, 
+  ApplicationCommandStructure
 } from "eris";
 import { Command, Utils } from "../typings/index";
 import botDB from "../models/botDB";
@@ -184,6 +185,10 @@ export default class DaniClient extends Client {
         }
       }
     }
+this.bulkEditCommands(
+      this.commands as unknown as ApplicationCommandStructure[]
+    );
+    console.log("Os comandos foram carregados.");
   }
 
   loadEvents(): void {
