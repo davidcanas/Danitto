@@ -14,13 +14,13 @@ export default class ThisPersonDoesNotExist extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-  
-        const embed = new this.client.embed()
-        .setTitle("🧑🏻 Esta pessoa não existe")
-        .setImage("https://thispersondoesnotexist.com/image")
-        .setColor("RANDOM")
-        ctx.sendMessage({embed})
-  
+
+    const embed = new this.client.embed()
+      .setTitle("🧑🏻 Esta pessoa não existe")
+      .setImage("https://thispersondoesnotexist.com/image")
+      .setColor("RANDOM")
+    ctx.sendMessage({ embed })
+    return;
 
 
   }
