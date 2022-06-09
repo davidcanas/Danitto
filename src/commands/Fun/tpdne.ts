@@ -14,10 +14,10 @@ export default class ThisPersonDoesNotExist extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-
+   const numeroID = Math.floor(Math.random() * 1000);
     const embed = new this.client.embed()
       .setTitle("🧑🏻 Esta pessoa não existe")
-      .setImage("https://thispersondoesnotexist.com/image")
+      .setImage(`https://thispersondoesnotexist.com/image?id=${numeroID}`)
       .setColor("RANDOM")
     ctx.sendMessage({ embed })
     return;
