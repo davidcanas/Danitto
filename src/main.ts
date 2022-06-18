@@ -18,6 +18,6 @@ const client = new DaniClient(process.env.DANITOKEN);
 client.loadEvents();
 setTimeout(() => {
   client.loadCommands();
-}, 1000);
+}, 2000);
 client.connect();
 export default client;

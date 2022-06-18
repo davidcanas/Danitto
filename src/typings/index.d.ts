@@ -74,3 +74,10 @@ interface IEditInteractionData {
   embeds?: EmbedOptions[];
   file?: MessageFile;
 }
+
+declare module 'vulkava' {
+  export interface Player {
+    isRadio?: Boolean
+
+  }
+}

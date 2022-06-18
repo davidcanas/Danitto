@@ -6,7 +6,7 @@ export default class ThisPersonDoesNotExist extends Command {
   constructor(client: Client) {
     super(client, {
       name: "tpdne",
-      description: "This Personm Doesn't exists - Uma IA que gera uma pessoa que realmente não existe!",
+      description: "This Person Doesn't exists,Uma IA que gera uma pessoa que realmente não existe!",
       category: "Fun",
       aliases: ["thispersondoesnotexist", "estapessoanaoexiste", "epne"],
       options: [],
