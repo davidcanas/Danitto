@@ -74,8 +74,6 @@ export default class PlayRadio extends Command {
               player.play();
       
 
-                if (!player.playing) player.play();
-
             
         } catch (err: any) {
             ctx.sendMessage(`Erro: \`${err.message}\``);
