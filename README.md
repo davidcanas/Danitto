@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/NjYYO30.png" height=120 width=120/><h1>Danitto (com problemas ao ligar) </h1>
+  <img src="https://i.imgur.com/NjYYO30.png" height=120 width=120/><h1>Danitto</h1>
 
 [![wakatime](https://wakatime.com/badge/github/davidcanas/DanittoTS.svg)](https://wakatime.com/badge/github/davidcanas/DanittoTS)
 
