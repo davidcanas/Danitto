@@ -168,29 +168,25 @@ export default class DaniClient extends Client {
   }
 
   loadCommands(): void {
-    for (const dir of fs.readdirSync(
-      path.resolve(__dirname, "..", "commands")
-    )) {
-      if (dir.endsWith(".ts") || dir.endsWith(".js")) {
-        const DaniCmd = require(`../commands/${dir}`).default;
-        this.commands.push(new DaniCmd(this));
+    for (const dir of fs.readdirSync(path.resolve(__dirname, '..', 'commands'))) {
+      if (dir.endsWith('.ts') || dir.endsWith('.js')) {
+        const cmd = require(`../commands/${dir}`).default;
+        this.commands.push(new cmd(this));
       } else {
-        for (const file of fs.readdirSync(
-          path.resolve(__dirname, "..", "commands", dir)
-        )) {
-          if (file.endsWith(".ts") || file.endsWith(".js")) {
-            const DaniCommand = require(`../commands/${dir}/${file}`).default;
-            this.commands.push(new DaniCommand(this));
+        for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'commands', dir))) {
+          if (file.endsWith('.ts') || file.endsWith('.js')) {
+            const command = require(`../commands/${dir}/${file}`).default;
+            this.commands.push(new command(this));
           }
         }
       }
     }
+  
 this.bulkEditCommands(
       this.commands as unknown as ApplicationCommandStructure[]
     );
     console.log("Os comandos foram carregados.");
-  }
-
+ } 
   loadEvents(): void {
     for (const file of fs.readdirSync(
       path.resolve(__dirname, "..", "events")
