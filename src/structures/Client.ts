@@ -181,11 +181,12 @@ export default class DaniClient extends Client {
         }
       }
     }
-  
+ /* 
 this.bulkEditCommands(
       this.commands as unknown as ApplicationCommandStructure[]
     );
     console.log("Os comandos foram carregados.");
+*/
  } 
   loadEvents(): void {
     for (const file of fs.readdirSync(
