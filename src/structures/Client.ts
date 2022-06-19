@@ -181,12 +181,9 @@ export default class DaniClient extends Client {
         }
       }
     }
- /* 
-this.bulkEditCommands(
-      this.commands as unknown as ApplicationCommandStructure[]
-    );
+
     console.log("Os comandos foram carregados.");
-*/
+
  } 
   loadEvents(): void {
     for (const file of fs.readdirSync(
@@ -203,6 +200,15 @@ this.bulkEditCommands(
         }
       }
     }
+  }
+  updateSlash(): void {
+    let cmds = Array()
+    let map = Array.from(this.commands)
+    for (let command of Object(map)) {
+      cmds.push({name: command.name, description: command.description, options: command.options, type: command.type})
+    }
+   this.bulkEditCommands(cmds)
+   console.log("Os slashs foram atualizados")
   }
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [

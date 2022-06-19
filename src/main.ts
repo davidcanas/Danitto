@@ -15,9 +15,9 @@ database
   .then(() => console.log(`A database foi iniciada com sucesso`));
 const client = new DaniClient(process.env.DANITOKEN);
 
-client.loadEvents();
 
-  client.loadCommands();
-console.log("Se isto não aparecer algo está errado no loadCommands()") 
+client.loadCommands();
+client.loadEvents();
 client.connect();
+
 export default client;
