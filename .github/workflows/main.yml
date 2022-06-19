@@ -36,6 +36,7 @@ jobs:
           echo "Buildando o bot"
           docker build -t danitto .
           echo "Desligando o processo anterior"
+          docker stop danitto
           docker rm danitto
           echo "Ligando o Danitto"
           docker run -d --name danitto danitto
