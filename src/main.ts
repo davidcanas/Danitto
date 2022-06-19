@@ -16,9 +16,8 @@ database
 const client = new DaniClient(process.env.DANITOKEN);
 
 client.loadEvents();
-setTimeout(() => {
+
   client.loadCommands();
-console.log("Supostamente os comandos seriam carregados") 
-}, 2000);
+console.log("Se isto não aparecer algo está errado no loadCommands()") 
 client.connect();
 export default client;
