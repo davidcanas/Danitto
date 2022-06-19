@@ -9,11 +9,11 @@ export default class ready {
 
   async run() {
     const activities = [
-      "Utiliza d/help para obter ajuda ",
-      `Estou em ${this.client.guilds.size} servidores!`,
-      "danitto.live",
+      "Usa d/help para teres ajuda ",
+      `Já estou em ${this.client.guilds.size} servidores!`,
+      "Meu site: danitto.live",
       `😃 Já Conheço ${this.client.users.size} usuários ! `,
-      "Se eu tiver um status como este significa que eu estou online, caso contrário estou offline",
+      "ℹ️ Se eu tiver um status como este significa que eu estou online, caso contrário estou offline",
     ];
     let i = 0;
     setInterval(async () => {
