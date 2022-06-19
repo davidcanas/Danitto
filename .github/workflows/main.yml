@@ -31,4 +31,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
-           tmux send -t dani "sudo bash /home/david/atualizarDanitto.sh" ENTER
+          cd danittobot
+          docker build -t danitto .
+          docker restart -t 10 danitto
+     
