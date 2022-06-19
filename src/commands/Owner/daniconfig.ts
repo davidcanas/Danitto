@@ -5,7 +5,7 @@ import {
   ActionRow,
   ActionRowComponents,
   ComponentInteraction,
-  InteractionComponentSelectMenuData,
+  ComponentInteractionSelectMenuData,
   Message,
 } from "eris";
 import { ComponentCollector } from "../../structures/Collector";
@@ -122,7 +122,7 @@ export default class DaniConfig extends Command {
       });
 
       collector.on("collect", async (i) => {
-        const data = i.data as InteractionComponentSelectMenuData;
+        const data = i.data as ComponentInteractionSelectMenuData;
         const value = data.values[0];
         msg.edit({
           content: `Desativei o commando ${value} com sucesso`,
@@ -176,7 +176,7 @@ export default class DaniConfig extends Command {
       });
 
       collector.on("collect", async (i) => {
-        const data = i.data as InteractionComponentSelectMenuData;
+        const data = i.data as ComponentInteractionSelectMenuData;
         const value = data.values[0];
         msg.edit({
           content: `Reativei o commando ${value} com sucesso`,
