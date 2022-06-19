@@ -17,7 +17,7 @@ const client = new DaniClient(process.env.DANITOKEN);
 
 client.loadEvents();
 setTimeout(() => {
-  //client.loadCommands();
+  client.loadCommands();
 console.log("Supostamente os comandos seriam carregados") 
 }, 2000);
 client.connect();
