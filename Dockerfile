@@ -6,7 +6,7 @@ WORKDIR /usr/danitto
 COPY package.json /usr/danitto
 COPY tsconfig.json /usr/danitto
 COPY . /usr/danitto
-RUN npm install -g typescript
+RUN npm install --location=global typescript
 RUN yarn 
 RUN tsc
 
