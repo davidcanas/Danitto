@@ -31,7 +31,13 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
+          echo "Entrando no dirétorio"
           cd danittobot
+          echo "Buildando o bot"
           docker build -t danitto .
-          docker restart -t 10 danitto
+          echo "Desligando o processo anterior"
+          docker stop danitto
+          echo "Ligando o Danitto"
+          docker run -d --name danitto danitto
+
      
