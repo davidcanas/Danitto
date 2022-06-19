@@ -35,10 +35,10 @@ jobs:
             cd danittobot
             echo "Buildando o bot"
             docker build -t danitto .
-            sleep 5
+            sleep 4
             echo "Desligando o processo anterior"
             docker stop danitto
             docker rm danitto
-            sleep 5
+            sleep 2
             echo "Ligando o Danitto"
             docker run -d --name danitto danitto
