@@ -41,4 +41,4 @@ jobs:
             docker rm danitto
             sleep 2
             echo "Ligando o Danitto"
-            docker run -d --name danitto danitto
+            docker run -d --name=danitto --memory=400m --memory-reservation=100m danitto
