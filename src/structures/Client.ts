@@ -213,32 +213,14 @@ export default class DaniClient extends Client {
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [
       {
-        id: "Danitto Frankfurt Node",
+        id: "Danitto Virginia Node",
         hostname: process.env.LAVALINKURL as string,
-        port: 80,
+        port: 2333,
         password: process.env.LAVALINKPASSWORD as string,
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
         secure: false,
-      },
-      {
-        id: "Danitto Washington Node",
-        hostname: process.env.LAVALINKURL1 as string,
-        port: 80,
-        password: process.env.LAVALINKPASSWORD as string,
-        maxRetryAttempts: 10,
-        retryAttemptsInterval: 3000,
-        secure: false,
-      },
-      {
-        id: "Danitto Moscovo Node",
-        hostname: process.env.LAVALINKURL2 as string,
-        port: 80,
-        password: process.env.LAVALINKPASSWORD as string,
-        maxRetryAttempts: 10,
-        retryAttemptsInterval: 3000,
-        secure: false,
-      },
+      }
     ];
 
     this.music = new Music(this, nodes);
