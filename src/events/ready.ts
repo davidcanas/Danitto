@@ -23,7 +23,7 @@ export default class ready {
       });
     }, 15000);
     console.log(`O client foi conectado com sucesso`);
-    this.client.updateSlash()
+    this.client.updateSlash();
     this.client.connectLavaLink();
     this.client.checkReminders();
   }

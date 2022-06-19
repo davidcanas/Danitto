@@ -5,8 +5,8 @@ import {
   ClientOptions,
   Constants,
   Guild,
-  User, 
-  ApplicationCommandStructure
+  User,
+  ApplicationCommandStructure,
 } from "eris";
 import { Command, Utils } from "../typings/index";
 import botDB from "../models/botDB";
@@ -49,16 +49,16 @@ export default class DaniClient extends Client {
       allowedMentions: {
         everyone: false,
         repliedUser: true,
-        users: true
+        users: true,
       },
       messageLimit: 50,
       disableEvents: {
-        "GUILD_ROLE_CREATE": false,
-        "GUILD_ROLE_DELETE": false,
-        "GUILD_ROLE_UPDATE": false,
-        "GUILD_BAN_ADD": false,
-        "GUILD_BAN_REMOVE": false,
-        "TYPING_START": false
+        GUILD_ROLE_CREATE: false,
+        GUILD_ROLE_DELETE: false,
+        GUILD_ROLE_UPDATE: false,
+        GUILD_BAN_ADD: false,
+        GUILD_BAN_REMOVE: false,
+        TYPING_START: false,
       },
       intents: Constants.Intents.all,
       getAllUsers: true,
@@ -168,13 +168,17 @@ export default class DaniClient extends Client {
   }
 
   loadCommands(): void {
-    for (const dir of fs.readdirSync(path.resolve(__dirname, '..', 'commands'))) {
-      if (dir.endsWith('.ts') || dir.endsWith('.js')) {
+    for (const dir of fs.readdirSync(
+      path.resolve(__dirname, "..", "commands")
+    )) {
+      if (dir.endsWith(".ts") || dir.endsWith(".js")) {
         const cmd = require(`../commands/${dir}`).default;
         this.commands.push(new cmd(this));
       } else {
-        for (const file of fs.readdirSync(path.resolve(__dirname, '..', 'commands', dir))) {
-          if (file.endsWith('.ts') || file.endsWith('.js')) {
+        for (const file of fs.readdirSync(
+          path.resolve(__dirname, "..", "commands", dir)
+        )) {
+          if (file.endsWith(".ts") || file.endsWith(".js")) {
             const command = require(`../commands/${dir}/${file}`).default;
             this.commands.push(new command(this));
           }
@@ -183,8 +187,7 @@ export default class DaniClient extends Client {
     }
 
     console.log("Os comandos foram carregados.");
-
- } 
+  }
   loadEvents(): void {
     for (const file of fs.readdirSync(
       path.resolve(__dirname, "..", "events")
@@ -202,13 +205,18 @@ export default class DaniClient extends Client {
     }
   }
   updateSlash(): void {
-    let cmds = Array()
-    let map = Array.from(this.commands)
+    let cmds = Array();
+    let map = Array.from(this.commands);
     for (let command of Object(map)) {
-      cmds.push({name: command.name, description: command.description, options: command.options, type: command.type})
+      cmds.push({
+        name: command.name,
+        description: command.description,
+        options: command.options,
+        type: command.type,
+      });
     }
-   this.bulkEditCommands(cmds)
-   console.log("Os slashs foram atualizados")
+    this.bulkEditCommands(cmds);
+    console.log("Os slashs foram atualizados");
   }
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [
@@ -220,7 +228,7 @@ export default class DaniClient extends Client {
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
         secure: false,
-      }
+      },
     ];
 
     this.music = new Music(this, nodes);

@@ -173,9 +173,8 @@ end-of-stream@^1.1.0:
     once "^1.4.0"
 
 eris@DonovanDMC/eris#everything-v10:
-  version "0.17.1-everything-v10.f79fd47"
-  uid "008c5b033d535e0443a306ead92daaec10d6edba"
-  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/008c5b033d535e0443a306ead92daaec10d6edba"
+  version "0.17.1-everything-v10.c1d8b32"
+  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/f9c558b59049b11853d6e5f52f5dca895e915a9b"
   dependencies:
     ws "^8.2.3"
   optionalDependencies:

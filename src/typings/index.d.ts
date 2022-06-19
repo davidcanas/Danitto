@@ -75,9 +75,8 @@ interface IEditInteractionData {
   file?: MessageFile;
 }
 
-declare module 'vulkava' {
+declare module "vulkava" {
   export interface Player {
-    isRadio?: Boolean
-
+    isRadio?: Boolean;
   }
 }

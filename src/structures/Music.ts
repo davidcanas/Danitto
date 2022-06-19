@@ -8,7 +8,6 @@ import { NodeOptions, Vulkava, Player, Node } from "vulkava";
 
 export default class Music extends Vulkava {
   client: Client;
- 
 
   constructor(client: Client, nodes: NodeOptions[]) {
     super({
@@ -20,7 +19,7 @@ export default class Music extends Vulkava {
     });
 
     this.client = client;
-    
+
     this.on("nodeConnect", async (node): Promise<void> => {
       console.log(`O node ${node.identifier} foi conectado!`);
 
@@ -55,20 +54,20 @@ export default class Music extends Vulkava {
       if (channel.type !== 0) return;
 
       const requester = player.current?.requester as User;
-       if (!player.isRadio) {
-      var embed = new this.client.embed()
-        .setTitle("Tocando")
-        .addField("Nome:", "`" + track.title + "`")
-        .addField("Autor da música:", "`" + track.author + "`")
-        .setURL(track.uri)
-        .setThumbnail(track.thumbnail!)
-        .setColor("RANDOM")
-        .setTimestamp();
-       } else {
+      if (!player.isRadio) {
+        var embed = new this.client.embed()
+          .setTitle("Tocando")
+          .addField("Nome:", "`" + track.title + "`")
+          .addField("Autor da música:", "`" + track.author + "`")
+          .setURL(track.uri)
+          .setThumbnail(track.thumbnail!)
+          .setColor("RANDOM")
+          .setTimestamp();
+      } else {
         embed = new this.client.embed()
-        .setDescription("A tocar a rádio:`" + track.author + "`")
-        .setColor("RANDOM")
-       }
+          .setDescription("A tocar a rádio:`" + track.author + "`")
+          .setColor("RANDOM");
+      }
       await channel.createMessage({ embeds: [embed] }).then((m) => m.id);
     });
 

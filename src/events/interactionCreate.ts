@@ -64,14 +64,14 @@ export default class InteractionCreate {
             break;
           }
         }
-     
-if (interaction.data.custom_id === "delmsgeval") {
+
+        if (interaction.data.custom_id === "delmsgeval") {
           if (interaction.member?.id !== "733963304610824252") return;
-          interaction.channel.messages.get(interaction.message.id).delete()
+          interaction.channel.messages.get(interaction.message.id).delete();
         }
         if (interaction.data.custom_id === "delmsgshell") {
           if (interaction.member?.id !== "733963304610824252") return;
-          interaction.channel.messages.get(interaction.message.id).delete()
+          interaction.channel.messages.get(interaction.message.id).delete();
         }
       }
       return;

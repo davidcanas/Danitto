@@ -37,7 +37,7 @@ export default class InteractionCreate {
           `O meu prefixo é ${prefix} usa ${prefix}help para veres os meus comandos`
         )
         .setColor("RANDOM")
-        .setTimestamp()
+        .setTimestamp();
 
       return message.channel.createMessage({
         embeds: [embed1],

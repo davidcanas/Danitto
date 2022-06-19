@@ -46,7 +46,7 @@ export default class geoip extends Command {
         **IP:** ${dados.query}\n**País:** ${dados.country} (${dados.countryCode})\n**Distrito:** ${dados.regionName}\n**Cidade:** ${dados.city}\n**Código Postal**: ${dados.zip}\n**Empresa:** ${dados.isp}
         `);
     embed.setColor("RANDOM");
-    embed.setFooter(`Latitude: ${dados.lat} | Longitude: ${dados.lon}`)
+    embed.setFooter(`Latitude: ${dados.lat} | Longitude: ${dados.lon}`);
     ctx.sendMessage({ content: "", embeds: [embed] });
   }
 }

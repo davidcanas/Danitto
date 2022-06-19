@@ -3,8 +3,8 @@
 
 [![wakatime](https://wakatime.com/badge/github/davidcanas/DanittoTS.svg)](https://wakatime.com/badge/github/davidcanas/DanittoTS)
 
-Um bot multifuncional em desenvolvimento!
--
+## Um bot multifuncional em desenvolvimento!
+
 Contribuindo:
 Podes contribuir fazendo pull requests para ajudar no código, melhorar algo, enfim....
 

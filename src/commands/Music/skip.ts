@@ -10,7 +10,7 @@ export default class Skip extends Command {
       description: "Pula uma Musica",
       category: "Music",
       aliases: ["pular", "s", "skippar"],
-      options: [], 
+      options: [],
     });
   }
 

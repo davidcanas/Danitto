@@ -72,7 +72,7 @@ export default class Play extends Command {
         }
 
         player.textChannelId = ctx.channel.id;
-        player.isRadio = false
+        player.isRadio = false;
         if (res.loadType === "PLAYLIST_LOADED") {
           const playlist = res.playlistInfo;
 
