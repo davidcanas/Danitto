@@ -8,22 +8,34 @@ import {
   User,
   ApplicationCommandStructure,
 } from "eris";
+
 import { Command, Utils } from "../typings/index";
+
 import botDB from "../models/botDB";
+
 import guildDB from "../models/guildDB";
+
 import cmds from "../models/cmds";
+
 import users from "../models/userDB";
+
 import Embed from "./Embed";
+
 import levenshteinDistance from "../utils/levenshteinDistance";
+
 import { NodeOptions } from "vulkava";
+
 import Music from "./Music";
 import {
   ComponentCollector,
   MessageCollector,
   ReactionCollector,
 } from "./Collector";
+
 import fetch from "node-fetch";
+
 import reminderDB from "../models/reminderDB";
+
 import path from "path";
 
 export default class DaniClient extends Client {
@@ -102,11 +114,11 @@ export default class DaniClient extends Client {
       try {
         user =
           this.users.get(matched[1]) || (await this.getRESTUser(matched[1]));
-      } catch {}
+      } catch { }
     } else if (/\d{17,18}/.test(param)) {
       try {
         user = this.users.get(param) || (await this.getRESTUser(param));
-      } catch {}
+      } catch { }
     }
 
     if (!guild) return null;

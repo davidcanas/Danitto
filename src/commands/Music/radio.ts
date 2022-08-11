@@ -10,7 +10,7 @@ export default class PlayRadio extends Command {
       name: "radio",
       description: "Toca uma Rádio",
       category: "Music",
-      aliases: ["pradio", "radio"],
+      aliases: ["tocarradio", "radio"],
       options: [], //lol
     });
   }

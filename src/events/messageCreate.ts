@@ -155,6 +155,7 @@ export default class InteractionCreate {
             `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}`
           )
           .setFooter("Comando executado no privado");
+          (await this.client.getDMChannel(message.author.id)).createMessage({embeds: [embed]})
       }
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
