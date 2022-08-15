@@ -5,7 +5,7 @@ interface CommandSettings {
   description: string;
   aliases?: Array<string>;
   usage?: string;
-  category: "Owner" | "Util" | "Info" | "Fun" | "Music";
+  category: "Owner" | "Util" | "Info" | "Fun" | "Music" | "Mod";
   options: Array<Object>;
 }
 

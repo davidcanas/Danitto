@@ -24,8 +24,8 @@ export default class GuildDelete {
         true
       )
       .addField(":closed_book: ID", `\`${guild.id}\``, true)
-      .addField(":man: Membros", `\`${guild.members.size}\``, true)
-      .setThumbnail(guild.dynamicIconURL() ?? "")
+      .addField(":man: Membros", `\`${guild.members?.size}\``, true)
+      .setThumbnail(guild?.dynamicIconURL() ?? "")
       .setTimestamp();
 
     const channel = await this.client.users

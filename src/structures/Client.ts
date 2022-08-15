@@ -291,6 +291,6 @@ export default class DaniClient extends Client {
       }
     }
 
-    setTimeout(() => this.checkReminders(), 60000);
+    setTimeout(() => this.checkReminders(), 80000);
   }
 }
