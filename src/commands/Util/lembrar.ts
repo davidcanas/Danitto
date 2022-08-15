@@ -13,7 +13,7 @@ export default class Lembrar extends Command {
         {
           name: "tempo",
           type: 3,
-          description: "O tempo para lembrar (ex : 70s/9h....) (minimo: 60s)",
+          description: "O tempo para lembrar (ex : 120s/9h....) (minimo: 2min)",
           required: true,
         },
         {
@@ -46,8 +46,8 @@ export default class Lembrar extends Command {
     if (time.indexOf("s") !== -1) {
       // Segundos
       var timesec = await time.replace(/s.*/, "");
-      if (+timesec <= 59) {
-        ctx.sendMessage("O tempo deve ser superior a 1 minuto ");
+      if (+timesec <= 119) {
+        ctx.sendMessage("O tempo deve ser superior a 2 minutos ");
         return;
       }
       var timems = +timesec * 1000;
