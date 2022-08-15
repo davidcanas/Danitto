@@ -16,6 +16,8 @@ export default class Stop extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
+    ctx.sendMessage({content: "Comando em manutenção", flags: 1 << 6})
+  /*
     let player = this.client.music.players.get(ctx.msg.guildID);
 
     if (!player) {
@@ -29,6 +31,7 @@ export default class Stop extends Command {
       return;
     }
     let test: Array<String> = [];
+    
     player.queue.forEach((q) => {
       const requester = q.requester as User;
       const autor = this.client.users.get(requester.id);
@@ -57,5 +60,6 @@ export default class Stop extends Command {
       .setFooter(ctx.author.username + "#" + ctx.author.discriminator)
       .setTimestamp();
     ctx.sendMessage({ embed: quebed });
+*/
   }
 }
