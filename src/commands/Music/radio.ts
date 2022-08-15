@@ -11,7 +11,51 @@ export default class PlayRadio extends Command {
       description: "Toca uma Rádio",
       category: "Music",
       aliases: ["tocarradio", "radio"],
-      options: [], //lol
+      options: [
+        {
+          type: 3,
+          name: "radio",
+          description: "Escolhe uma radio na lista das radios disponiveis",
+          choices: [
+            {
+              name: "CidadeFM",
+              value: "cidadefm",
+            },
+            {
+              name: "Oceano Pacifico",
+              value: "oceanopacifico",
+            },
+            {
+              name: "Renascença",
+              value: "renascenca",
+            },
+            {
+              name: "Rádio Comercial",
+              value: "comercial",
+            },
+            {
+              name:"Smooth FM",
+              value: "smoothfm"
+            }, 
+            {
+              name: "Vodafone FM",
+              value: "vodafone"
+            },
+            {
+              name: "RFM",
+              value: "rfm"
+            },
+            {
+              name: "Rádio TSF",
+              value: "tsf"
+            },
+            {
+              name: "M80",
+              value: "m80"
+            }
+           ], //lol
+          }
+      ]
     });
   }
 
@@ -84,14 +128,14 @@ export default class PlayRadio extends Command {
       }
 
       if (player.current) {
-        player.queue = [];
+        player.queue.clear()
         player.skip();
       }
 
       player.textChannelId = ctx.channel.id;
       player.isRadio = true;
       res.tracks[0].setRequester(ctx.author);
-      player.queue.push(res.tracks[0]);
+      player.queue.add(res.tracks[0]);
 
       if (!player.playing) player.play();
     } catch (err: any) {
