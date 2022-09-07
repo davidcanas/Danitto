@@ -22,7 +22,7 @@ export default class InteractionCreate {
     if (process.env.DEVELOPMENT === "true") {
       prefix = "dc.";
     } else {
-      prefix = "d/";
+      prefix = "d.";
     }
 
     if (
@@ -34,7 +34,7 @@ export default class InteractionCreate {
           "Olá " + message.author.username + "#" + message.author.discriminator
         )
         .setDescription(
-          `O meu prefixo é ${prefix} usa ${prefix}help para veres os meus comandos`
+          `Eu funciono com slash commands . então usa /help para veres os meus comandos\n_Eu tambem funciono com message commands ainda (prefixo: d.)_`
         )
         .setColor("RANDOM")
         .setTimestamp();
@@ -160,10 +160,19 @@ export default class InteractionCreate {
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
       });
+      const cmds = await this.client.db.cmds.findOne({
+        name: command.name,
+      });
       if (bot) {
         bot.commands++;
+       
         bot.save();
       }
+      if(command.category !== "Owner") {
+        cmds.uses++;
+        console.log("+1")
+        }
+        cmds.save()
     }
   }
 }

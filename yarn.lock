@@ -174,7 +174,7 @@ end-of-stream@^1.1.0:
 
 eris@abalabahaha/eris#dev:
   version "0.17.2-dev"
-  resolved "https://codeload.github.com/abalabahaha/eris/tar.gz/4ea56e45ffe68e95d89d7f3edcc181097f4f9f8d"
+  resolved "https://codeload.github.com/abalabahaha/eris/tar.gz/eb403730855714eafa36c541dbe2cb84c9979158"
   dependencies:
     ws "^8.2.3"
   optionalDependencies:
@@ -452,17 +452,17 @@ typescript@^4.7.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
 
-undici@^5.8.1:
-  version "5.8.2"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.8.2.tgz#071fc8a6a5d24db0ad510ad442f607d9b09d5eec"
-  integrity sha512-3KLq3pXMS0Y4IELV045fTxqz04Nk9Ms7yfBBHum3yxsTR4XNn+ZCaUbf/mWitgYDAhsplQ0B1G4S5D345lMO3A==
+undici@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.10.0.tgz#dd9391087a90ccfbd007568db458674232ebf014"
+  integrity sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==
 
-vulkava@^1.5.6:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/vulkava/-/vulkava-1.5.6.tgz#828ecc4ee4a20cba7bf73c95ab0cdbb3b56ec10b"
-  integrity sha512-RqBwlQD6o0kehkuT3EPCX6v9EpPX82T92kTVDa1bJNgUDpyJ1UD+dtN6qZGFIyjXbWy2fSAuD0CNtmqngDWCxg==
+vulkava@^1.5.9:
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/vulkava/-/vulkava-1.5.9.tgz#ebdbf1ba49069a83bbcfed4ba325075964939861"
+  integrity sha512-/9U/UxYhli+WRR75EwT7eL01a/PjMLOfM5dmiyZoVO4WCZLkN8VBH7CHwry+j7FOMQoCXiTZi4XRgEuafjFXwA==
   dependencies:
-    undici "^5.8.1"
+    undici "^5.10.0"
     ws "^8.8.1"
 
 webidl-conversions@^3.0.0:

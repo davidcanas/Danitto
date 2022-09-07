@@ -9,7 +9,7 @@ export default class ready {
 
   async run() {
     const activities = [
-      "Usa d/help para teres ajuda ",
+      "Usa /help para teres ajuda ",
       `Já estou em ${this.client.guilds.size} servidores!`,
       "Meu site: danitto.live",
       `😃 Já Conheço ${this.client.users.size} usuários ! `,
