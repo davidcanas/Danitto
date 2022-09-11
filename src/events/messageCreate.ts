@@ -22,7 +22,7 @@ export default class InteractionCreate {
     if (process.env.DEVELOPMENT === "true") {
       prefix = "dc.";
     } else {
-      prefix = "d.";
+      prefix = "d/";
     }
 
     if (
@@ -34,7 +34,7 @@ export default class InteractionCreate {
           "Olá " + message.author.username + "#" + message.author.discriminator
         )
         .setDescription(
-          `Eu funciono com slash commands . então usa /help para veres os meus comandos\n_Eu tambem funciono com message commands ainda (prefixo: d.)_`
+          `Eu funciono com slash commands . então usa /help para veres os meus comandos\n_Eu tambem funciono com message commands ainda (prefixo: d/)_`
         )
         .setColor("RANDOM")
         .setTimestamp();
