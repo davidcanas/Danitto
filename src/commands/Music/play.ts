@@ -82,8 +82,8 @@ export default class Play extends Command {
           }
 
           if (!player.playing) player.play();
-          if(player.isRadio) {
-            player.skip()
+          if (player.isRadio) {
+            player.skip();
           }
           const embed = new this.client.embed()
             .setColor("RANDOM")

@@ -16,7 +16,6 @@ export default class Stop extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-  
     let player = this.client.music.players.get(ctx.msg.guildID);
 
     if (!player) {
@@ -30,7 +29,7 @@ export default class Stop extends Command {
       return;
     }
     let test: Array<String> = [];
-    const playerQueue = player.queue as DefaultQueue
+    const playerQueue = player.queue as DefaultQueue;
     playerQueue.tracks.forEach((q) => {
       const requester = q.requester as User;
       const autor = this.client.users.get(requester.id);
@@ -59,6 +58,5 @@ export default class Stop extends Command {
       .setFooter(ctx.author.username + "#" + ctx.author.discriminator)
       .setTimestamp();
     ctx.sendMessage({ embed: quebed });
-
   }
 }

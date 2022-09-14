@@ -26,7 +26,7 @@ const cmds: Schema = new Schema(
     },
     uses: {
       type: Number,
-      default: 0
+      default: 0,
     },
     disabled: {
       type: Boolean,

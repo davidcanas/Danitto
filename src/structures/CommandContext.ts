@@ -26,7 +26,7 @@ export default class CommandContext {
   public type: Type;
   public args: string[] = [];
   public attachments: Attachment[];
-  public channelMentions: string[] = []
+  public channelMentions: string[] = [];
   constructor(
     client: Client,
     interaction: Message | CommandInteraction,
@@ -47,7 +47,7 @@ export default class CommandContext {
       if (interaction.data.type === 1) {
         if (interaction.data.options?.[0].type === 1) {
           this.args.push(interaction.data.options[0].name.toString().trim());
-         
+
           for (const val of interaction.data.options[0]
             .options as InteractionDataOptionsWithValue[]) {
             this.args.push(val.value.toString().trim());
@@ -55,14 +55,14 @@ export default class CommandContext {
         } else {
           const options = interaction.data
             .options as InteractionDataOptionsWithValue[];
-            this.channelMentions = []
+          this.channelMentions = [];
           this.args = options?.map((ops) => ops.value.toString().trim()) ?? [];
         }
       } else if (interaction.data.type === 2) {
-        this.channelMentions = []
+        this.channelMentions = [];
         this.args.push(interaction.data.target_id!);
       } else if (interaction.data.type === 3) {
-        this.channelMentions = []
+        this.channelMentions = [];
         this.args = interaction.data
           .resolved!.messages!.get(interaction.data.target_id!)!
           .content.split(/ +/);

@@ -40,7 +40,7 @@ export default class DaniConfig extends Command {
             },
             {
               name: "Leaderboard de comandos usados",
-              value: "topcmds"
+              value: "topcmds",
             },
           ],
         },
@@ -67,40 +67,40 @@ export default class DaniConfig extends Command {
 
       return;
     }
-   if (args === "topcmds") {
-    let  model = await this.client.db.cmds.find({})
-    model = model.sort((a,b) => b.uses - a.uses)
-    const array =  []
-    model.forEach(a => {
-      array.push(`${a.name} - ${a.uses} vezes usado`)
-    })
-    const embed = new this.client.embed()
-    .setTitle("TOP comandos usados")
-    .setDescription(array.join("\n"))
+    if (args === "topcmds") {
+      let model = await this.client.db.cmds.find({});
+      model = model.sort((a, b) => b.uses - a.uses);
+      const array = [];
+      model.forEach((a) => {
+        array.push(`${a.name} - ${a.uses} vezes usado`);
+      });
+      const embed = new this.client.embed()
+        .setTitle("TOP comandos usados")
+        .setDescription(array.join("\n"));
 
-    ctx.sendMessage({embeds: [embed]})
-   }
+      ctx.sendMessage({ embeds: [embed] });
+    }
     if (args === "cmdupdate") {
       const model = this.client.db.cmds;
 
       this.client.commands.forEach(async (cmd) => {
-       const exists = await this.client.db.cmds.findOne({name: cmd.name})
-       if(!exists) {
-       model.create({
-          name: cmd.name,
-          aliases: cmd.aliases,
-          description: cmd.description,
-          category: cmd.category,
-        });
-      } else {
-        model.updateOne({
-          name: cmd.name,
-          aliases: cmd.aliases,
-          description: cmd.description,
-          category: cmd.category,
-          uses: exists.uses
-        });
-      }
+        const exists = await this.client.db.cmds.findOne({ name: cmd.name });
+        if (!exists) {
+          model.create({
+            name: cmd.name,
+            aliases: cmd.aliases,
+            description: cmd.description,
+            category: cmd.category,
+          });
+        } else {
+          model.updateOne({
+            name: cmd.name,
+            aliases: cmd.aliases,
+            description: cmd.description,
+            category: cmd.category,
+            uses: exists.uses,
+          });
+        }
       });
       ctx.sendMessage(
         "Atualizei a lista de comandos podes vê-la em https://danitto.live/comandos !"

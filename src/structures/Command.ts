@@ -6,7 +6,7 @@ export default class Command implements CommandSettings {
   description: string;
   name: string;
   aliases?: Array<string>;
-  category: "Owner" | "Util" | "Info" | "Fun" | "Music" | "Mod" ;
+  category: "Owner" | "Util" | "Info" | "Fun" | "Music" | "Mod";
   options: Array<Object>;
   type: number;
   constructor(client: Client, options: CommandSettings) {
