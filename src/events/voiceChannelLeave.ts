@@ -23,12 +23,7 @@ async run(member: Member, oldChannel: VoiceChannel) {
  
       if (!member.bot && oldChannel.id === player.voiceChannelId && !oldChannel.voiceMembers.filter(m => !m.bot).length) {
         
-       const msg = await this.client.createMessage(player.textChannelId!, `Ninguem está na call, portanto vou parar a música ás <t:${Math.round((new Date().getTime() + 300000) / 1000)}:T>.`)
-        
-        setTimeout(() => {
-            player.destroy()
-            this.client.createMessage(player.textChannelId!, 'Música parada.')
-            if (msg) msg.delete()
-        }, 300000)
+        this.client.createMessage(player.textChannelId!, `Ninguem está na call, portanto vou parar a música.`)
+        player.destroy();
     }
   }}
