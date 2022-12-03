@@ -14,6 +14,7 @@ export default class ready {
       "Meu site: danitto.live",
       `😃 Já Conheço ${this.client.users.size} usuários ! `,
       "ℹ️ Se eu tiver um status como este significa que eu estou online, caso contrário estou offline",
+      "🎄 Feliz Natal e bom ano novo 2023",
     ];
     let i = 0;
     setInterval(async () => {

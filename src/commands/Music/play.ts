@@ -106,7 +106,7 @@ export default class Play extends Command {
           player.queue.add(tracks[0]);
 
           ctx.sendMessage(
-            `\`${tracks[0].title}\` adicionada á lista com sucesso`
+            `🎵 \`${tracks[0].title}\` adicionada á lista com sucesso`
           );
 
           if (!player.playing) player.play();
