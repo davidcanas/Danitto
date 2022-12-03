@@ -134,7 +134,7 @@ export default class InteractionCreate {
           .setDescription(
             `Autor: ${message.author.username}#${
               message.author.discriminator
-            } (${message.author.id})\nComando: ${cmd}\nServidor: ${
+            } (${message.author.id})\nComando: ${message.content}\nServidor: ${
               this.client.guilds.get(message.guildID).name
             } (${message.guildID})\nCanal: ${
               this.client.guilds

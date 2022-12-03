@@ -104,7 +104,6 @@ export default class DaniClient extends Client {
       "334054158879686657",
     ];
   }
-
   async findUser(param: string, guild: Guild | null): Promise<User | null> {
     let user: User | null | undefined;
 
