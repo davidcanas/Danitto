@@ -34,7 +34,7 @@ export default class InteractionCreate {
           "Olá " + message.author.username + "#" + message.author.discriminator
         )
         .setDescription(
-          `O meu prefixo é ${prefix} usa ${prefix}help para veres os meus comandos`
+          `Eu funciono com slash commands . então usa /help para veres os meus comandos\n_Eu tambem funciono com message commands ainda (prefixo: d/)_`
         )
         .setColor("RANDOM")
         .setTimestamp();
@@ -155,15 +155,25 @@ export default class InteractionCreate {
             `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}`
           )
           .setFooter("Comando executado no privado");
-          (await this.client.getDMChannel(message.author.id)).createMessage({embeds: [embed]})
+        (await this.client.getDMChannel(message.author.id)).createMessage({
+          embeds: [embed],
+        });
       }
       const bot = await this.client.db.bot.findOne({
         botID: this.client.user.id,
       });
+      const cmds = await this.client.db.cmds.findOne({
+        name: command.name,
+      });
       if (bot) {
         bot.commands++;
+
         bot.save();
       }
+      if (command.category !== "Owner") {
+        cmds.uses++;
+      }
+      cmds.save();
     }
   }
 }

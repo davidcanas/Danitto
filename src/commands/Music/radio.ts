@@ -34,28 +34,28 @@ export default class PlayRadio extends Command {
               value: "comercial",
             },
             {
-              name:"Smooth FM",
-              value: "smoothfm"
-            }, 
+              name: "Smooth FM",
+              value: "smoothfm",
+            },
             {
               name: "Vodafone FM",
-              value: "vodafone"
+              value: "vodafone",
             },
             {
               name: "RFM",
-              value: "rfm"
+              value: "rfm",
             },
             {
               name: "Rádio TSF",
-              value: "tsf"
+              value: "tsf",
             },
             {
               name: "M80",
-              value: "m80"
-            }
-           ], //lol
-          }
-      ]
+              value: "m80",
+            },
+          ], //lol
+        },
+      ],
     });
   }
 
@@ -128,7 +128,7 @@ export default class PlayRadio extends Command {
       }
 
       if (player.current) {
-        player.queue.clear()
+        player.queue.clear();
         player.skip();
       }
 

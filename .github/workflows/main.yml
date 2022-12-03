@@ -21,6 +21,7 @@ jobs:
           target: "/home/david/danittobot"
   updateDani:
     name: Build and re-run danitto
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Iniciando o danitto
@@ -35,7 +36,7 @@ jobs:
             cd danittobot
             echo "Buildando o bot"
             docker build -t danitto .
-            sleep 4
+            sleep 3
             echo "Desligando o processo anterior"
             docker stop danitto
             docker rm danitto

@@ -39,6 +39,22 @@ export default class InteractionCreate {
       const ctx = new CommandContext(this.client, interaction);
 
       cmd.execute(ctx);
+
+      const bot = await this.client.db.bot.findOne({
+        botID: this.client.user.id,
+      });
+      const cmds = await this.client.db.cmds.findOne({
+        name: interaction.data.name,
+      });
+      if (bot) {
+        bot.commands++;
+
+        bot.save();
+      }
+      if (cmd.category !== "Owner") {
+        cmds.uses++;
+      }
+      cmds.save();
       const embed = new this.client.embed()
         .setTitle("Comando executado")
         .setDescription(

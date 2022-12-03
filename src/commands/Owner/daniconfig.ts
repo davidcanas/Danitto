@@ -38,6 +38,10 @@ export default class DaniConfig extends Command {
               name: "Reativar um comando",
               value: "cmdenable",
             },
+            {
+              name: "Leaderboard de comandos usados",
+              value: "topcmds",
+            },
           ],
         },
       ],
@@ -57,24 +61,46 @@ export default class DaniConfig extends Command {
     if (!args) {
       ctx.sendMessage({
         content:
-          "Estás perdido? Eu dou te uma ajudinha : `cmdupdate, cmddisable, cmdenable, prefix, shutdown` espero ter te ajudado :)",
+          "Estás perdido? Eu dou te uma ajudinha : `cmdupdate, cmddisable, cmdenable, prefix,  topcmds, shutdown` espero ter te ajudado :)",
         flags: 1 << 6,
       });
 
       return;
     }
+    if (args === "topcmds") {
+      let model = await this.client.db.cmds.find({});
+      model = model.sort((a, b) => b.uses - a.uses);
+      const array = [];
+      model.forEach((a) => {
+        array.push(`${a.name} - ${a.uses} vezes usado`);
+      });
+      const embed = new this.client.embed()
+        .setTitle("TOP comandos usados")
+        .setDescription(array.join("\n"));
 
+      ctx.sendMessage({ embeds: [embed] });
+    }
     if (args === "cmdupdate") {
       const model = this.client.db.cmds;
-      await this.client.db.cmds.deleteMany({});
 
-      this.client.commands.forEach((cmd) => {
-        model.create({
-          name: cmd.name,
-          aliases: cmd.aliases,
-          description: cmd.description,
-          category: cmd.category,
-        });
+      this.client.commands.forEach(async (cmd) => {
+        const exists = await this.client.db.cmds.findOne({ name: cmd.name });
+        if (!exists) {
+          model.create({
+            name: cmd.name,
+            aliases: cmd.aliases,
+            description: cmd.description,
+            category: cmd.category,
+          });
+        } else {
+          model.updateOne({
+            name: cmd.name,
+            aliases: cmd.aliases,
+            description: cmd.description,
+            category: cmd.category,
+            uses: exists.uses,
+          });
+        }
       });
       ctx.sendMessage(
         "Atualizei a lista de comandos podes vê-la em https://danitto.live/comandos !"
