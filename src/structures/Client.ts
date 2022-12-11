@@ -234,7 +234,7 @@ export default class DaniClient extends Client {
       {
         id: "Danitto Quebec Node",
         hostname: process.env.LAVALINKURL as string,
-        port: 2333,
+        port: 443,
         password: process.env.LAVALINKPASSWORD as string,
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
