@@ -29,7 +29,9 @@ export default class Botinfo extends Command {
 
       const embed = new this.client.embed()
         .setTitle("<:danitto:972020988663439390> Minhas informações")
-        .setDescription(`Comandos executados: \`${cmdExec.commands}\`\nComando mais usado: \`${mostUsed[0].name}\` (\`${mostUsed[0].uses}\` vezes usado)`)
+        .setDescription(
+          `Comandos executados: \`${cmdExec.commands}\`\nComando mais usado: \`${mostUsed[0].name}\` (\`${mostUsed[0].uses}\` vezes usado)`
+        )
         .addField("<:identy:864509103431090217> Nome", `${nome}`, true)
         .addField("📆 Criado em", `<t:1592463600:D> (<t:1592463600:R>)`, true)
         .addField(

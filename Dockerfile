@@ -1,4 +1,4 @@
-FROM node:gallium
+FROM node:hydrogen
 
 RUN mkdir -p /usr/danitto
 WORKDIR /usr/danitto
