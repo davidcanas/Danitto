@@ -23,7 +23,7 @@ export default class Dicio extends Command {
   async execute(ctx: CommandContext): Promise<void> {
     const palavra = ctx.args.join(" ");
     const embed = await this.client
-      .fetch(`https://api.danitto.live/dicio/${palavra}`)
+      .fetch(`https://api.danitto.tk/dicio/${palavra}`)
       .then((a) => a.json());
 
     ctx.sendMessage({ embed });

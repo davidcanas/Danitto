@@ -11,7 +11,14 @@ export default class Shell extends Command {
       description: "Executa algo",
       category: "Owner",
       aliases: ["execute"],
-      options: [],
+       options: [
+        {
+          name: "code",
+          type: 3,
+          description: "O código a executar.",
+          required: true,
+        },
+      ],
     });
   }
 
