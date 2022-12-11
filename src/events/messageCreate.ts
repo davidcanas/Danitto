@@ -34,7 +34,7 @@ export default class InteractionCreate {
           "Olá " + message.author.username + "#" + message.author.discriminator
         )
         .setDescription(
-          `Eu funciono com slash commands . então usa /help para veres os meus comandos\n_Eu tambem funciono com message commands ainda (prefixo: d/)_`
+          `Usa </help:1004316674603876451> para veres os meus comandos!W`
         )
         .setColor("RANDOM")
         .setTimestamp();
