@@ -55,10 +55,10 @@ export default class eightBall extends Command {
       { r: "Provavelmente Sim", chance: 4 },
       { r: "Apenas eu sei 🤨", chance: 4 },
       { r: "Apenas Albert Einstein sabe ", chance: 4 },
-      { r: "É segredo!", chance: 4 },
+      { r: "É segredo!", chance: 3.5 },
       {
-        r: "Parabéns! Você encontrou uma mensagem secreta com 1% de chance de aparecer, Manda print para o dono do bot pois isso é muito raro!",
-        chance: 1,
+        r: "Não sei, mas eu acho que você deveria perguntar ao Danitto (resposta ultra rara! 1,5% de hipotese)",
+        chance: 1.5,
       },
     ]);
 

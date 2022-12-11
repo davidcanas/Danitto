@@ -103,7 +103,7 @@ export default class DaniConfig extends Command {
         }
       });
       ctx.sendMessage(
-        "Atualizei a lista de comandos podes vê-la em https://danitto.live/comandos !"
+        "Atualizei a lista de comandos podes vê-la em https://danitto.tk/comandos !"
       );
     }
     if (args === "cmddisable") {

@@ -16,6 +16,8 @@ export default class Botinfo extends Command {
 
   async execute(ctx: CommandContext): Promise<void> {
     try {
+      let mostUsed = await this.client.db.cmds.find({});
+      mostUsed = mostUsed.sort((a, b) => b.uses - a.uses);
       const cpuValor = await os1.cpu.usage();
       const cmd = this.client.commands.length;
       const cmdExec = await this.client.db.bot.findOne({
@@ -36,6 +38,7 @@ export default class Botinfo extends Command {
           true
         )
         .addField("<:discord:864509377256095764> Servidores", `${serv}`, true)
+        .addField("Comando mais usado", `${mostUsed[0].name}`, true)
         .addField(
           "<:nodejs:864509809595646003> Versão do Node",
           process.version,
