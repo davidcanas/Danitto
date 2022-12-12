@@ -232,9 +232,9 @@ export default class DaniClient extends Client {
   connectLavaLink(): void {
     const nodes: NodeOptions[] = [
       {
-        id: "Danitto Quebec Node",
+        id: "Danitto Ohio Node",
         hostname: process.env.LAVALINKURL as string,
-        port: 443,
+        port: 2333,
         password: process.env.LAVALINKPASSWORD as string,
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
