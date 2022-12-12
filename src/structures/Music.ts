@@ -109,7 +109,7 @@ export default class Music extends Vulkava {
 
     if (!permissions.has("readMessages")) {
       ctx.sendMessage({
-        content: "Eu não consigo ver o canal de voz em que tu estás",
+        content: "Eu não consigo ler o canal de voz em que tu estás",
         flags: 1 << 6,
       });
       return false;
