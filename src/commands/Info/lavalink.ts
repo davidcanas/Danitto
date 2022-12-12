@@ -23,7 +23,7 @@ export default class LavalinkInfo extends Command {
       const embed = new this.client.embed()
         .setTitle("ℹ️ Informação do Lavalink")
         .setDescription(
-          "`O que eu uso para tocar musica`:\n\n<:lava:862345050667089950> [Lavalink](https://github.com/davidffa/lavalink/releases) | <:vulkava:988120208734552124> [Vulkava](https://vulkava.js.org)"
+          "`O que eu uso para tocar musica`:\n\n<:lava:862345050667089950> [Lavalink](https://github.com/davidffa/lavalink/releases) | <:vulkava:988120208734552124> [Vulkava](https://vulkava.js.org)\nNodes disponiveis:" + `\`${this.client.music.nodes.length}\``	
         )
         .addField("<:identy:864509103431090217> Node", `\`${node.identifier}\``)
         .addField(":ping_pong: Ping", `\`${await node.ping()}ms\``)
