@@ -8,7 +8,7 @@ export default class Play extends Command {
   constructor(client: Client) {
     super(client, {
       name: "play",
-      description: "Toca uma Musica",
+      description: "Toca uma Musica ou Playlist | Suporta Youtube,Spotify,Soundcloud, tiktok , etc",
       category: "Music",
       aliases: ["p", "tocar"],
       options: [
