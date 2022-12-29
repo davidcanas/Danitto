@@ -238,7 +238,7 @@ export default class DaniClient extends Client {
         password: process.env.LAVALINKPASSWORD as string,
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
-        region: 'USA',
+        region: "USA",
         secure: false,
       },
       {
@@ -248,7 +248,7 @@ export default class DaniClient extends Client {
         password: process.env.LAVALINKPASSWORD as string,
         maxRetryAttempts: 10,
         retryAttemptsInterval: 3000,
-        region: 'EU',
+        region: "EU",
         secure: false,
       },
     ];

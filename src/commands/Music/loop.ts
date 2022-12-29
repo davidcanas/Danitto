@@ -11,22 +11,23 @@ export default class Stop extends Command {
       description: "Repete a musica atual ou a queue toda",
       category: "Music",
       aliases: ["repeat", "repetir"],
-      options: [{
-        type: 3,
-        name: "oquefazer",
-        description: "O que fazer?",
-        choices: [
-          {
-            name: "Repetir a música atual",
-            value: "track",
-          },
-          {
-            name: "Repetir a queue atual ",
-            value: "queue",
-          },
-          
-        ], 
-        }],
+      options: [
+        {
+          type: 3,
+          name: "oquefazer",
+          description: "O que fazer?",
+          choices: [
+            {
+              name: "Repetir a música atual",
+              value: "track",
+            },
+            {
+              name: "Repetir a queue atual ",
+              value: "queue",
+            },
+          ],
+        },
+      ],
     });
   }
 
@@ -51,17 +52,19 @@ export default class Stop extends Command {
       return;
     }
 
-   if(ctx.args[0] === "track") {
-     currPlayer.setTrackLoop(!currPlayer.trackRepeat);
-     ctx.sendMessage("A repetir a música atual!")
-     return;
-   }
-
-    if(ctx.args[0] === "queue") {
-       currPlayer.setQueueLoop(!currPlayer.queueRepeat);
-       ctx.sendMessage("A repetir a queue atual!")
-        return;
+    if (ctx.args[0] === "track") {
+      currPlayer.setTrackLoop(!currPlayer.trackRepeat);
+      ctx.sendMessage("A repetir a música atual!");
+      return;
     }
-    ctx.sendMessage("Ocorreu um erro, provavelmente inseriste um argumento inválido.")
+
+    if (ctx.args[0] === "queue") {
+      currPlayer.setQueueLoop(!currPlayer.queueRepeat);
+      ctx.sendMessage("A repetir a queue atual!");
+      return;
+    }
+    ctx.sendMessage(
+      "Ocorreu um erro, provavelmente inseriste um argumento inválido."
+    );
   }
 }

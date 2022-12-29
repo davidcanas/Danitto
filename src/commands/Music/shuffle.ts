@@ -11,7 +11,7 @@ export default class Stop extends Command {
       description: "Embaralha a lista de musicas ",
       category: "Music",
       aliases: ["randomizarqueue", "embaralhar"],
-      options: [], 
+      options: [],
     });
   }
 
@@ -32,17 +32,20 @@ export default class Stop extends Command {
       return;
     }
     if (!currPlayer || currPlayer.state === ConnectionState.DISCONNECTED) {
-      ctx.sendMessage({content:"Não estou a tocar nada.", flags: 1 << 6 });
+      ctx.sendMessage({ content: "Não estou a tocar nada.", flags: 1 << 6 });
       return;
     }
     if (!currPlayer.queue.size) {
-        ctx.sendMessage({ content: 'A queue não tem mais músicas para além da que está a tocar neste momento!', flags: 1 << 6 });
-        return;
-      }
- 
-        (currPlayer.queue as DefaultQueue).shuffle();
-  
-        ctx.sendMessage(':star: Lista de músicas embaralhada!');
-      }
-  }
+      ctx.sendMessage({
+        content:
+          "A queue não tem mais músicas para além da que está a tocar neste momento!",
+        flags: 1 << 6,
+      });
+      return;
+    }
 
+    (currPlayer.queue as DefaultQueue).shuffle();
+
+    ctx.sendMessage(":star: Lista de músicas embaralhada!");
+  }
+}
