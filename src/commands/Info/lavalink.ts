@@ -17,7 +17,7 @@ export default class LavalinkInfo extends Command {
     try {
       const node = this.client.music.nodes[0];
       if (!node) {
-        ctx.sendMessage({ content: "Não há nodes conectados.", flags: 1 << 6 });
+        ctx.sendMessage({ content: "Não há nodes conectados no momento.", flags: 1 << 6 });
       }
 
       const embed = new this.client.embed()
