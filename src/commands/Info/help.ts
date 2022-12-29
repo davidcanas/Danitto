@@ -6,7 +6,7 @@ export default class Help extends Command {
   constructor(client: Client) {
     super(client, {
       name: "help",
-      description: "Vê os comandos do danitto",
+      description: "Vê os comandos do danitto.",
       category: "Info",
       aliases: ["ajuda", "comandos", "cmds", "cmd"],
       options: [
