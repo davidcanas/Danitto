@@ -21,18 +21,19 @@ export default class eightBall extends Command {
   }
 
   async execute(ctx: CommandContext): Promise<void> {
+    if (!ctx.args[0]) {
+      ctx.sendMessage("Precisar inserir um argumento válido!");
+      return;
+    }
+    if (ctx.args[0].length > 100) {
+      ctx.sendMessage("A pergunta não pode ser tão grande assim.");
+    }
+    function gerarPercentagem() {
+      return Math.floor(Math.random() * 100) + 1 + "%";
+    }
 
-  if (!ctx.args[0]) {
-    ctx.sendMessage("Precisar inserir um argumento válido!")
-    return;
+    ctx.sendMessage(
+      `A chance de \`${ctx.args[0]}\` ser verdade é de ${gerarPercentagem()}`
+    );
   }
-  if (ctx.args[0].length > 100) {
-    ctx.sendMessage("A pergunta não pode ser tão grande assim.")
-  }
-   function gerarPercentagem() {
-    return Math.floor(Math.random() * 100) + 1 + '%'
-   }
-
-   ctx.sendMessage(`A chance de \`${ctx.args[0]}\` ser verdade é de ${gerarPercentagem()}`)
-
-  }}
+}
