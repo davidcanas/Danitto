@@ -60,7 +60,7 @@ export default class eightBall extends Command {
       return result <= 100 ? result : _reduce(result);
     }
     ctx.sendMessage(
-      `A chance de ${ctx.args[0]} e ${
+      `:heart: A chance de ${ctx.args[0]} e ${
         ctx.args[1]
       } darem certo é de ${getLovePercentage(ctx.args[0], ctx.args[1])}%`
     );
