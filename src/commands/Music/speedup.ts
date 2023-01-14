@@ -7,49 +7,47 @@ import { VoiceChannel } from "eris";
 export default class Volume extends Command {
   constructor(client: Client) {
     super(client, {
-      name: "volume",
-      description: "Seta o volume da musica",
+      name: "speedup",
+      description: "Ativa/desativa o modo speedup na musica",
       category: "Music",
-      aliases: ["vol"],
-      options: [
-        {
-          name: "volume",
-          type: 3,
-          description: "O volume a setar.",
-          required: true,
-        },
-      ], //lol
+      aliases: ["speedup"],
+      options: [],
     });
   }
 
   async execute(ctx: CommandContext): Promise<void> {
-    if (ctx.channel.type !== 0 || !ctx.guild) return;
 
+    if (ctx.channel.type !== 0 || !ctx.guild) return; 
+    
     const currPlayer = this.client.music.players.get(ctx.guild.id as string);
     const voiceChannelID = ctx.member?.voiceState.channelID;
-    const volume = Number(ctx.args[0]);
     if (
       !voiceChannelID ||
       (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)
     ) {
       ctx.sendMessage({
-        content: "Precisas de estar no msm canal de voz que eu!",
+        content: "Precisas de estar no mesmo canal de voz que eu!",
         flags: 1 << 6,
       });
       return;
     }
     if (!currPlayer || currPlayer.state === ConnectionState.DISCONNECTED) {
       ctx.sendMessage("Não estou a tocar nada nesse momento.");
-      return;
+      return; 
     }
-    if (isNaN(volume) || volume < 0 || volume > 500) {
-      ctx.sendMessage("O volume deve ser um numero entre 0 e 500");
+    
+    if (!currPlayer.speedup) {
+      currPlayer.filters.setTimescale({pitch: 1.18, rate: 1.10, speed: 1.15})
+      ctx.sendMessage("Modo speedup ativado!")
+      currPlayer.speedup = true;
       return;
+    } else if(currPlayer.speedup) {
+      currPlayer.filters.clear()
+      ctx.sendMessage("Modo speedup desativado!")
+       currPlayer.speedup = false;
+       return;
+
     }
 
-    currPlayer.filters.setVolume(volume);
-    ctx.sendMessage(
-      `**${ctx.author.username}#${ctx.author.discriminator}** alterou o volume para **${volume}/500**!`
-    );
-  }
-}
+    ctx.sendMessage({content: "Ocorreu um problema"})
+  }}

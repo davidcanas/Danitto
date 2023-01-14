@@ -9,6 +9,7 @@ import { NodeOptions, Vulkava, Player, Node } from "vulkava";
 export default class Music extends Vulkava {
   client: Client;
 
+
   constructor(client: Client, nodes: NodeOptions[]) {
     super({
       nodes,
@@ -19,7 +20,6 @@ export default class Music extends Vulkava {
     });
 
     this.client = client;
-
     this.on("nodeConnect", async (node): Promise<void> => {
       console.log(`O node ${node.identifier} foi conectado!`);
 

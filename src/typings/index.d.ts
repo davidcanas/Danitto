@@ -78,5 +78,6 @@ interface IEditInteractionData {
 declare module "vulkava" {
   export interface Player {
     isRadio?: Boolean;
+    speedup?: Boolean;
   }
 }
