@@ -95,7 +95,7 @@ export default class PlayRadio extends Command {
         return;
       }
       const res = await this.client.music.search(
-        `https://m.danitto.live/${ctx.args[0]}`
+        `https://radioapi.thecanasdev.repl.co/${ctx.args[0]}`
       );
 
       if (res.loadType !== "TRACK_LOADED") {
