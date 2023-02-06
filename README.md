@@ -13,5 +13,4 @@ Suporte:
 Email: geral@danitto.live
 
 Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao [Dr Eduardo Rodrigues](https://github.com/siredurs)
-
 </div>
