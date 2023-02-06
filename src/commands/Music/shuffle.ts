@@ -21,16 +21,7 @@ export default class Stop extends Command {
     const currPlayer = this.client.music.players.get(ctx.guild.id as string);
     const voiceChannelID = ctx.member?.voiceState.channelID;
 
-    if (
-      !voiceChannelID ||
-      (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)
-    ) {
-      ctx.sendMessage({
-        content: "Precisas de estar no canal de voz onde eu estou!",
-        flags: 1 << 6,
-      });
-      return;
-    }
+  
     if (!currPlayer || currPlayer.state === ConnectionState.DISCONNECTED) {
       ctx.sendMessage({ content: "Não estou a tocar nada.", flags: 1 << 6 });
       return;

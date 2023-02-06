@@ -28,10 +28,7 @@ export default class Stop extends Command {
     }
 
 
-    if (!voiceChannelID || (voiceChannelID && voiceChannelID !== player.voiceChannelId)) {
-      ctx.sendMessage({ content: 'Não estás no meu canal de voz.', flags: 1 << 6 });
-      return;
-    }
+
 
   
 

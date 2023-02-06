@@ -55,7 +55,7 @@ export default class CommandContext {
       this.type = Type.INTERACTION;
       this.attachments = [];
 
-      if (interaction.data.type === 1) {
+      if (interaction.data.type === 1) { 
         if (interaction.data.options.raw?.[0]?.type === 1) {
           this.args.push(interaction.data.options.raw[0].name.toString().trim());
 

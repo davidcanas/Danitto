@@ -20,16 +20,7 @@ export default class Skip extends Command {
     const currPlayer = this.client.music.players.get(ctx.guild.id as string);
     const voiceChannelID = ctx.member?.voiceState.channelID;
 
-    if (
-      !voiceChannelID ||
-      (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)
-    ) {
-      ctx.sendMessage({
-        content: "Precisas de estar no mesmo canal de voz que eu",
-        flags: 1 << 6,
-      });
-      return;
-    }
+   
     if (!currPlayer || currPlayer.state === ConnectionState.DISCONNECTED) {
       ctx.sendMessage("Não estou tocando nada.");
       return;

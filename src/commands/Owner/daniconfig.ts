@@ -108,7 +108,7 @@ export default class DaniConfig extends Command {
       let cmdArrayComponent = [];
       let cmdArray = [];
       array.forEach((cmd) => {
-        if (!cmd.disabled) {
+        if (!cmd.disabled && cmd.category !== "Owner") {
           cmdArrayComponent.push({ label: cmd.name, value: cmd.name });
           cmdArray.push(cmd.name);
         }
@@ -162,7 +162,7 @@ export default class DaniConfig extends Command {
       let cmdArrayComponent = [];
       let cmdArray = [];
       array.forEach((cmd) => {
-        if (cmd.disabled) {
+        if (cmd.disabled && cmd.category !== "Owner") {
           cmdArrayComponent.push({ label: cmd.name, value: cmd.name });
           cmdArray.push(cmd.name);
         }

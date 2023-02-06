@@ -32,11 +32,7 @@ export default class Play extends Command {
 
     const voiceChannelID = ctx.member?.voiceState.channelID as string;
     const voiceChannel = this.client.getChannel(voiceChannelID) as VoiceChannel;
-  
-    if (!voiceChannelID || (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)) {
-      ctx.sendMessage({ content: 'Precisas de estar no canal de voz onde eu estou.', flags: 1 << 6 });
-      return;
-    }
+
     const createPlayer = (): Player => {
       const player = this.client.music.createPlayer({
         guildId: ctx.guild?.id as string,
