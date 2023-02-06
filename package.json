@@ -1,6 +1,6 @@
 {
   "name": "danitto",
-  "version": "4.8.2",
+  "version": "4.8.8",
   "description": "Um bot multifuncional em desenvolvimento",
   "main": "./dist/main.js",
   "author": "davidcanas",
