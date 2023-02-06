@@ -62,7 +62,6 @@ export default class eightBall extends Command {
       },
     ]);
 
-    let avatar = ctx.author.dynamicAvatarURL();
     const embed = new this.client.embed()
       .setTitle("🔮 8ball")
       .setColor("RANDOM")

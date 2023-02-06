@@ -34,9 +34,9 @@ export default class Avatar extends Command {
     embed.setDescription(
       `[Transfere o avatar aqui](${this.client.users
         .get(user.id)
-        .dynamicAvatarURL()})`
+        .defaultAvatarURL()})`
     );
-    embed.setImage(this.client.users.get(user.id).avatarURL);
+    embed.setImage(this.client.users.get(user.id).avatarURL());
     embed.setColor("RANDOM");
     embed.setFooter("Danitto © Todos os direitos reservados.");
 

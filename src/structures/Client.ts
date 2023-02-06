@@ -6,8 +6,9 @@ import {
   Constants,
   Guild,
   User,
-  ApplicationCommandStructure,
-} from "eris";
+  ApplicationCommand,
+  ClientEvents,
+} from "oceanic.js";
 
 import { Command, Utils } from "../typings/index";
 
@@ -56,30 +57,30 @@ export default class DaniClient extends Client {
   messageCollectors: Array<MessageCollector>;
   componentCollectors: Array<ComponentCollector>;
   reactionCollectors: Array<ReactionCollector>;
+
   constructor(token: string) {
     const clientOptions: ClientOptions = {
-      allowedMentions: {
-        everyone: false,
-        repliedUser: true,
-        users: true,
+      auth: token,
+      defaultImageFormat: 'png',
+      defaultImageSize: Constants.MAX_IMAGE_SIZE,
+      gateway: {
+        getAllUsers: true,
+        intents: [
+          'GUILDS',
+          'GUILD_MEMBERS',
+          'GUILD_EMOJIS_AND_STICKERS',
+          'GUILD_VOICE_STATES',
+          'GUILD_PRESENCES',
+          'GUILD_MESSAGES',
+          'MESSAGE_CONTENT',
+        ]
       },
-      messageLimit: 50,
-      disableEvents: {
-        GUILD_ROLE_CREATE: false,
-        GUILD_ROLE_DELETE: false,
-        GUILD_ROLE_UPDATE: false,
-        GUILD_BAN_ADD: false,
-        GUILD_BAN_REMOVE: false,
-        TYPING_START: false,
-      },
-      intents: Constants.Intents.all,
-      getAllUsers: true,
-      restMode: true,
-      defaultImageFormat: "png",
-      defaultImageSize: 4096,
+      collectionLimits: {
+        messages: 10
+      }
     };
 
-    super(token, clientOptions);
+    super(clientOptions);
     this.commands = [];
     this.db = {
       bot: botDB,
@@ -112,11 +113,11 @@ export default class DaniClient extends Client {
     if (matched) {
       try {
         user =
-          this.users.get(matched[1]) || (await this.getRESTUser(matched[1]));
+          this.users.get(matched[1]) || (await this.rest.users.get(matched[1]));
       } catch {}
     } else if (/\d{17,18}/.test(param)) {
       try {
-        user = this.users.get(param) || (await this.getRESTUser(param));
+        user = this.users.get(param) || (await this.rest.users.get(param));
       } catch {}
     }
 
@@ -205,8 +206,8 @@ export default class DaniClient extends Client {
     )) {
       if (file.endsWith(".ts") || file.endsWith(".js")) {
         const event = new (require(`../events/${file}`).default)(this);
-        const eventName = file.split(".")[0];
-
+        const eventName = file.split(".")[0] as keyof ClientEvents;
+        
         if (eventName === "ready") {
           super.once("ready", (...args) => event.run(...args));
         } else {
@@ -223,10 +224,10 @@ export default class DaniClient extends Client {
         name: command.name,
         description: command.description,
         options: command.options,
-        type: command.type,
+        type: command.type || 1,
       });
     }
-    this.bulkEditCommands(cmds);
+    this.application.bulkEditGlobalCommands(cmds);
     console.log("Os slashs foram atualizados");
   }
   connectLavaLink(): void {
@@ -241,7 +242,7 @@ export default class DaniClient extends Client {
         region: "USA",
         secure: false,
       },
-      {
+     /* {
         id: "Danitto Lisboa Node",
         hostname: process.env.LAVALINKURL1 as string,
         port: 2333,
@@ -250,13 +251,13 @@ export default class DaniClient extends Client {
         retryAttemptsInterval: 3000,
         region: "EU",
         secure: false,
-      },
+      },*/	
     ];
 
     this.music = new Music(this, nodes);
 
     this.music.init();
-    super.on("rawWS", (packet) => this.music.handleVoiceUpdate(packet));
+    super.on("packet", (packet) => this.music.handleVoiceUpdate(packet));
   }
 
   createReminder({ timeMS, text, userID, channelID }) {
@@ -290,10 +291,8 @@ export default class DaniClient extends Client {
     for (const reminder of reminders) {
       if (parseInt(reminder.when) < Date.now()) {
         let user = this.users.get(reminder.userID);
-        let dm = await user.getDMChannel();
-        dm.createMessage(
-          `${user.username},pediste-me para te lembrar de **${reminder.text}**`
-        );
+        let dm = await user.createDM();
+        dm.createMessage({content:`${user.username},pediste-me para te lembrar de **${reminder.text}**`});
         this.deleteReminder(reminder._id);
       }
       if (isNaN(parseInt(reminder.when))) {

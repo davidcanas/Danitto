@@ -26,6 +26,6 @@ export default class Dicio extends Command {
       .fetch(`https://api.danitto.tk/dicio/${palavra}`)
       .then((a) => a.json());
 
-    ctx.sendMessage({ embed });
+    ctx.sendMessage({ embeds: [embed] });
   }
 }

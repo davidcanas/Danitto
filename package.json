@@ -15,10 +15,10 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "eris": "abalabahaha/eris#dev",
     "mongoose": "^6.7.5",
     "node-fetch": "2.6.7",
     "node-os-utils": "^1.3.6",
+    "oceanic.js": "^1.4.1",
     "sourcebin": "^4.3.5",
     "typescript": "^4.7.4",
     "vulkava": "^1.5.9"

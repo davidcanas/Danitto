@@ -20,6 +20,6 @@ export default class ThisPersonDoesNotExist extends Command {
       .setTitle("🧑🏻 Esta pessoa não existe")
       .setImage(`https://thispersondoesnotexist.com/image?id=${numeroID}`)
       .setColor("RANDOM");
-    ctx.sendMessage({ embed });
+    ctx.sendMessage({ embeds: [embed] });
   }
 }

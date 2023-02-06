@@ -70,7 +70,7 @@ export default class Profile extends Command {
     embed.addField(" 📜 Sobremim", `${userDB.profile.sobremim}`);
     embed.addField(" 🌟 Badges", `${userDB.profile.badges} ⠀`);
     embed.setColor("RANDOM");
-    embed.setThumbnail(this.client.users.get(user.id).avatarURL);
+    embed.setThumbnail(this.client.users.get(user.id).avatarURL());
 
     //c
     ctx.sendMessage({

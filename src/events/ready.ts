@@ -11,19 +11,20 @@ export default class ready {
     const activities = [
       "Usa /help para teres ajuda ",
       `Já estou em ${this.client.guilds.size} servidores!`,
-      "Meu site: danitto.live",
+      "danitto.live",
       `😃 Já Conheço ${this.client.users.size} usuários ! `,
-      "ℹ️ Se eu tiver um status como este significa que eu estou online, caso contrário estou offline",
-      "🎄 Feliz Natal e bom ano novo 2023",
     ];
+    
     let i = 0;
     setInterval(async () => {
-      this.client.editStatus("online", {
+     this.client.editStatus("online", [{
         name: `${activities[i++ % activities.length]}`,
-        type: 0,
-      });
+        type: 2,
+      }]);
     }, 15000);
+
     console.log(`O client foi conectado com sucesso`);
+
     this.client.updateSlash();
     this.client.connectLavaLink();
     this.client.checkReminders();

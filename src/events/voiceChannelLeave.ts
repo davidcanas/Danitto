@@ -1,6 +1,6 @@
 import Client from "../structures/Client";
 
-import { Member, VoiceChannel } from "eris";
+import { Member, TextChannel, VoiceChannel } from "oceanic.js";
 
 export default class MessageReactionRemove {
   client: Client;
@@ -14,10 +14,8 @@ export default class MessageReactionRemove {
     if (!player) return;
 
     if (member.id === this.client.user.id) {
-      this.client.createMessage(
-        player.textChannelId!,
-        "Fui expulso do canal de voz então parei a música"
-      );
+      const ch = this.client.getChannel(player.voiceChannelId!) as TextChannel;
+      ch.createMessage({content:"Fui expulso do canal de voz então parei a música"});
       player.destroy();
     }
 
@@ -26,10 +24,8 @@ export default class MessageReactionRemove {
       oldChannel.id === player.voiceChannelId &&
       !oldChannel.voiceMembers.filter((m) => !m.bot).length
     ) {
-      this.client.createMessage(
-        player.textChannelId!,
-        `Ninguem está na call, portanto vou parar a música.`
-      );
+      const ch = this.client.getChannel(player.voiceChannelId!) as TextChannel;
+      ch.createMessage({content:"Nínguem está na call então parei a música"});
       player.destroy();
     }
   }

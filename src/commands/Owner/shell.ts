@@ -60,10 +60,9 @@ export default class Shell extends Command {
             "⚠ Não poderei enviar o codigo asseguir aqui porque ele contem dados privados. Ele foi enviado na DM do Canas"
           );
           this.client.users
-            .get("733963304610824252")
-            .getDMChannel()
+            .get("733963304610824252").createDM()
             .then(async (dm) => {
-              await dm.createMessage(`\`\`\`ansi\n${output}\n\`\`\``);
+              await dm.createMessage({content:`\`\`\`ansi\n${output}\n\`\`\``});
             });
           return;
         }
@@ -77,7 +76,7 @@ export default class Shell extends Command {
                   type: 2,
                   style: 2,
                   label: "🚮 Apagar Shell",
-                  custom_id: "delmsgshell",
+                  customID: "delmsgshell",
                 },
               ],
             },
@@ -94,7 +93,7 @@ export default class Shell extends Command {
                   type: 2,
                   style: 2,
                   label: "🚮 Apagar Erro",
-                  custom_id: "delmsgshell",
+                  customID: "delmsgshell",
                 },
               ],
             },

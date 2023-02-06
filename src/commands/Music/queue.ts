@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Player, ConnectionState, DefaultQueue } from "vulkava";
-import { User, VoiceChannel } from "eris";
+import { User, VoiceChannel } from "oceanic.js";
 
 export default class Stop extends Command {
   constructor(client: Client) {
@@ -57,6 +57,6 @@ export default class Stop extends Command {
       .setColor("RANDOM")
       .setFooter(ctx.author.username + "#" + ctx.author.discriminator)
       .setTimestamp();
-    ctx.sendMessage({ embed: quebed });
+    ctx.sendMessage({ embeds: [quebed] });
   }
 }

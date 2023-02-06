@@ -1,5 +1,5 @@
 import Client from "../structures/Client";
-import { Interaction, CommandInteraction, ComponentInteraction } from "eris";
+import { Interaction, CommandInteraction, ComponentInteraction, TextChannel } from "oceanic.js";
 import CommandContext from "../structures/CommandContext";
 
 export default class InteractionCreate {
@@ -32,8 +32,8 @@ export default class InteractionCreate {
       });
 
       if (dbcmd && dbcmd.disabled) {
-        return interaction.createMessage(
-          `O comando \`${interaction.data.name}\` foi desativado pelo meu dono....`
+        return interaction.createMessage({content:`O comando \`${interaction.data.name}\` foi desativado pelo meu dono....`}
+          
         );
       }
       const ctx = new CommandContext(this.client, interaction);
@@ -70,7 +70,10 @@ export default class InteractionCreate {
         )
         .setFooter("Foram usados slash commands ao executar o comando.")
         .setColor("RANDOM");
-      this.client.createMessage("929319573973528647", { embeds: [embed] });
+
+        const channel = await this.client.getChannel("929319573973528647") as TextChannel;
+        
+        channel.createMessage({ embeds: [embed] });
     }
     if (!(interaction instanceof CommandInteraction)) {
       if (interaction instanceof ComponentInteraction) {
@@ -81,11 +84,11 @@ export default class InteractionCreate {
           }
         }
 
-        if (interaction.data.custom_id === "delmsgeval") {
+        if (interaction.data.customID === "delmsgeval") {
           if (interaction.member?.id !== "733963304610824252") return;
           interaction.channel.messages.get(interaction.message.id).delete();
         }
-        if (interaction.data.custom_id === "delmsgshell") {
+        if (interaction.data.customID === "delmsgshell") {
           if (interaction.member?.id !== "733963304610824252") return;
           interaction.channel.messages.get(interaction.message.id).delete();
         }

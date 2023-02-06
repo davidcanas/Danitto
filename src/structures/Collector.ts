@@ -6,7 +6,7 @@ import {
   TextableChannel,
   Emoji,
   User,
-} from "eris";
+} from "oceanic.js";
 
 declare function ComponentCollectorFilter(
   interaction: ComponentInteraction

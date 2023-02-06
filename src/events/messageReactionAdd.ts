@@ -1,6 +1,6 @@
 import Client from "../structures/Client";
 
-import { Message, Emoji, Member } from "eris";
+import { Message, Emoji, Member } from "oceanic.js";
 
 interface Reactor {
   id: string;

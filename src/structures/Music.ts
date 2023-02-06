@@ -3,7 +3,7 @@
 
 import Client from "./Client";
 import CommandContext from "./CommandContext";
-import { User, VoiceChannel } from "eris";
+import { TextChannel, User, VoiceChannel } from "oceanic.js";
 import { NodeOptions, Vulkava, Player, Node } from "vulkava";
 
 export default class Music extends Vulkava {
@@ -15,7 +15,7 @@ export default class Music extends Vulkava {
       nodes,
       sendWS(id, payload) {
         const guild = client.guilds.get(id);
-        if (guild) guild.shard.sendWS(payload.op, payload.d);
+        if (guild) guild.shard.send(payload.op, payload.d);
       },
     });
 
@@ -73,10 +73,9 @@ export default class Music extends Vulkava {
 
     this.on("trackStuck", (player, track): void => {
       if (player.textChannelId) {
-        this.client.createMessage(
-          player.textChannelId,
-          `Ocorreu um erro a passar á proxima musica.`
-        );
+        const ch = this.client.getChannel(player.textChannelId) as TextChannel;
+        ch.createMessage({content:"**Ocorreu um erro a tocar essa música, a mesma foi skippada**"});
+        
         player.skip();
       }
     });
@@ -86,12 +85,12 @@ export default class Music extends Vulkava {
         const channel = this.client.getChannel(player.textChannelId);
         if (channel.type !== 0) return;
         player.destroy();
-        channel.createMessage(`Já não tenho nada para tocar.`);
+        channel.createMessage({content:`Já não tenho nada para tocar.`});
       }
     });
   }
 
-  /*Thank you d4rkb, for the ideia, adaptaded function */
+
   canPlay(ctx: CommandContext, player?: Player | undefined): boolean {
     const voiceChannelID = ctx.member!.voiceState.channelID;
 
@@ -107,15 +106,15 @@ export default class Music extends Vulkava {
 
     const permissions = voiceChannel.permissionsOf(this.client.user.id);
 
-    if (!permissions.has("readMessages")) {
+    if (!permissions.has("VIEW_CHANNEL")) {
       ctx.sendMessage({
-        content: "Eu não consigo ler o canal de voz em que tu estás",
+        content: "Eu não consigo ver o canal de voz em que tu estás",
         flags: 1 << 6,
       });
       return false;
     }
 
-    if (!permissions.has("voiceConnect")) {
+    if (!permissions.has("CONNECT")) {
       ctx.sendMessage({
         content: "Eu não consigo entrar no teu canal de voz",
         flags: 1 << 6,
@@ -123,7 +122,7 @@ export default class Music extends Vulkava {
       return false;
     }
 
-    if (!permissions.has("voiceSpeak")) {
+    if (!permissions.has("SPEAK")) {
       ctx.sendMessage({
         content: "Eu não consigo reproduzir musica no teu canal de voz",
         flags: 1 << 6,

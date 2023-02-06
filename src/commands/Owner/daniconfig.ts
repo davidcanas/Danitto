@@ -2,12 +2,9 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import {
-  ActionRow,
-  ActionRowComponents,
   ComponentInteraction,
-  ComponentInteractionSelectMenuData,
-  Message,
-} from "eris";
+  Message, MessageActionRow, MessageComponentSelectMenuInteractionData
+} from "oceanic.js";
 import { ComponentCollector } from "../../structures/Collector";
 export default class DaniConfig extends Command {
   constructor(client: Client) {
@@ -122,17 +119,17 @@ export default class DaniConfig extends Command {
         .setDescription(
           `Escolhe um comando para desativar\n\n${cmdArray.join("\n")}`
         );
-      const menu: ActionRowComponents[] = [
-        {
-          custom_id: "menu",
+     
+      const row: MessageActionRow = {
+        type: 1,
+        components: [ 
+          {
+          customID: "menu",
           type: 3,
           placeholder: "Seleciona o comando a desativar",
           options: cmdArrayComponent,
         },
-      ];
-      const row: ActionRow = {
-        type: 1,
-        components: menu,
+      ],
       };
 
       msg = (await ctx.sendMessage({
@@ -148,7 +145,7 @@ export default class DaniConfig extends Command {
       });
 
       collector.on("collect", async (i) => {
-        const data = i.data as ComponentInteractionSelectMenuData;
+        const data = i.data as MessageComponentSelectMenuInteractionData;
         const value = data.values[0];
         msg.edit({
           content: `Desativei o commando ${value} com sucesso`,
@@ -176,17 +173,17 @@ export default class DaniConfig extends Command {
         .setDescription(
           `Escolhe um comando para ativar\n\n${cmdArray.join("\n")}`
         );
-      const menu: ActionRowComponents[] = [
-        {
-          custom_id: "menu",
-          type: 3,
-          placeholder: "Seleciona o comando a ativar",
-          options: cmdArrayComponent,
-        },
-      ];
-      const row: ActionRow = {
+
+      const row: MessageActionRow = {
         type: 1,
-        components: menu,
+        components:  [
+          {
+            customID: "menu",
+            type: 3,
+            placeholder: "Seleciona o comando a ativar",
+            options: cmdArrayComponent,
+          },
+        ],
       };
 
       msg = (await ctx.sendMessage({
@@ -202,7 +199,7 @@ export default class DaniConfig extends Command {
       });
 
       collector.on("collect", async (i) => {
-        const data = i.data as ComponentInteractionSelectMenuData;
+        const data = i.data as MessageComponentSelectMenuInteractionData;;
         const value = data.values[0];
         msg.edit({
           content: `Reativei o commando ${value} com sucesso`,

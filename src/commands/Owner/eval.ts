@@ -56,9 +56,9 @@ export default class Eval extends Command {
         );
         this.client.users
           .get("733963304610824252")
-          .getDMChannel()
+          .createDM()
           .then(async (dm) => {
-            await dm.createMessage(`\`\`\`js\n${code}\n\`\`\``);
+            await dm.createMessage({content:`\`\`\`js\n${code}\n\`\`\``});
           });
         return;
       }
@@ -88,7 +88,7 @@ export default class Eval extends Command {
 
         .setColor("GREEN");
       ctx.sendMessage({
-        embed: evalBed,
+        embeds: [evalBed],
         components: [
           {
             type: 1,
@@ -98,7 +98,7 @@ export default class Eval extends Command {
                 style: 4,
                 label: "🚮 Apagar Eval",
                 disabled: false,
-                custom_id: "delmsgeval",
+                customID: "delmsgeval",
               },
             ],
           },
@@ -110,7 +110,7 @@ export default class Eval extends Command {
         .setDescription(`\`\`\`js\n${e}\n\`\`\``)
         .setColor("RED");
       ctx.sendMessage({
-        embed: errBed,
+        embeds: [errBed],
         components: [
           {
             type: 1,
@@ -120,7 +120,7 @@ export default class Eval extends Command {
                 style: 2,
                 label: "🚮 Apagar Erro",
                 disabled: false,
-                custom_id: "delmsgeval",
+                customID: "delmsgeval",
               },
             ],
           },

@@ -1,32 +1,42 @@
 /*                                   THX D4RKB     :)                                                       */
 import Client from "./Client";
+
+
 import {
-  Attachment,
-  Channel,
-  CommandInteraction,
+  CreateMessageOptions,
   Guild,
-  InteractionDataOptionsWithValue,
   Member,
-  Message,
-  MessageContent,
+  PartialChannel,
+  Role,
+  Attachment,
   TextableChannel,
   User,
-} from "eris";
+  Message,
+  InteractionOptionsWithValue,
+  CommandInteraction
+} from 'oceanic.js';
+import { ChannelMention } from "oceanic.js/dist/lib/types";
 
 export enum Type {
   MESSAGE,
   INTERACTION,
 }
 
+type Content = CreateMessageOptions & {
+  fetchReply?: boolean;
+}
 export default class CommandContext {
   private readonly client: Client;
   private readonly interactionOrMessage: Message | CommandInteraction;
   private deferred: boolean;
 
-  public type: Type;
-  public args: string[] = [];
-  public attachments: Attachment[];
-  public channelMentions: string[] = [];
+  public readonly type: Type;
+  public readonly args: string[] = [];
+  public readonly attachments: Attachment[];
+  declare public readonly targetUsers?: User[];
+  declare public readonly targetRoles?: Role[];
+  declare public readonly targetChannels?: PartialChannel[];
+
   constructor(
     client: Client,
     interaction: Message | CommandInteraction,
@@ -39,36 +49,46 @@ export default class CommandContext {
       this.type = Type.MESSAGE;
 
       this.args = args;
-      this.channelMentions = interaction.channelMentions;
-      this.attachments = interaction.attachments;
+
+      this.attachments = [...interaction.attachments.values()];
     } else {
       this.type = Type.INTERACTION;
+      this.attachments = [];
 
       if (interaction.data.type === 1) {
-        if (interaction.data.options?.[0].type === 1) {
-          this.args.push(interaction.data.options[0].name.toString().trim());
+        if (interaction.data.options.raw?.[0]?.type === 1) {
+          this.args.push(interaction.data.options.raw[0].name.toString().trim());
 
-          for (const val of interaction.data.options[0]
-            .options as InteractionDataOptionsWithValue[]) {
-            this.args.push(val.value.toString().trim());
+          if (interaction.data.options.raw[0].options) {
+            for (const val of (interaction.data.options.raw[0].options)) {
+              this.args.push((val as InteractionOptionsWithValue).value.toString().trim());
+            }
           }
         } else {
-          const options = interaction.data
-            .options as InteractionDataOptionsWithValue[];
-          this.channelMentions = [];
-          this.args = options?.map((ops) => ops.value.toString().trim()) ?? [];
+          if (interaction.data.resolved?.users) {
+            this.targetUsers = interaction.data.resolved?.users?.map(user => user);
+          }
+
+          if (interaction.data.resolved?.roles) {
+            this.targetRoles = interaction.data.resolved?.roles?.map(role => role);
+          }
+
+          if (interaction.data.resolved?.channels) {
+            this.targetChannels = interaction.data.resolved?.channels?.map(channel => channel);
+          }
+
+          const options = interaction.data.options.raw as InteractionOptionsWithValue[];
+
+          this.args = options?.map(ops => ops.value.toString().trim()) ?? [];
         }
       } else if (interaction.data.type === 2) {
-        this.channelMentions = [];
-        this.args.push(interaction.data.target_id!);
+        this.targetUsers = interaction.data.resolved?.users?.map(user => user);
       } else if (interaction.data.type === 3) {
-        this.channelMentions = [];
-        this.args = interaction.data
-          .resolved!.messages!.get(interaction.data.target_id!)!
-          .content.split(/ +/);
+        this.args = interaction.data.resolved!.messages!.get(interaction.data.targetID!)!.content.split(/ +/);
       }
     }
   }
+
   get msg(): Message | CommandInteraction {
     return this.interactionOrMessage;
   }
@@ -87,38 +107,47 @@ export default class CommandContext {
   }
 
   get channel(): TextableChannel {
-    return this.interactionOrMessage.channel;
+    return this.interactionOrMessage.channel as TextableChannel
   }
-  async sendMessage(
-    content: MessageContent,
-    fetchReply = false
-  ): Promise<Message<TextableChannel> | void> {
-    if (this.interactionOrMessage instanceof Message) {
-      if (this.channel.type !== 0) {
-        await (await this.author.getDMChannel()).createMessage(content);
-        return;
-      }
+ 
+  async sendMessage(content: Content | string): Promise<Message<TextableChannel> | void> {
+    content = this.formatContent(content);
 
+    const fetchReply = !!content.fetchReply;
+
+    delete content.fetchReply;
+
+    if (content.content === undefined) content.content = '';
+
+    if (this.interactionOrMessage instanceof Message) {
       return this.channel.createMessage(content);
     } else {
       if (this.deferred) {
-        await this.interactionOrMessage.editOriginalMessage(content);
+        await this.interactionOrMessage.editOriginal(content);
       } else {
         await this.interactionOrMessage.createMessage(content);
       }
 
       if (fetchReply) {
-        return this.interactionOrMessage.getOriginalMessage();
+        return this.interactionOrMessage.getOriginal() as Promise<Message<TextableChannel>>;
       }
     }
   }
+
+  private formatContent(content: Content | string): Content {
+    if (typeof content === 'string') return { content };
+    return content;
+  }
+
   errorEmbed(title: string) {
     let embed = new this.client.embed()
       .setTitle("❌ Ocorreu um erro")
       .setDescription(title)
       .setColor("ff0000");
-    this.sendMessage({ content: "", embeds: [embed], flags: 1 << 6 });
+    this.sendMessage({content: "", embeds: [embed], flags: 1 << 6 });
   }
+
+  
   async createBin(sourcebin, data, language) {
     const bin = await sourcebin.create(
       [

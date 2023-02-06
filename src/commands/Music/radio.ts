@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Player, ConnectionState } from "vulkava";
-import { VoiceChannel } from "eris";
+import { VoiceChannel } from "oceanic.js";
 
 export default class PlayRadio extends Command {
   constructor(client: Client) {
@@ -113,12 +113,12 @@ export default class PlayRadio extends Command {
         if (
           !voiceChannel
             .permissionsOf(this.client.user.id)
-            .has("manageChannels") &&
+            .has("MANAGE_CHANNELS") &&
           voiceChannel.userLimit &&
           voiceChannel.voiceMembers.size >= voiceChannel.userLimit
         ) {
           ctx.sendMessage({
-            content: ":x: O canal de voz está cheio!",
+            content: "O canal de voz está cheio!",
             flags: 1 << 6,
           });
           player.destroy();

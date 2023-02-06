@@ -1,6 +1,6 @@
 import Client from "../structures/Client";
 
-import { Message, Emoji } from "eris";
+import { Message, Emoji } from "oceanic.js";
 
 export default class MessageReactionRemove {
   client: Client;

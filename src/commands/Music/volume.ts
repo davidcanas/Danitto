@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Player, ConnectionState } from "vulkava";
-import { VoiceChannel } from "eris";
+import { VoiceChannel } from "oceanic.js";
 
 export default class Volume extends Command {
   constructor(client: Client) {

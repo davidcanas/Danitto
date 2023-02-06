@@ -1,4 +1,4 @@
-import { Message } from "eris";
+import { Message } from "oceanic.js";
 
 interface CommandSettings {
   name: string;

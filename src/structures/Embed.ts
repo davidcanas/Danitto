@@ -1,10 +1,4 @@
-// Thank you d4rkb
-import {
-  EmbedAuthorOptions,
-  EmbedField,
-  EmbedFooterOptions,
-  EmbedImageOptions,
-} from "eris";
+import { EmbedField, EmbedFooterOptions, EmbedImageOptions, EmbedAuthorOptions  } from 'oceanic.js';
 
 export default class Embed {
   author?: EmbedAuthorOptions;
@@ -14,32 +8,28 @@ export default class Embed {
   footer?: EmbedFooterOptions;
   image?: EmbedImageOptions;
   thumbnail?: EmbedImageOptions;
-  timestamp?: Date | string;
+  timestamp?: string;
   title?: string;
   url?: string;
 
   addField(name: string, value: string, inline = false): this {
     if (!this.fields) this.fields = [];
-    this.fields.push({
-      name,
-      value,
-      inline,
-    });
+    this.fields.push({ name, value, inline });
     return this;
   }
 
   setAuthor(name: string, iconURL?: string, url?: string): this {
     this.author = {
       name,
-      icon_url: iconURL,
-      url,
+      iconURL,
+      url
     };
 
     return this;
   }
 
   setColor(color: number | string): this {
-    if (color === "RANDOM") {
+    if (color === 'RANDOM') {
       this.color = ~~(Math.random() * (0xffffff + 1));
     } else {
       this.color = Number(color);
@@ -56,29 +46,29 @@ export default class Embed {
   setFooter(text: string, iconURL?: string): this {
     this.footer = {
       text,
-      icon_url: iconURL,
-    };
+      iconURL
+    }
 
     return this;
   }
 
   setImage(url: string): this {
     this.image = {
-      url,
-    };
+      url
+    }
     return this;
   }
 
   setThumbnail(url: string): this {
     this.thumbnail = {
-      url,
-    };
+      url
+    }
     return this;
   }
 
   setTimestamp(timestamp?: string): this {
     if (!timestamp) {
-      this.timestamp = new Date();
+      this.timestamp = new Date().toISOString();
     } else {
       this.timestamp = timestamp;
     }

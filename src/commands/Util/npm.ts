@@ -50,8 +50,8 @@ export default class Npm extends Command {
     embed.setColor("RANDOM");
     embed.setFooter(
       ctx.author.username + "#" + ctx.author.discriminator,
-      ctx.author.dynamicAvatarURL()
+      ctx.author.defaultAvatarURL()
     );
-    ctx.sendMessage({ embed });
+    ctx.sendMessage({ embeds: [embed] });
   }
 }

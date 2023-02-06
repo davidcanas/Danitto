@@ -1,6 +1,6 @@
 import Client from "../structures/Client";
 
-import { Channel } from "eris";
+import { Channel } from "oceanic.js";
 
 export default class ChannelDelete {
   client: Client;

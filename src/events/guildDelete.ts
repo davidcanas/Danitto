@@ -1,6 +1,6 @@
 import Client from "../structures/Client";
 
-import { Guild } from "eris";
+import { Guild } from "oceanic.js";
 
 export default class GuildDelete {
   client: Client;
@@ -25,14 +25,14 @@ export default class GuildDelete {
       )
       .addField(":closed_book: ID", `\`${guild.id}\``, true)
       .addField(":man: Membros", `\`${guild.members?.size}\``, true)
-      .setThumbnail(guild?.dynamicIconURL() ?? "")
+      .setThumbnail(guild.iconURL("png") ?? "")
       .setTimestamp();
 
     const channel = await this.client.users
       .get("733963304610824252")
-      ?.getDMChannel();
+      ?.createDM();
 
-    channel && this.client.createMessage(channel.id, { embeds: [embed] });
+    channel && channel.createMessage({ embeds: [embed] });
 
     for (const collector of this.client.messageCollectors) {
       if (

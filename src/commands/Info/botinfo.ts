@@ -46,7 +46,7 @@ export default class Botinfo extends Command {
           true
         )
         .addField("<:pasta:793559362093711440> Comandos", `${cmd}`, true)
-        .addField("📚 Biblioteca", "Eris", true)
+        .addField("📚 Biblioteca", "OceanicJS", true)
         .addField(
           "<:relogio:862344276028555264> Estou acordado á ",
           `${ctx.MsToDate(this.client.uptime)}`,

@@ -2,7 +2,7 @@ import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
 import { Player, ConnectionState } from "vulkava";
-import { VoiceChannel } from "eris";
+import { VoiceChannel } from "oceanic.js";
 
 export default class Play extends Command {
   constructor(client: Client) {
@@ -32,7 +32,11 @@ export default class Play extends Command {
 
     const voiceChannelID = ctx.member?.voiceState.channelID as string;
     const voiceChannel = this.client.getChannel(voiceChannelID) as VoiceChannel;
-
+  
+    if (!voiceChannelID || (voiceChannelID && voiceChannelID !== currPlayer.voiceChannelId)) {
+      ctx.sendMessage({ content: 'Precisas de estar no canal de voz onde eu estou.', flags: 1 << 6 });
+      return;
+    }
     const createPlayer = (): Player => {
       const player = this.client.music.createPlayer({
         guildId: ctx.guild?.id as string,
@@ -58,7 +62,7 @@ export default class Play extends Command {
           if (
             !voiceChannel
               .permissionsOf(this.client.user.id)
-              .has("manageChannels") &&
+              .has("MANAGE_CHANNELS") &&
             voiceChannel.userLimit &&
             voiceChannel.voiceMembers.size >= voiceChannel.userLimit
           ) {
@@ -92,7 +96,7 @@ export default class Play extends Command {
             .addField("Nome:", "`" + playlist.name + "`")
             .addField("Numero de musicas:", "`" + res.tracks.length + "`")
             .setTimestamp()
-            .setFooter(`Musica - Danitto`, ctx.author.dynamicAvatarURL());
+            .setFooter(`Musica - Danitto`, ctx.author.defaultAvatarURL());
 
           const urlRegex =
             /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;

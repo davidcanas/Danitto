@@ -1,5 +1,5 @@
 import Client from "../structures/Client";
-import { Emoji, Message, User } from "eris";
+import { Emoji, Message, TextChannel, User } from "oceanic.js";
 import CommandContext from "../structures/CommandContext";
 import { ReactionCollector } from "../structures/Collector";
 export default class InteractionCreate {
@@ -78,7 +78,7 @@ export default class InteractionCreate {
       setTimeout(() => {
         if (mensagem) mensagem.delete();
       }, 5000);
-      mensagem.addReaction("👍");
+      mensagem.createReaction("👍");
       const filter = (r: Emoji, user: User) =>
         r.name === "👍" && user === message.author;
       const collector = new ReactionCollector(this.client, mensagem, filter, {
@@ -118,10 +118,11 @@ export default class InteractionCreate {
         dbcmd &&
         dbcmd.disabled
       ) {
-        return message.channel.createMessage(
+        return message.channel.createMessage({content:
           `O comando \`${command.name}\` foi desativado pelo meu programador....`
-        );
+      });
       }
+      
       const ctx = new CommandContext(this.client, message, args);
 
       command.execute(ctx);
@@ -132,19 +133,20 @@ export default class InteractionCreate {
         const embed = new this.client.embed()
           .setTitle("Comando executado")
           .setDescription(
-            `Autor: ${message.author.username}#${
-              message.author.discriminator
-            } (${message.author.id})\nComando: ${message.content}\nServidor: ${
-              this.client.guilds.get(message.guildID).name
-            } (${message.guildID})\nCanal: ${
-              this.client.guilds
-                .get(message.guildID)
-                .channels.get(message.channel.id).name
+            `Autor: ${message.author.username}#${message.author.discriminator
+            } (${message.author.id})\nComando: ${message.content}\nServidor: ${this.client.guilds.get(message.guildID).name
+            } (${message.guildID})\nCanal: ${this.client.guilds
+              .get(message.guildID)
+              .channels.get(message.channel.id).name
             } (${message.channel.id})`
           )
           .setFooter("Não foram usados slash commands ao executar o comando.")
           .setColor("RANDOM");
-        this.client.createMessage("929319573973528647", { embeds: [embed] });
+
+        const channel = await this.client.getChannel("929319573973528647") as TextChannel;
+
+        channel.createMessage({ embeds: [embed] });
+
       } else if (
         message.channel.type !== 0 &&
         message.author.id !== "733963304610824252"
@@ -155,7 +157,7 @@ export default class InteractionCreate {
             `Autor: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nComando: ${cmd}`
           )
           .setFooter("Comando executado no privado");
-        (await this.client.getDMChannel(message.author.id)).createMessage({
+        (await this.client.users.get(message.author.id).createDM()).createMessage({
           embeds: [embed],
         });
       }
