@@ -14,6 +14,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "diciojs": "^1.0.2",
     "dotenv": "^16.0.3",
     "mongoose": "^6.7.5",
     "node-fetch": "2.6.7",

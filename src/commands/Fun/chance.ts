@@ -25,10 +25,10 @@ export default class eightBall extends Command {
       ctx.sendMessage("Precisar inserir um argumento válido!");
       return;
     }
-    if (ctx.args[0].includes("everyone")) {
+    if (ctx.args.join(" ").includes("everyone")) {
         ctx.sendMessage("Não posso executar o comando devido ao argumento referido ser potencialmente perigoso")
     }
-    if (ctx.args[0].length > 100) {
+    if (ctx.args.join(" ").length > 100) {
       ctx.sendMessage("A pergunta não pode ser tão grande assim.");
     }
     function gerarPercentagem() {
@@ -36,7 +36,7 @@ export default class eightBall extends Command {
     }
 
     ctx.sendMessage(
-      `A chance de ${ctx.args[0]} ser verdade é de ${gerarPercentagem()}`
+      `A chance de ${ctx.args.join(" ")} ser verdade é de ${gerarPercentagem()}`
     );
   }
 }

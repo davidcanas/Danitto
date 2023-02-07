@@ -1,7 +1,7 @@
 import Command from "../../structures/Command";
 import Client from "../../structures/Client";
 import CommandContext from "../../structures/CommandContext";
-
+import Dicio from "diciojs"
 export default class Dicio extends Command {
   constructor(client: Client) {
     super(client, {
