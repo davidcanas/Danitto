@@ -34,12 +34,13 @@ jobs:
           script: |
             echo "Entrando no dirétorio"
             cd danittobot
-            echo "Buildando o bot"
-            docker build -t danitto .
-            sleep 3
+            
             echo "Desligando o processo anterior"
             docker stop danitto
             docker rm danitto
+            sleep 3
+            echo "Buildando o bot"
+            docker build -t danitto .
             sleep 2
             echo "Ligando o Danitto"
             docker run -d --name=danitto --memory=300m --memory-reservation=100m danitto
