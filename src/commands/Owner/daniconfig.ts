@@ -119,7 +119,7 @@ export default class DaniConfig extends Command {
         .setDescription(
           `Escolhe um comando para desativar\n\n${cmdArray.join("\n")}`
         );
-     
+     cmdArrayComponent = cmdArrayComponent.slice(0, 25);
       const row: MessageActionRow = {
         type: 1,
         components: [ 
