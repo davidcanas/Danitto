@@ -10,4 +10,4 @@ RUN yarn
 RUN yarn tsc
 
 
-CMD ["node", "--expose-gc ./dist/main.js"]
+CMD ["node", "--expose-gc", "./dist/main.js"]
