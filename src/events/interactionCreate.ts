@@ -16,7 +16,7 @@ export default class InteractionCreate {
       );
       if (!cmd) throw new Error("Command not found '-'");
       let user = await this.client.db.users.findOne({
-        userID: interaction.member!.id,
+        _id: interaction.member!.id,
       });
       if (user && user.blacklist) {
         let embed = new this.client.embed()
