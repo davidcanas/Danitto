@@ -10,7 +10,6 @@ Podes contribuir fazendo pull requests para ajudar no código, melhorar algo, en
 
 Suporte:
 [Servidor do Discord](https://discord.gg/aj3sSAyMsh)
-Email: geral@danitto.live
 
 Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao [Dr Eduardo Rodrigues](https://github.com/siredurs)
 </div>
