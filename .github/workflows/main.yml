@@ -13,12 +13,12 @@ jobs:
         uses: appleboy/scp-action@master
         env:
           HOST: ${{ secrets.HOST }}
-          USERNAME: ubuntu
+          USERNAME: david
           PORT: 22
           KEY: ${{ secrets.KEY }}
         with:
           source: "."
-          target: "/home/ubuntu/danittobot"
+          target: "/home/david/danittobot"
   updateDani:
     name: Build and re-run danitto
     needs: [build]
@@ -28,7 +28,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ubuntu
+          username: david
           key: ${{ secrets.KEY }}
           port: 22
           script: |
