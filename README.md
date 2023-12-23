@@ -13,3 +13,5 @@ Suporte:
 
 Agradecimentos especiais a [davidffa](https://github.com/davidffa) e também ao [Dr Eduardo Rodrigues](https://github.com/siredurs)
 </div>
+
+Primeira versão criada em Junho de 2020
